@@ -11,8 +11,8 @@ describe "User pages" do
 			visit users_path
 		end
 
-		it { should have_title('All users') }
-		it { should have_content('All users') }
+		it { should have_title('Agents') }
+		it { should have_content('Agents') }
 
 		describe "pagination" do
 
