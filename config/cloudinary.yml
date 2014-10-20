@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hpmowmbqq
+  api_key: '676914531171361'
+  api_secret: tYoQMFPoe_o5O_CSTuFl-Nx1GDY
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hpmowmbqq
+  api_key: '676914531171361'
+  api_secret: tYoQMFPoe_o5O_CSTuFl-Nx1GDY
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hpmowmbqq
+  api_key: '676914531171361'
+  api_secret: tYoQMFPoe_o5O_CSTuFl-Nx1GDY
+  enhance_image_tag: true
+  static_image_support: false

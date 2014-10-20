@@ -1,6 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$grayMediumLight: #eaeaea;
+
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -25,3 +28,38 @@
 .form-signin .form-control:focus {
   z-index: 2;
 }
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $grayMediumLight;
+  color: $gray-light;
+  a {
+    color: $gray;
+    &:hover {
+      color: $gray-darker;
+    }
+  }
+  small {
+    float: left;
+  }  
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;  
+}
+
+.name{
+  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  color: #aaa;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.23em;
+  letter-spacing: 0;
+}
+

@@ -1,12 +1,10 @@
 <footer class="footer">
-  <small>
-    Real Estate    
-    by elCorsaiR
-  </small>
-  <nav>
-    <ul>
-      <li><%= link_to "About",   '#' %></li>
-      <li><%= link_to "Contact", '#' %></li>      
-    </ul>
-  </nav>
+  <div class="container">
+    <small>
+      Horowitz Real Estate    
+      <%= link_to 'by elCorsaiR', 'https://www.elance.com/s/elcorsair' %>
+    </small> 
+     
+    <%= debug(params) if Rails.env.development? %>
+  </div>
 </footer>

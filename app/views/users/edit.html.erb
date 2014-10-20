@@ -1,24 +1,38 @@
-<% provide(:title, "Edit user") %>
-<h1>Update your profile</h1>
+<% provide(:title, "Edit agent info") %>
+<h1>Edit agent info</h1>
+<%= form_for(@user, role: 'form') do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+<div class="row">  
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-
+  <aside class="col-sm-4">    
+    <section>
+      <%= image_tag(@user.avatar_url) %>
+    </section>
+    <section>
+      <%= f.hidden_field(:avatar_cache) %>
+      <%= f.file_field(:avatar, class: "form-control") %>      
+    </section>    
+  </aside>
+  <div class="col-sm-8">
+    <div class="form-group">
       <%= f.label :name %>
-      <%= f.text_field :name %>
-
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.label :email %>
-      <%= f.text_field :email %>
-
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.label :password %>
-      <%= f.password_field :password %>
-
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: "form-control" %>
+    </div>
 
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>    
+    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>      
   </div>
+  
 </div>
+<% end %>    

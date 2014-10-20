@@ -108,8 +108,8 @@ describe "User pages" do
 		end
 
 		describe "page" do
-			it { should have_content("Update your profile") }
-			it { should have_title("Edit user") }			
+			it { should have_content("Edit agent info") }
+			it { should have_title("Edit agent info") }			
 		end
 
 		describe "with invalid information" do
