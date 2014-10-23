@@ -16,7 +16,15 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
-  it { should respond_to(:admin) }  
+  it { should respond_to(:admin) } 
+  it { should respond_to(:phone) } 
+  it { should respond_to(:fax) }
+  it { should respond_to(:biography)}
+
+  it { should respond_to(:address) }
+  it { should respond_to(:license_no) }
+  it { should respond_to(:social_security_no) }
+  it { should respond_to(:commision_split) }
 
   it { should be_valid }
   it { should_not be_admin }

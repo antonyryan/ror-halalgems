@@ -1,0 +1,6 @@
+$('#error_explanation').remove();
+<% if @user.errors.any? %>
+	$('#password_from').prepend("<%= j render partial: 'shared/error_messages', locals: {object: @user } %>");
+<% else %>	
+	$('#password_div').replaceWith('<%= link_to "change_password",  edit_user_path(@user), remote: true %>');	
+<% end  %>

@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019161119) do
+ActiveRecord::Schema.define(version: 20141021094339) do
+
+  create_table "listings", force: true do |t|
+    t.integer  "agent_id"
+    t.string   "main_photo"
+    t.string   "street_address"
+    t.string   "zip_code"
+    t.decimal  "price"
+    t.integer  "size"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "listings", ["user_id"], name: "index_listings_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -21,8 +36,15 @@ ActiveRecord::Schema.define(version: 20141019161119) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           default: false
+    t.boolean  "admin",              default: false
     t.string   "avatar"
+    t.string   "phone"
+    t.string   "fax"
+    t.text     "biography"
+    t.string   "address"
+    t.string   "license_no"
+    t.string   "social_security_no"
+    t.float    "commision_split"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

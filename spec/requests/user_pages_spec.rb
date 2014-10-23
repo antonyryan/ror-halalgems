@@ -23,12 +23,32 @@ describe "User pages" do
 
 			it "should list each user" do
 				User.paginate(page: 1).each do |user|
-					expect(page).to have_selector('li', text: user.name)
+					expect(page).to have_selector('a', text: user.name)
 				end
 			end
+		end		
+	end
+
+	describe "profile page" do
+		let(:user) { FactoryGirl.create(:user) }
+		let!(:l1) { FactoryGirl.create(:listing, user: user, street_address: "Foo") }
+    	let!(:l2) { FactoryGirl.create(:listing, user: user, street_address: "Bar") }
+
+		before do 	
+			sign_in user		
+			visit user_path(user) 
 		end
 
-		describe "delete links" do
+		it { should have_content(user.name) }
+		it { should have_title(user.name) }
+
+		describe "microposts" do
+	      it { should have_content(l1.street_address) }
+	      it { should have_content(l2.street_address) }
+	      #it { should have_content(user.listings.count) }
+	    end	 
+
+	    describe "delete links" do
 
 			it { should_not have_link('delete') }
 
@@ -36,7 +56,7 @@ describe "User pages" do
 				let(:admin) { FactoryGirl.create(:admin) }
 				before do
 					sign_in admin
-					visit users_path
+					visit user_path(user)
 				end
 
 				it { should have_link('delete', href: user_path(User.first)) }
@@ -47,28 +67,26 @@ describe "User pages" do
 				end
 				it { should_not have_link('delete', href: user_path(admin)) }
 			end
-		end
-	end
-
-	describe "profile page" do
-		let(:user) { FactoryGirl.create(:user) }
-
-		before { visit user_path(user) }
-
-		it { should have_content(user.name) }
-		it { should have_title(user.name) }
-
+		end   
 	end
 
 	describe "new user page" do
-		before { visit new_user_path }
+		let(:admin) { FactoryGirl.create(:admin) }
+		before do 
+			sign_in admin
+			visit new_user_path 
+		end
 
 		it { should have_content('New user') }
 		it { should have_title(full_title('New user')) }
 	end
 
 	describe "creating user" do
-		before { visit new_user_path }
+		let(:admin) { FactoryGirl.create(:admin) }
+		before do 
+			sign_in admin
+			visit new_user_path 
+		end
 		let(:submit) { "Create account" }
 
 		describe "with invalid information" do
@@ -109,7 +127,25 @@ describe "User pages" do
 
 		describe "page" do
 			it { should have_content("Edit agent info") }
-			it { should have_title("Edit agent info") }			
+			it { should have_title("Edit agent info") }	
+
+			it { should_not have_selector("input[name='user[password]']") }
+			it { should have_link("change password") }
+
+			describe "admin info" do		    	
+  				it {should_not have_selector("input[name='user[license_no]'][value='123456']")}
+
+		    	describe "as admin user" do
+		    		let(:admin) { FactoryGirl.create(:admin) }
+					before do
+						sign_in admin
+						visit edit_user_path(user)
+						click_link 'Special'
+					end
+
+					it {should have_selector("input[name='user[license_no]'][value='123456']")}
+		    	end
+		    end		
 		end
 
 		describe "with invalid information" do
@@ -134,6 +170,14 @@ describe "User pages" do
 			it { should have_link('Sign out', href: signout_path) }
 			specify { expect(user.reload.name).to  eq new_name }
 			specify { expect(user.reload.email).to eq new_email }
+		end
+
+		describe "password changin" do
+			describe "should show the form" do
+				before { click_link "change password" }
+				it { should have_selector("password_from") }
+			end
+
 		end
 
 		describe "forbidden attributes" do

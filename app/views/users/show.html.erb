@@ -2,16 +2,32 @@
 <div class="row">
   <aside class="col-sm-4">    
     <section>
-    	<%= image_tag(@user.avatar_url) %>    	
+    	<%= image_tag(@user.avatar_url, width: 180, height: 220) %>    	
     </section>
     <section class="name">
     	<ul>
       <li><%= @user.name %></li>
+      <li><%= @user.phone %></li>
       <li><%= @user.email %></li>
       </ul>
     </section>
+    <section >
+
+      <% if current_user.admin? %>
+        <%= button_to "edit", edit_user_path(@user), method: :get, class: "btn btn-primary pull-left" %>        
+      <% end %>
+
+      <% if current_user.admin? && !current_user?(@user) %>
+        <%= button_to "delete", @user, method: :delete,
+                                  data: { confirm: "You sure?" }, class: "btn btn-danger pull-lest" %>
+      <% end %>      
+    </section>
   </aside>
   <div class="col-sm-8">
-    
-  </div>
+    <% if @user.listings.any? %>      
+      <div class="list-group">
+        <%= render @listingss %>
+      </div>
+      <%= will_paginate @listingss %>
+    <% end %>     
 </div>

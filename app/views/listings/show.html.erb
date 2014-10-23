@@ -1,0 +1,10 @@
+<% provide(:title, @listing.street_address) %>
+<h1><%= @listing.street_address %></h1>
+<h2><%= number_to_currency(@listing.price) %></h2>
+<h3><%= @listing.zip_code %></h3>
+<div class="row">
+	<%= image_tag(@listing.main_photo_url, :width => 940, :height => 626) %>
+</div>
+<div class="row property-description">
+	<%= @listing.description %>
+</div>

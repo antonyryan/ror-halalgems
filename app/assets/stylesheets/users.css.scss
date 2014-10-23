@@ -1,3 +1,28 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.name{
+  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  color: #aaa;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.23em;
+  letter-spacing: 0;
+  ul{
+  	list-style: none;
+  }
+}
+
+.button_to{
+  div{
+    display: block;
+  }
+}
+
+button{
+	a{
+		text-decoration: none;
+		color: #000;
+	}
+}

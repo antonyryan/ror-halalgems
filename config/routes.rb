@@ -1,6 +1,7 @@
 HorowitzRealEstate::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :listings
   root  'users#index' 
   match 'signin', to: 'sessions#new', via: 'get'
   match 'signout', to: 'sessions#destroy', via: 'delete' 

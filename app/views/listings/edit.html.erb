@@ -1,0 +1,25 @@
+<% provide(:title, @listing.street_address) %>
+<%= form_for(@listing, role: 'form') do |f|  %>
+<%= render 'shared/error_messages', object: f.object %>
+<div class="row"> 
+	<section>
+		<%= image_tag(@listing.main_photo_url) %>
+	</section>
+	<section>
+		<%= f.hidden_field(:main_photo_cache) %>
+		<%= f.file_field(:main_photo, class: "form-control") %> 
+	</section>
+
+	<div class="form-group">
+		<%= f.label :street_address %>
+		<%= f.text_field :street_address, class: "form-control" %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :price %>
+		<%= f.text_field :price, class: "form-control" %>
+	</div>	
+
+	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>     
+</div>
+<% end %>

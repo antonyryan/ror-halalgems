@@ -1,5 +1,6 @@
 <% provide(:title, "Edit agent info") %>
 <h1>Edit agent info</h1>
+
 <%= form_for(@user, role: 'form') do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 <div class="row">  
@@ -14,22 +15,44 @@
     </section>    
   </aside>
   <div class="col-sm-8">
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.text_field :email, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :password %>
-      <%= f.password_field :password, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation, class: "form-control" %>
-    </div>
+    <% if current_user.admin? %>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#common" role="tab" data-toggle="tab">Common</a></li>
+        <li><a href="#spec" role="tab" data-toggle="tab">Special</a></li>        
+      </ul>
+    <% end %>
+
+    <% if current_user.admin? %>
+      <div class="tab-content">
+        <div class="tab-pane active" id="common">
+    <% end %> 
+    <%= render 'common_fields', f: f %>
+
+    <% if current_user.admin? %>
+        </div>
+        <div class="tab-pane" id="spec">
+          <div class="form-group">
+            <%= f.label :license_no %>
+            <%= f.text_field :license_no, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :social_security_no %>
+            <%= f.text_field :social_security_no, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address %>
+            <%= f.text_field :address, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :commision_split %>
+            <%= f.text_field :commision_split, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+    <% end %> 
 
     <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>      
   </div>
