@@ -63,3 +63,16 @@ footer {
   letter-spacing: 0;
 }
 
+.alert-error{
+  @extend .alert-danger;
+}
+
+#error_explanation ul{
+  list-style: none;
+  color: red;
+}
+
+.form-group.field_with_error {
+  @extend .has-error;
+}
+

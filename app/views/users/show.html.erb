@@ -19,11 +19,12 @@
 
       <% if current_user.admin? && !current_user?(@user) %>
         <%= button_to "delete", @user, method: :delete,
-                                  data: { confirm: "You sure?" }, class: "btn btn-danger pull-lest" %>
+                                  data: { confirm: "You sure?" }, class: "btn btn-danger pull-left" %>
       <% end %>      
     </section>
   </aside>
   <div class="col-sm-8">
+    <h2>Listings</h2><%= button_to "Create listing", new_listing_path, method: :get, class: "btn btn-primary pull-left" %> 
     <% if @user.listings.any? %>      
       <div class="list-group">
         <%= render @listingss %>

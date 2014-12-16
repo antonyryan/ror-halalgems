@@ -1,10 +1,22 @@
 <% provide(:title, @listing.street_address) %>
 <h1><%= @listing.street_address %></h1>
+<%= button_to "Edit listing", edit_listing_path(@listing), method: :get, class: "btn btn-default" %>
 <h2><%= number_to_currency(@listing.price) %></h2>
 <h3><%= @listing.zip_code %></h3>
 <div class="row">
 	<%= image_tag(@listing.main_photo_url, :width => 940, :height => 626) %>
 </div>
-<div class="row property-description">
+<div class="row">
+	<div class="col-md-8  property-rooms">
+		<%= @listing.bed.name %> / <%= @listing.full_baths_no %> full baths / <%= @listing.half_baths_no %> half baths
+	</div>
+	<div class="col-md-4 property-size">
+		<%= @listing.status.name unless @listing.status.nil? %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8 property-description">
 	<%= @listing.description %>
+</div>
 </div>

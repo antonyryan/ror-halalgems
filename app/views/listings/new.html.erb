@@ -1,8 +1,8 @@
-<% provide(:title, @listing.street_address) %>
+<% provide(:title, "New Listing") %>
 <%= form_for(@listing, role: 'form') do |f|  %>
 <%= render 'shared/error_messages', object: f.object %>
 <div class="row"> 
-	<%= render "fields", f: f %>
+	<%= render "fields", f: f	%>
 
 	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>     
 </div>

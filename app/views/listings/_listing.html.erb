@@ -3,7 +3,7 @@
 	<div class="photo"><%= image_tag(listing.main_photo_url(:thumb), :width => 280, :height => 185) %></div>
 	<div class="info">
 		<h3 class="address"><%= link_to listing.street_address, listing %></h3>
-		<h4 calss="price"><%= number_to_currency(listing.price) %></h4>
+		<h4 calss="price"><%=listing.status.name unless listing.status.nil? %> | <%= number_to_currency(listing.price) %></h4>
 	</div>
 	</div>
 </li>

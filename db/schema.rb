@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021094339) do
+ActiveRecord::Schema.define(version: 20141216204201) do
+
+  create_table "beds", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "listings", force: true do |t|
     t.integer  "agent_id"
-    t.string   "main_photo"
+    t.string   "main_photo",     default: "bwtxlr5idgsezlkw7dvp.jpg"
     t.string   "street_address"
     t.string   "zip_code"
     t.decimal  "price"
@@ -24,9 +30,20 @@ ActiveRecord::Schema.define(version: 20141021094339) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "full_baths_no"
+    t.integer  "half_baths_no"
+    t.integer  "status_id"
+    t.integer  "bed_id"
   end
 
+  add_index "listings", ["bed_id"], name: "index_listings_on_bed_id"
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"
+
+  create_table "statuses", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

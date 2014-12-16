@@ -33,7 +33,13 @@ namespace :db do
         street_address = Faker::Address.street_address        
         description = Faker::Lorem.paragraphs.to_s
         size = rand(1..500)
-        user.listings.create!(price: price, street_address: street_address, description: description, size: size ) 
+        bed = Bed.offset(rand(Bed.count)).first
+        status = Status.offset(rand(Status.count)).first
+        full_baths_no = rand(1..5)
+        half_baths_no = rand(1..5)
+        user.listings.create!(price: price, street_address: street_address, description: description, size: size,
+                              bed_id: bed.id, status_id: status.id, full_baths_no: full_baths_no, 
+                              half_baths_no: half_baths_no) 
       end
     end    
   end 

@@ -1,0 +1,35 @@
+<section>
+	<%= image_tag(@listing.main_photo_url) %>
+</section>
+<section>
+	<%= f.hidden_field(:main_photo_cache) %>
+	<%= f.file_field(:main_photo, class: "form-control") %> 
+</section>
+
+<div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank?  %>">
+	<%= f.label :street_address, class: 'control-label' %>
+	<%= f.text_field :street_address, class: "form-control" %>
+</div>
+
+<div class="form-group<%= ' has-error' unless @listing.errors[:price].blank?  %>">
+	<%= f.label :price, class: 'control-label' %>
+	<%= f.text_field :price, class: "form-control" %>
+</div>
+
+<div class="form-inline">
+<div class="form-group<%= ' has-error' unless @listing.errors[:bed].blank? %>">
+	<%= f.label :bed, 'Beds', class: 'control-label' %>
+	<%= f.collection_select :bed_id, Bed.all, :id, :name, class: "form-control" %>
+</div>
+
+<div class="form-group<%= ' has-error' unless @listing.errors[:full_baths_no].blank? %>">
+	<%= f.label :full_baths_no, 'Full Baths #', class: 'control-label' %>
+	<%= f.text_field :full_baths_no, class: "form-control" %>
+</div>
+
+<div class="form-group<%= ' has-error' unless @listing.errors[:half_baths_no].blank? %>">
+	<%= f.label :half_baths_no, 'Half Baths #', class: 'control-label' %>
+	<%= f.text_field :half_baths_no, class: "form-control" %>
+</div>
+</div>
+
