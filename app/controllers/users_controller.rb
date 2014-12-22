@@ -9,7 +9,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @listingss = @user.listings.paginate(page: params[:page])    
+    @listingss = @user.listings.paginate(page: params[:page])
+
+    if params[:display].present?
+      @display = params[:display]
+    else
+      @display = 'thumb_list'
+    end    
   end
 
   def new

@@ -1,10 +1,21 @@
 <div class="row row-offcanvas row-offcanvas-left">
 	<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
 		<%= form_tag(listings_path, :method => :get, role: "form") do %>
+			<%= hidden_field_tag 'display', @display %>            
             <div class='form-group'>
 	            <%= label_tag 'Price:', nil,  class:"control-label" %>
 	            <%= text_field_tag 'price_from', (params['price_from'] if params['price_from'].present?),  class:"form-control", placeholder: 'from' %>            
 	            <%= text_field_tag 'price_to', (params['price_to'] if params['price_to'].present?),  class:"form-control", placeholder: 'to' %>            
+	        </div>
+
+	        <div class='form-group'>
+	            <%= label_tag 'property_type', 'Type:', class:"control-label" %>
+				<%= select_tag 'property_type', options_from_collection_for_select(PropertyType.all, "id", "name", (params['property_type'] if params['property_type'].present?)), prompt: "", class:"form-control" %>	
+	        </div>
+
+	        <div class='form-group'>
+	            <%= label_tag 'neighborhood', 'Neighborhood:', class:"control-label" %>
+				<%= select_tag 'neighborhood', options_from_collection_for_select(Neighborhood.all, "id", "name", (params['neighborhood'] if params['neighborhood'].present?)), prompt: "", class:"form-control" %>	
 	        </div>
 
 	        <div class='form-group'>
@@ -37,13 +48,36 @@
         </p>
         <div class="jumbotron">
             <h1>Listings</h1>
-            <p>Use sidebar to filter lisings.</p>
+            <p>Use sidebar to filter listings.</p>
         </div>
 		<div class="row">
-		<div class="list-group">
-			<%= render @listings %>
-		</div>
-		<%= will_paginate @listings %>
+			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+		      <div class="btn-group" role="group" aria-label="First group">		      	
+		        <% params_for_list = params %>
+		        <% params_for_list[:display] = "list" %>
+		        <a href="<%= url_for(params_for_list)%>" type="button" class="btn btn-default<%= ' active' if @display=='list' %>" role="button">List</a>
+
+		        <% params_for_thumb_list = params %>
+		        <% params_for_thumb_list[:display] = "thumb_list" %>
+		        <a href="<%= url_for(params_for_thumb_list) %>" type="button" class="btn btn-default<%= ' active' if @display=='thumb_list' %>" role="button">List with Tumbs</a>
+
+		        <% params_for_thumbs = params %>
+		        <% params_for_thumbs[:display] = "thumbs" %>
+		        <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if @display=='thumbs' %>" role="button">Tumbs</a>		        
+		      </div>		      
+		    </div>
+
+			<% if @display=='thumbs' %>				
+				<div class="row">
+				  <%= render @listings %>
+				</div>
+			<% else %>				
+				<div class="list-group">
+					<%= render @listings %>
+				</div>
+			<% end %>
+
+			<%= will_paginate @listings %>
 		</div>
 	</div>
 </div>

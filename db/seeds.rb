@@ -14,3 +14,9 @@ Bed.create([{name: 'Studio'}, {name: 'Junior 1'}, {name: '1 Bedroom'},  {name: '
 
 Status.create([{name: 'Active'}, {name: 'Under Renovation'}, {name: 'Pending Approval'},  {name: 'Lost'},
 			 {name: 'Rented'}])
+#Astoria, Sunnyside, Jackson Heights, Woodside, Long Island City, Forest Hills, Kew Gardens, Rego Park, Corona
+Neighborhood.create([{name: 'Astoria'}, {name: 'Sunnyside'}, {name: 'Jackson Heights'},  {name: 'Woodside'},
+			 {name: 'Long Island City'}, {name: 'Forest Hills'}, {name: 'Kew Gardens'}, 
+			 {name: 'Rego Park'}, {name: 'Corona'}])
+
+PropertyType.create([{name: 'Private House'}, {name: 'Multi-family'}, {name: 'Coop'},  {name: 'Condo'}])

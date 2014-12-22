@@ -24,7 +24,7 @@ h4.price{
 	text-transform: uppercase;
 }
 
-.photo{
+.thumb-photo{
 	float: left;
 }
 
@@ -50,6 +50,22 @@ h4.price{
 	color: rgb(51, 51, 51);
 	font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 	font-size: 32px;
+}
+
+.property_type, .zip{
+  font-family: 'PT Sans',Helvetica,Arial,sans-serif;
+  font-size: 24px;
+  color: #888;
+  line-height: 1.4em;
+  font-weight: 400;
+  letter-spacing: .05em;
+  margin: 0;
+}
+
+.photo{
+  color: #666;
+  width: 100%;
+  border: 1px solid #ccc;
 }
 
 /*
@@ -95,4 +111,9 @@ h4.price{
     top: 0;
     width: 50%; /* 6 columns */
   }
+}
+
+#map-canvas{
+  width: 100%;
+  height: 200px;
 }

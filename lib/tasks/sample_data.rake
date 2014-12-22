@@ -1,8 +1,7 @@
 namespace :db do
   require 'faker'
   desc "Fill database with sample data"
-  task populate_users: :environment do 
-    User.delete_all 
+  task populate_users: :environment do      
     Faker::Config.locale = 'en-US'  
     5.times do |n|
       name  = Faker::Name.name
@@ -25,21 +24,25 @@ namespace :db do
   task populate_listings: :environment do
     Listing.delete_all
 
-    users = User.all(limit: 5)
-    5.times do |n|
-      
+    users = User.all(limit: 5)    
+    type_count = PropertyType.count
+    bed_count = Bed.count
+    status_count = Status.count
+
+    5.times do |n|      
       users.each do |user| 
         price = rand(1..10000.0)
         street_address = Faker::Address.street_address        
         description = Faker::Lorem.paragraphs.to_s
         size = rand(1..500)
-        bed = Bed.offset(rand(Bed.count)).first
-        status = Status.offset(rand(Status.count)).first
+        bed = Bed.offset(rand(bed_count)).first
+        property_type = PropertyType.offset(rand(type_count)).first
+        status = Status.offset(rand(status_count)).first
         full_baths_no = rand(1..5)
         half_baths_no = rand(1..5)
         user.listings.create!(price: price, street_address: street_address, description: description, size: size,
                               bed_id: bed.id, status_id: status.id, full_baths_no: full_baths_no, 
-                              half_baths_no: half_baths_no) 
+                              half_baths_no: half_baths_no, property_type_id: property_type.id) 
       end
     end    
   end 

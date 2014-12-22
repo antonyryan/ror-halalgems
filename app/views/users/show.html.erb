@@ -24,11 +24,16 @@
     </section>
   </aside>
   <div class="col-sm-8">
-    <h2>Listings</h2><%= button_to "Create listing", new_listing_path, method: :get, class: "btn btn-primary pull-left" %> 
-    <% if @user.listings.any? %>      
+    <div class="row">
+      <div class="col-sm-6"> <h2>Listings</h2></div>
+      <div class="col-sm-6"> <%= link_to "Create listing", new_listing_path, role:'button', class: "btn btn-primary pull-right" %> </div>
+    </div>
+    <div calss="row">
+    <% if @user.listings.any? %>
       <div class="list-group">
-        <%= render @listingss %>
+          <%= render @listingss %>        
+        <%= will_paginate @listingss %>
       </div>
-      <%= will_paginate @listingss %>
     <% end %>     
+  </div>
 </div>

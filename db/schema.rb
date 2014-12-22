@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216204201) do
+ActiveRecord::Schema.define(version: 20141220200042) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20141216204201) do
 
   create_table "listings", force: true do |t|
     t.integer  "agent_id"
-    t.string   "main_photo",     default: "bwtxlr5idgsezlkw7dvp.jpg"
+    t.string   "main_photo",       default: "wzupztbtjzhe0fi3fpda.jpg"
     t.string   "street_address"
     t.string   "zip_code"
     t.decimal  "price"
@@ -34,10 +34,24 @@ ActiveRecord::Schema.define(version: 20141216204201) do
     t.integer  "half_baths_no"
     t.integer  "status_id"
     t.integer  "bed_id"
+    t.integer  "neighborhood_id"
+    t.integer  "property_type_id"
   end
 
   add_index "listings", ["bed_id"], name: "index_listings_on_bed_id"
+  add_index "listings", ["neighborhood_id"], name: "index_listings_on_neighborhood_id"
+  add_index "listings", ["property_type_id"], name: "index_listings_on_property_type_id"
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"
+
+  create_table "neighborhoods", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "property_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "statuses", force: true do |t|
     t.string   "name"

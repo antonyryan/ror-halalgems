@@ -1,9 +1,23 @@
-<li class="list-group-item">
-	<div class="listing">
-	<div class="photo"><%= image_tag(listing.main_photo_url(:thumb), :width => 280, :height => 185) %></div>
-	<div class="info">
-		<h3 class="address"><%= link_to listing.street_address, listing %></h3>
-		<h4 calss="price"><%=listing.status.name unless listing.status.nil? %> | <%= number_to_currency(listing.price) %></h4>
+<% if @display=='thumbs' %>
+	<div class="col-sm-6 col-md-3">
+		<div class="thumbnail">
+			<%= image_tag(listing.main_photo_url(:thumb), :width => 280, :height => 185) %>
+			<div class="caption">
+				<h3><%= link_to listing.street_address, listing %></h3>
+				<p><%=listing.status.name unless listing.status.nil? %> | <%= number_to_currency(listing.price) %></p>
+			</div>
+		</div>
 	</div>
-	</div>
-</li>
+<% else %>
+	<li class="list-group-item">
+		<div class="listing">
+		<% if @display == 'thumb_list' %>
+			<div class="thumb-photo"><%= image_tag(listing.main_photo_url(:thumb), :width => 280, :height => 185) %></div>
+		<% end %>
+		<div class="info">
+			<h3 class="address"><%= link_to listing.street_address, listing %></h3>
+			<h4 calss="price"><%=listing.status.name unless listing.status.nil? %> | <%= number_to_currency(listing.price) %></h4>
+		</div>
+		</div>
+	</li>
+<% end %>

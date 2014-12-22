@@ -1,22 +1,36 @@
 <% provide(:title, @listing.street_address) %>
-<h1><%= @listing.street_address %></h1>
-<%= button_to "Edit listing", edit_listing_path(@listing), method: :get, class: "btn btn-default" %>
-<h2><%= number_to_currency(@listing.price) %></h2>
-<h3><%= @listing.zip_code %></h3>
+<% provide(:java_script, "https://maps.googleapis.com/maps/api/js") %>
 <div class="row">
-	<%= image_tag(@listing.main_photo_url, :width => 940, :height => 626) %>
+	<div class="col-md-6">
+		<h1 id="address"><%= @listing.street_address %></h1>
+		<h3 class="zip">Zip: <%= @listing.zip_code %></h3>
+	</div>
+
+	<div class="col-md-6">
+		<h2 class="text-right"><%= number_to_currency(@listing.price) %></h2>
+		<h3 class="property_type text-right"><%= @listing.property_type.name unless @listing.property_type.nil? %></h3>
+	</div>
+</div>
+
+<%= button_to "Edit listing", edit_listing_path(@listing), method: :get, class: "btn btn-default" %>
+
+<div class="row">	
+	<%= image_tag(@listing.main_photo_url, class: 'photo') %>
 </div>
 <div class="row">
 	<div class="col-md-8  property-rooms">
 		<%= @listing.bed.name %> / <%= @listing.full_baths_no %> full baths / <%= @listing.half_baths_no %> half baths
 	</div>
-	<div class="col-md-4 property-size">
+	<div class="col-md-4 property-size text-right">
 		<%= @listing.status.name unless @listing.status.nil? %>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-8 property-description">
-	<%= @listing.description %>
-</div>
+		<%= @listing.description %>
+	</div>
+	<div class="col-md-4 property-size text-right">
+		<div id="map-canvas"></div>
+	</div>
 </div>
