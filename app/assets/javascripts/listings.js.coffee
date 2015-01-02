@@ -45,14 +45,14 @@ $(document).ready ->
 	$(".cloudinary-fileupload").fileupload          
 		dropZone: "#direct_upload",		
 		start: (e) ->			
-			percents = 0			
-			$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);  
-			$('.sr-only').text(percents+'% Complete')
+			#percents = 0			
+			#$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);  
+			#$('.sr-only').text(percents+'% Complete')
 			return
 		progress: (e, data) ->
-			percents = Math.round((data.loaded * 100.0) / data.total)			
-			$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);  
-			$('.sr-only').text(percents+'% Complete')
+			#percents = Math.round((data.loaded * 100.0) / data.total)			
+			#$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);  
+			#$('.sr-only').text(percents+'% Complete')
 			return
 		fail: (e, data) ->
 			$(".status").text("Upload failed")
@@ -67,7 +67,7 @@ $(document).ready ->
 		row.append(fields.replace(regexp, time))
 		
 
-		$.cloudinary.image(data.result.public_id, options).appendTo(row.find(".thumbnail:last"))
+		$.cloudinary.image(data.result.public_id, options).prependTo(row.find(".thumbnail:last"))
 		preview = $(".preview").html('');
 		options = 
 			format: data.result.format 
