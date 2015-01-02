@@ -1,9 +1,11 @@
 <% provide(:title, @listing.street_address) %>
-<%= form_for(@listing, role: 'form') do |f|  %>
-<%= render 'shared/error_messages', object: f.object %>
+<% provide(:java_script, "https://maps.googleapis.com/maps/api/js") %>
 <div class="row"> 
-	<%= render "fields", f: f %>
-
-	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>     
+	<div class="col-sm-12">
+		<%= form_for(@listing, role: 'form') do |f|  %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<%= render "fields", f: f %>
+			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>     
+		<% end %>
+	</div>
 </div>
-<% end %>

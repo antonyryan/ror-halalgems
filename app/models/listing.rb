@@ -4,6 +4,8 @@ class Listing < ActiveRecord::Base
 	belongs_to :bed
 	belongs_to :neighborhood
 	belongs_to :property_type
+	has_many :property_photos
+	accepts_nested_attributes_for :property_photos, allow_destroy: true
 	
 	validates :street_address, presence: true
 	validates :price, numericality: { greater_than: 0 } 

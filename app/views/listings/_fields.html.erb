@@ -1,11 +1,37 @@
-<div class="form-group">
+<div class="row">
+	<%= f.fields_for :property_photos do |builder| %>		
+		<%= render 'property_photo_fields', f: builder %>		
+	<% end %>
+</div>
+
+<p><%= link_to_add_fields "Add Photo", f, :property_photos %>
+<p><%= cl_image_upload_tag("df", :html => { :multiple => true }) %></p>
+
+
+<div id="direct_upload" class="form-group">
 <section>
-	<%= image_tag(@listing.main_photo_url) %>
+	<div class="preview"> <%= image_tag(@listing.main_photo_url) %></div>
 </section>
 <section>
 	<%= f.hidden_field(:main_photo_cache) %>
-	<%= f.file_field(:main_photo, class: "form-control") %> 
+	<!-- <%= f.file_field(:main_photo, class: "form-control") %> -->
+	<!-- <%= f.hidden_field(:main_photo) %> -->
+	
+	<!--<%= f.cl_image_upload(:main_photo,
+						:tags => "property_photo",
+                        :crop => :fit, :width => 940, :height => 626
+                        ) %>		-->
 </section>
+</div>
+
+<div id="progress1" class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+    <span class="sr-only">0% Complete</span>
+  </div>
+</div>
+
+<div class="form-group">
+	<div id="info"></div>
 </div>
 
 <div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank?  %>">

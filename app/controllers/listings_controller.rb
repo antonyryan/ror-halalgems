@@ -24,10 +24,11 @@ class ListingsController < ApplicationController
 
 	def show
 		@listing = Listing.find(params[:id])
+		#@photo_urls = @listing.property_photos.all
 	end
 
 	def edit
-		@listing = Listing.find(params[:id])
+		@listing = Listing.find(params[:id])		
 	end
 
 	def update
@@ -41,6 +42,12 @@ class ListingsController < ApplicationController
 				params[:listing][:neighborhood_id] = neighborhood.id
 			end
 		end
+
+		# if params[:main_photo].present?
+		#   preloaded = Cloudinary::PreloadedFile.new(params[:main_photo])         
+		#   raise "Invalid upload signature" if !preloaded.valid?
+		#   @listing.main_photo = preloaded.identifier
+		# end
 		
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
@@ -79,6 +86,7 @@ private
 
     def listing_params
       params.require(:listing).permit(:street_address, :main_photo, :price, :status_id, :bed_id, 
-      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id)
+      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, 
+      	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 end

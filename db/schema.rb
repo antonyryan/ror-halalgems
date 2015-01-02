@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141220200042) do
+ActiveRecord::Schema.define(version: 20141226190844) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 20141220200042) do
   create_table "neighborhoods", force: true do |t|
     t.string "name"
   end
+
+  create_table "property_photos", force: true do |t|
+    t.string   "photo_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "listing_id"
+  end
+
+  add_index "property_photos", ["listing_id"], name: "index_property_photos_on_listing_id"
 
   create_table "property_types", force: true do |t|
     t.string   "name"

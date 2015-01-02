@@ -10,6 +10,7 @@
     <% if yield(:java_script) %>
       <%= javascript_include_tag yield(:java_script) %>
     <% end %>
+    <%= cloudinary_js_config %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>

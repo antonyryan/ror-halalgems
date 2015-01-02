@@ -14,8 +14,13 @@
 
 <%= button_to "Edit listing", edit_listing_path(@listing), method: :get, class: "btn btn-default" %>
 
-<div class="row">	
-	<%= image_tag(@listing.main_photo_url, class: 'photo') %>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1" >	
+		<% if true #@listing.property_photos.count > 0 %>			
+			<% photo = PropertyPhoto.find(40) %>			
+			<%= image_tag(photo.photo_url_url, :width => '100%') %>
+		<% end %>
+	</div>
 </div>
 <div class="row">
 	<div class="col-md-8  property-rooms">

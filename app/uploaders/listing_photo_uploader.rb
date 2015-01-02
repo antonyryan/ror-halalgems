@@ -7,6 +7,7 @@ class ListingPhotoUploader < CarrierWave::Uploader::Base
   
   
   process :resize_to_fill => [940, 626]
+
   version :thumb do
     process :resize_to_fit => [280, 185]
   end
