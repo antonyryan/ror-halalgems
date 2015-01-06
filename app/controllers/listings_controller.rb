@@ -51,6 +51,7 @@ class ListingsController < ApplicationController
 		
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
+			AgentMailer.listing_changed(@listing, current_user).deliver
 			redirect_to @listing
 		else
 			render 'edit'
