@@ -77,7 +77,7 @@ class ListingsController < ApplicationController
 		
 	    if @listing.save	      
 	      flash[:success] = "Listing created."
-	      redirect_to @listing
+	      redirect_to edit_listing_path(@listing)
 	    else
 	      render 'new'
 	    end
@@ -86,7 +86,7 @@ class ListingsController < ApplicationController
 private
 
     def listing_params
-      params.require(:listing).permit(:street_address, :main_photo, :price, :status_id, :bed_id, 
+      params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
       	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, 
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end

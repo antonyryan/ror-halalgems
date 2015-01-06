@@ -1,5 +1,6 @@
 class Listing < ActiveRecord::Base
 	belongs_to :user
+	belongs_to :listing_type
 	belongs_to :status
 	belongs_to :bed
 	belongs_to :neighborhood

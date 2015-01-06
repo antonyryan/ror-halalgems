@@ -20,3 +20,5 @@ Neighborhood.create([{name: 'Astoria'}, {name: 'Sunnyside'}, {name: 'Jackson Hei
 			 {name: 'Rego Park'}, {name: 'Corona'}])
 
 PropertyType.create([{name: 'Private House'}, {name: 'Multi-family'}, {name: 'Coop'},  {name: 'Condo'}])
+
+ListingType.create([{name: 'Rental'}, {name: 'Sale'}])

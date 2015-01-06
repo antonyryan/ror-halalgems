@@ -11,6 +11,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @listingss = @user.listings.paginate(page: params[:page])
 
+    sale_obj = ListingType.find_by_name('Sale')
+
+    @sale = @user.listings.build(listing_type_id: sale_obj.id)
+    @rental = @user.listings.build(listing_type_id: ListingType.find_by(name: 'Rental').id)
+
     if params[:display].present?
       @display = params[:display]
     else
