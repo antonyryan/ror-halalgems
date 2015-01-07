@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
 	def index
 		@listings = Listing.all
+		@listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
 		@listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
 		@listings = @listings.beds(params[:beds]) if params[:beds].present?
 		@listings = @listings.neighborhood_filter(params[:neighborhood]) if params[:neighborhood].present?
@@ -51,7 +52,7 @@ class ListingsController < ApplicationController
 		
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
-			AgentMailer.listing_changed(@listing, current_user).deliver
+			AgentMailer.listing_changed(@listing, User.all).deliver
 			redirect_to @listing
 		else
 			render 'edit'
@@ -60,6 +61,9 @@ class ListingsController < ApplicationController
 
 	def new
 		@listing = current_user.listings.build
+		if params[:listing_type_id].present?
+			@listing.listing_type_id = params[:listing_type_id]
+		end
 	end
 
 	def create
@@ -77,7 +81,7 @@ class ListingsController < ApplicationController
 		
 	    if @listing.save	      
 	      flash[:success] = "Listing created."
-	      redirect_to edit_listing_path(@listing)
+	      redirect_to @listing
 	    else
 	      render 'new'
 	    end

@@ -8,12 +8,13 @@ class Listing < ActiveRecord::Base
 	has_many :property_photos
 	accepts_nested_attributes_for :property_photos, allow_destroy: true
 	
-	validates :street_address, presence: true
-	validates :price, numericality: { greater_than: 0 } 
+	#validates :street_address, presence: true
+	validates :price, allow_blank: true, numericality: { greater_than: 0 } 
 
-	validates :full_baths_no, numericality: { only_integer: true, greater_than: 0 }  
-	validates :half_baths_no, numericality: { only_integer: true, greater_than: 0 }  
+	validates :full_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }  
+	validates :half_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }  
 
+	scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id } 
 	scope :beds, -> (bed_id) { where bed_id: bed_id } 
 	scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id } 
 	scope :type_filter, -> (property_type_id) { where property_type_id: property_type_id } 

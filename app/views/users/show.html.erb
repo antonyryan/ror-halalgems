@@ -27,22 +27,9 @@
     <div class="row">
       <div class="col-sm-6"> <h2>Listings</h2></div>
       <div class="col-sm-6"> 
-        <%= link_to "Create listing", new_listing_path, role:'button', class: "btn btn-primary pull-right" %>
-        <!--       
-        <%= form_for(@sale, role: 'form', class: '.form-inline') do |f|  %>
-            <%= render 'shared/error_messages', object: f.object %>          
-            <%= f.hidden_field :listing_type_id %>
-            
-            <%= f.submit "Create sale", class: "btn btn-large btn-primary" %>               
-        <% end %>
-
-        <%= form_for(@rental, role: 'form', class: '.form-inline') do |f|  %>
-            <%= render 'shared/error_messages', object: f.object %>          
-            <%= f.hidden_field :listing_type_id %>
-            
-            <%= f.submit "Create rent", class: "btn btn-large btn-primary" %>               
-        <% end %>
-      -->
+        <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role:'button', class: "btn btn-primary pull-right" %>
+        <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role:'button', class: "btn btn-primary pull-right" %>
+       
       </div>
     </div>
     <div calss="row">

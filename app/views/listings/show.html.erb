@@ -16,8 +16,8 @@
 
 <div class="row">
 	<div class="col-md-10 col-md-offset-1" >	
-		<% if true #@listing.property_photos.count > 0 %>			
-			<% photo = PropertyPhoto.find(40) %>			
+		<% if @listing.property_photos.count > 0 %>			
+			<% photo = @listing.property_photos.first %>			
 			<%= image_tag(photo.photo_url_url, :width => '100%') %>
 		<% end %>
 	</div>

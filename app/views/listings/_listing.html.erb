@@ -1,7 +1,10 @@
 <% if @display=='thumbs' %>
 	<div class="col-sm-6 col-md-3">
 		<div class="thumbnail">
-			<%= image_tag(listing.main_photo_url(:thumb), :width => 280, :height => 185) %>
+			<% if listing.property_photos.count > 0 %>			
+				<% photo = listing.property_photos.first %>			
+				<%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
+			<% end %>			
 			<div class="caption">
 				<h3><%= link_to listing.street_address, listing %></h3>
 				<p><%=listing.status.name unless listing.status.nil? %> | <%= number_to_currency(listing.price) %></p>
@@ -12,7 +15,12 @@
 	<li class="list-group-item">
 		<div class="listing">
 		<% if @display == 'thumb_list' %>
-			<div class="thumb-photo"><%= image_tag(listing.main_photo_url(:thumb), :width => 280, :height => 185) %></div>
+			<div class="thumb-photo">
+				<% if listing.property_photos.count > 0 %>			
+					<% photo = listing.property_photos.first %>			
+					<%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
+				<% end %>	
+			</div>
 		<% end %>
 		<div class="info">
 			<h3 class="address"><%= link_to listing.street_address, listing %></h3>

@@ -9,7 +9,12 @@
 	        </div>
 
 	        <div class='form-group'>
-	            <%= label_tag 'property_type', 'Type:', class:"control-label" %>
+	            <%= label_tag 'listing_type_id', 'Type:', class:"control-label" %>
+				<%= select_tag 'listing_type_id', options_from_collection_for_select(ListingType.all, "id", "name", (params['listing_type_id'] if params['listing_type_id'].present?)), prompt: "", class:"form-control" %>	
+	        </div>
+
+	        <div class='form-group'>
+	            <%= label_tag 'property_type', 'Property Type:', class:"control-label" %>
 				<%= select_tag 'property_type', options_from_collection_for_select(PropertyType.all, "id", "name", (params['property_type'] if params['property_type'].present?)), prompt: "", class:"form-control" %>	
 	        </div>
 
