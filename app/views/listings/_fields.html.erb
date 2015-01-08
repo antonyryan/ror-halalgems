@@ -34,9 +34,11 @@
 	<div id="info"></div>
 </div>
 
+<%= f.hidden_field :listing_type_id %>
+
 <div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank?  %>">
 	<%= f.label :neighborhood_id, class: 'control-label' %>
-	<%= text_field_tag 'Neighborhood', @listing.neighborhood.try(:name), class: "form-control"  %>
+	<%= text_field_tag 'Neighborhood', @listing.neighborhood.try(:name), class: 'form-control'  %>
 	<%= f.hidden_field :neighborhood_id %>
 </div>
 
@@ -47,33 +49,35 @@
 
 <div class="form-group<%= ' has-error' unless @listing.errors[:price].blank?  %>">
 	<%= f.label :price, class: 'control-label' %>
-	<%= f.text_field :price, class: "form-control" %>
+	<%= f.text_field :price, class: 'form-control' %>
 </div>
 
 <div class="form-inline">
-	<div class="form-group<%= ' has-error' unless @listing.errors[:listing_type_id].blank? %>">
-		<%= f.label :listing_type_id, 'Type', class: 'control-label' %>
-		<%= f.collection_select :listing_type_id, ListingType.all, :id, :name, class: "form-control" %>
-	</div>
+  <% if @listing.listing_type.name == 'Rental' %>
+      <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
+        <%= f.label :status_id, 'Status', class: 'control-label' %>
+        <%= f.collection_select :status_id, Status.all, :id, :name, class: 'form-control' %>
+      </div>
+  <% end %>
 
 	<div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
 		<%= f.label :property_type_id, 'Property Type', class: 'control-label' %>
-		<%= f.collection_select :property_type_id, PropertyType.all, :id, :name, class: "form-control" %>
+		<%= f.collection_select :property_type_id, PropertyType.all, :id, :name, class: 'form-control' %>
 	</div>
 	
 	<div class="form-group<%= ' has-error' unless @listing.errors[:bed].blank? %>">
 		<%= f.label :bed, 'Beds', class: 'control-label' %>
-		<%= f.collection_select :bed_id, Bed.all, :id, :name, class: "form-control" %>
+		<%= f.collection_select :bed_id, Bed.all, :id, :name, class: 'form-control' %>
 	</div>
 
 	<div class="form-group<%= ' has-error' unless @listing.errors[:full_baths_no].blank? %>">
 		<%= f.label :full_baths_no, 'Full Baths #', class: 'control-label' %>
-		<%= f.text_field :full_baths_no, class: "form-control" %>
+		<%= f.text_field :full_baths_no, class: 'form-control' %>
 	</div>
 
 	<div class="form-group<%= ' has-error' unless @listing.errors[:half_baths_no].blank? %>">
 		<%= f.label :half_baths_no, 'Half Baths #', class: 'control-label' %>
-		<%= f.text_field :half_baths_no, class: "form-control" %>
+		<%= f.text_field :half_baths_no, class: 'form-control' %>
 	</div>
 </div>
 

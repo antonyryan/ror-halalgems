@@ -36,10 +36,10 @@ class ListingsController < ApplicationController
 		@listing = Listing.find(params[:id])		
 		if params[:Neighborhood].present?
 			neighborhood = Neighborhood.find_by_name(params[:Neighborhood])
-			if (neighborhood.nil?)
+			if neighborhood.nil?
 				neighborhood = Neighborhood.create(name: params[:Neighborhood])	
 			end
-			if(neighborhood.id != params[:listing][:neighborhood_id])
+			if neighborhood.id != params[:listing][:neighborhood_id]
 				params[:listing][:neighborhood_id] = neighborhood.id
 			end
 		end
