@@ -8,7 +8,7 @@ class Listing < ActiveRecord::Base
 	has_many :property_photos
 	accepts_nested_attributes_for :property_photos, allow_destroy: true
 	
-	#validates :street_address, presence: true
+	validates :street_address, presence: true
 	validates :price, allow_blank: true, numericality: { greater_than: 0 } 
 
 	validates :full_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }  

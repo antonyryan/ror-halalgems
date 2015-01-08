@@ -4,6 +4,8 @@
 			<% if listing.property_photos.count > 0 %>			
 				<% photo = listing.property_photos.first %>			
 				<%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
+			<% else %>
+				<%= image_tag("no_photo_small.png", :width => 280, :height => 185) %>
 			<% end %>			
 			<div class="caption">
 				<h3><%= link_to listing.street_address, listing %></h3>
@@ -19,6 +21,8 @@
 				<% if listing.property_photos.count > 0 %>			
 					<% photo = listing.property_photos.first %>			
 					<%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
+				<% else %>
+					<%= image_tag("no_photo_small.png", :width => 280, :height => 185) %>
 				<% end %>	
 			</div>
 		<% end %>
