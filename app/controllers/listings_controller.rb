@@ -69,10 +69,10 @@ class ListingsController < ApplicationController
 	def create
 		if params[:Neighborhood].present?
 			neighborhood = Neighborhood.find_by_name(params[:Neighborhood])
-			if (neighborhood.nil?)
+			if neighborhood.nil?
 				neighborhood = Neighborhood.create(name: params[:Neighborhood])	
 			end
-			if(neighborhood.id != params[:listing][:neighborhood_id])
+			if neighborhood.id != params[:listing][:neighborhood_id]
 				params[:listing][:neighborhood_id] = neighborhood.id
 			end
 		end
@@ -80,7 +80,7 @@ class ListingsController < ApplicationController
 		@listing = current_user.listings.build(listing_params)
 		
 	    if @listing.save	      
-	      flash[:success] = "Listing created."
+	      flash[:success] = 'Listing created.'
 	      redirect_to @listing
 	    else
 	      render 'new'
@@ -91,7 +91,7 @@ private
 
     def listing_params
       params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
-      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, 
+      	:full_baths_no, :half_baths_no, :neighborhood_names, :property_type_id,
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 end

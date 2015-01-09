@@ -8,13 +8,30 @@ $(document).ready ->
 	$('[data-toggle="offcanvas"]').click ->
 		$('.row-offcanvas').toggleClass('active') 
 
+split = (val) ->
+  val.split( /,\s*/ )
+extractLast = (term) ->
+  split(term).pop()
+
 $(document).ready ->
-	$('#Neighborhood').autocomplete
-		source: '/neighborhoods/index.json',
-		minLength: 2,
+	$('#listing_neighborhood_names').autocomplete
+		source: (request, responce) ->
+      $.getJSON('/neighborhoods/index.json', { term: extractLast(request.term) }, responce)
+    search: ->
+      term = extractLast(this.value);
+      if term.length > 2
+        return false
+    focus: ->
+      return false
 		select: ( event, ui ) ->
-			if ui.item
-				$('#listing_neighborhood_id').val(ui.item.id);
+      terms = split(this.value)
+      terms.pop()
+      terms.push(ui.item.value)
+      terms.push( "" )
+      this.value = terms.join( ", " )
+      return false
+#			if ui.item
+#				$('#listing_neighborhood_id').val(ui.item.id);
 	
 map = null
 geocoder = null

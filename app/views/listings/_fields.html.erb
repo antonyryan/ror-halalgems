@@ -4,8 +4,8 @@
 	<% end %>
 </div>
 
-<p><%= link_to_add_fields "Add Photo", f, :property_photos %>
-<p><%= cl_image_upload_tag("df", :html => { :multiple => true }) %></p>
+<p><%= link_to_add_fields 'Add Photo', f, :property_photos %>
+<p><%= cl_image_upload_tag('df', :html => { :multiple => true }) %></p>
 
 
 <div id="direct_upload" class="form-group">
@@ -36,10 +36,9 @@
 
 <%= f.hidden_field :listing_type_id %>
 
-<div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank?  %>">
-	<%= f.label :neighborhood_id, class: 'control-label' %>
-	<%= text_field_tag 'Neighborhood', @listing.neighborhood.try(:name), class: 'form-control'  %>
-	<%= f.hidden_field :neighborhood_id %>
+<div class="form-group">
+	<%= f.label :neighborhood_names, class: 'control-label' %>
+	<%= f.text_field :neighborhood_names,  class: 'form-control' %>
 </div>
 
 <div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank?  %>">
@@ -53,7 +52,7 @@
 </div>
 
 <div class="form-inline">
-  <% if @listing.listing_type.name == 'Rental' %>
+  <% if @listing.listing_type.try(:name) == 'Rental' %>
       <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
         <%= f.label :status_id, 'Status', class: 'control-label' %>
         <%= f.collection_select :status_id, Status.all, :id, :name, class: 'form-control' %>
