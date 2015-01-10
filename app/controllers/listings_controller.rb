@@ -8,12 +8,10 @@ class ListingsController < ApplicationController
 		@listings = @listings.min_price(params[:price_from]) if params[:price_from].present?
 		@listings = @listings.max_price(params[:price_to]) if params[:price_to].present?
 
-		@listings = @listings.min_full_baths(params[:full_baths_from]) if params[:full_baths_from].present?
-		@listings = @listings.max_full_baths(params[:full_baths_to]) if params[:full_baths_to].present?
+		@listings = @listings.full_baths(params[:full_baths]) if params[:full_baths].present?
 
-		@listings = @listings.min_half_baths(params[:half_baths_from]) if params[:half_baths_from].present?
-		@listings = @listings.max_half_baths(params[:half_baths_to]) if params[:half_baths_to].present?
-		
+		@listings = @listings.half_baths(params[:half_baths]) if params[:half_baths].present?
+
 		@listings = @listings.paginate(page: params[:page])
 
 		if params[:display].present?

@@ -27,6 +27,9 @@ class Listing < ActiveRecord::Base
 	scope :min_price, -> (price) { where("price >= ?", price) }
 	scope :max_price, -> (price) { where("price <= ?", price) }
 
+  scope :full_baths, -> (full_baths_no) { where(full_baths_no: full_baths_no) }
+  scope :half_baths, -> (half_baths_no) { where(half_baths_no: half_baths_no) }
+
 	scope :min_full_baths, -> (full_baths_no) { where("full_baths_no >= ?", full_baths_no) }
 	scope :max_full_baths, -> (full_baths_no) { where("full_baths_no <= ?", full_baths_no) }
 

@@ -30,17 +30,13 @@
 
 	        <div class='form-group'>
 	            <%= label_tag 'full_baths', 'Full baths:',  class:"control-label" %>
-	            <%= text_field_tag 'full_baths_from', (params['full_baths_from'] if params['full_baths_from'].present?),  class:"form-control", placeholder: 'from' %>            
-	            <%= text_field_tag 'full_baths_to', (params['full_baths_to'] if params['full_baths_to'].present?),  class:"form-control", placeholder: 'to' %>            
+	            <%= select_tag 'full_baths', options_for_select([1, 2, 3, 4], (params['full_baths'] if params['full_baths'].present?)), prompt: "", class: 'form-control' %>
 	        </div>
 
 	        <div class='form-group'>
 	            <%= label_tag 'half_baths', 'Half baths:',  class:"control-label" %>
-	            <%= text_field_tag 'half_baths_from', (params['half_baths_from'] if params['half_baths_from'].present?),  class:"form-control", placeholder: 'from' %>            
-	            <%= text_field_tag 'half_baths_to', (params['half_baths_to'] if params['half_baths_to'].present?),  class:"form-control", placeholder: 'to' %>            
+                <%= select_tag 'half_baths', options_for_select([1, 2, 3, 4], (params['half_baths'] if params['half_baths'].present?)), prompt: "", class: 'form-control' %>
 	        </div>
-
-
 
 	        <%= submit_tag 'Apply', class: 'btn btn-large btn-primary' %>
         <% end %>

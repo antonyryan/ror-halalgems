@@ -81,7 +81,7 @@ $(document).ready ->
 			crop: "fit"
 		$.cloudinary.image(data.result.public_id, options).appendTo(preview)
 		upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
-		$('<input></input>').attr({type: "hidden", name: 'listing[property_photos_attributes]['+time+'][photo_url]'}).val(upload_info).appendTo(data.form)
+		$('<input/>').attr({type: "hidden", name: 'listing[property_photos_attributes]['+time+'][photo_url]'}).val(upload_info).appendTo(data.form)
 		#view_upload_details(data.result)
 		return)
 	return
