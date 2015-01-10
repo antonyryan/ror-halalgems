@@ -48,8 +48,12 @@ class Listing < ActiveRecord::Base
   def neighborhood_names=(joined_names)
     self.neighborhoods.delete_all
     names = joined_names.to_s.split %r{,\s*}
+    ids = []
     names.each do |name|
-      listing_neighborhoods.create! neighborhood_id: Neighborhood.find_or_create_by(name: name).id
+      id = Neighborhood.find_or_create_by(name: name).id
+      ids.push id
     end
+
+    self.neighborhood_ids = ids
   end
 end

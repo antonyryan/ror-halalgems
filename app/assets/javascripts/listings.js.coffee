@@ -64,7 +64,7 @@ $(document).ready ->
 
 $(document).ready ->
 	$(".cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", (e, data) ->
-		row = data.form.find('.row:first')
+		row = $('#photos')
 		fields = $('.add_fields').data('fields')		
 		time = new Date().getTime()
 		regexp = new RegExp($('.add_fields').data('id'), 'g')
