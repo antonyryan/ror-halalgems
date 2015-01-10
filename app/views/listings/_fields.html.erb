@@ -38,7 +38,7 @@
 
 <div class="form-group">
 	<%= f.label :neighborhood_names, class: 'control-label' %>
-	<%= f.text_field :neighborhood_names,  class: 'form-control' %>
+	<%= f.text_field :neighborhood_names, "data-pre" => @listing.neighborhoods.map(&:attributes).to_json, class: 'form-control' %>
 </div>
 
 <div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank?  %>">

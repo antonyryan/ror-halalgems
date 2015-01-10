@@ -14,25 +14,13 @@ extractLast = (term) ->
   split(term).pop()
 
 $(document).ready ->
-	$('#listing_neighborhood_names').autocomplete
-		source: (request, responce) ->
-      $.getJSON('/neighborhoods/index.json', { term: extractLast(request.term) }, responce)
-    search: ->
-      term = extractLast(this.value);
-      if term.length > 2
-        return false
-    focus: ->
-      return false
-		select: ( event, ui ) ->
-      terms = split(this.value)
-      terms.pop()
-      terms.push(ui.item.value)
-      terms.push( "" )
-      this.value = terms.join( ", " )
-      return false
-#			if ui.item
-#				$('#listing_neighborhood_id').val(ui.item.id);
-	
+  $("#listing_neighborhood_names").tokenInput "/neighborhoods/index.json",
+    crossDomain: false
+    prePopulate: $("#listing_neighborhood_names").data('pre')
+    theme: "facebook"
+    allowFreeTagging: true
+    tokenValue: "name"
+
 map = null
 geocoder = null
 
