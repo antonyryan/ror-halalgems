@@ -17,7 +17,8 @@ Status.create([{name: 'Active'}, {name: 'Under Renovation'}, {name: 'Pending App
 #Astoria, Sunnyside, Jackson Heights, Woodside, Long Island City, Forest Hills, Kew Gardens, Rego Park, Corona
 Neighborhood.create([{name: 'Astoria'}, {name: 'Sunnyside'}, {name: 'Jackson Heights'},  {name: 'Woodside'},
 			 {name: 'Long Island City'}, {name: 'Forest Hills'}, {name: 'Kew Gardens'}, 
-			 {name: 'Rego Park'}, {name: 'Corona'}])
+			 {name: 'Rego Park'}, {name: 'Corona'}, {name: 'Elmhurst'}, {name: 'E. Elmhurst'}, {name: 'Flushing'},
+       {name: 'Whitestone'}, {name: 'Bayside'}, {name: 'Manhattan'}])
 
 PropertyType.create([{name: 'Private House'}, {name: 'Multi-family'}, {name: 'Coop'},  {name: 'Condo'}])
 

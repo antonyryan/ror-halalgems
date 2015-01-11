@@ -4,7 +4,7 @@ class ListingsController < ApplicationController
 		@listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
 		@listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
 		@listings = @listings.beds(params[:beds]) if params[:beds].present?
-		@listings = @listings.neighborhood_filter(params[:neighborhood]) if params[:neighborhood].present?
+		@listings = @listings.neighborhood_filter(params[:neighborhood_ids]) if params[:neighborhood_ids].present?
 		@listings = @listings.min_price(params[:price_from]) if params[:price_from].present?
 		@listings = @listings.max_price(params[:price_to]) if params[:price_to].present?
 
@@ -13,6 +13,11 @@ class ListingsController < ApplicationController
 		@listings = @listings.half_baths(params[:half_baths]) if params[:half_baths].present?
 
 		@listings = @listings.paginate(page: params[:page])
+
+    @neighborhoods_json = ''
+    if params['neighborhood_ids'].present?
+      @neighborhoods_json = Neighborhood.where(id: params['neighborhood_ids'].split(',')).map(&:attributes).to_json
+    end
 
 		if params[:display].present?
 			@display = params[:display]
@@ -89,7 +94,7 @@ private
 
     def listing_params
       params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
-      	:full_baths_no, :half_baths_no, :neighborhood_names, :property_type_id,
+      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id,
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 end

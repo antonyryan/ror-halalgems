@@ -19,8 +19,9 @@
 	        </div>
 
 	        <div class='form-group'>
-	            <%= label_tag 'neighborhood', 'Neighborhood:', class:"control-label" %>
-				<%= select_tag 'neighborhood', options_from_collection_for_select(Neighborhood.all, "id", "name", (params['neighborhood'] if params['neighborhood'].present?)), prompt: "", class:"form-control" %>	
+                <%= label_tag 'neighborhood_ids', 'Neighborhoods', class: 'control-label' %>
+                <%= text_field_tag 'neighborhood_ids', '' ,
+                                  { data: {pre: @neighborhoods_json }, class: 'form-control' } %>
 	        </div>
 
 	        <div class='form-group'>

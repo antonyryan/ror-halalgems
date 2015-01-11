@@ -3,10 +3,9 @@ class Listing < ActiveRecord::Base
 	belongs_to :listing_type
 	belongs_to :status
 	belongs_to :bed
+	belongs_to :neighborhood
 	belongs_to :property_type
 	has_many :property_photos
-  has_many :listing_neighborhoods
-  has_many :neighborhoods, through: :listing_neighborhoods
 	accepts_nested_attributes_for :property_photos, allow_destroy: true
 
 	validates :street_address, presence: true
@@ -18,10 +17,7 @@ class Listing < ActiveRecord::Base
 	scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id }
 	scope :beds, -> (bed_id) { where bed_id: bed_id }
 
-  scope :neighborhood_filter, -> (neighborhood_id) { where(:listing_neighborhoods => {neighborhood_id: neighborhood_id}).joins(:listing_neighborhoods)}
-  #scope :neighborhood_filter, lambda {|neighborhood_id|
-  #  where(:listing_neighborhoods => {neighborhood_id: neighborhood_id}).joins(:listing_neighborhoods)
-  #}
+	scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id.split(',') }
 
 	scope :type_filter, -> (property_type_id) { where property_type_id: property_type_id }
 	scope :min_price, -> (price) { where("price >= ?", price) }

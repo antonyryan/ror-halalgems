@@ -14,12 +14,21 @@ extractLast = (term) ->
   split(term).pop()
 
 $(document).ready ->
-  $("#listing_neighborhood_names").tokenInput "/neighborhoods/index.json",
+  $("#neighborhood_ids").tokenInput "/neighborhoods/index.json",
     crossDomain: false
-    prePopulate: $("#listing_neighborhood_names").data('pre')
+    queryParam: "term"
+    prePopulate: $("#neighborhood_ids").data('pre')
     theme: "facebook"
-    allowFreeTagging: true
-    tokenValue: "name"
+#    allowFreeTagging: true
+#    tokenValue: "name"
+
+$(document).ready ->
+	$('#Neighborhood').autocomplete
+		source: '/neighborhoods/index.json',
+    minLength: 2,
+		select: ( event, ui ) ->
+			if ui.item
+				$('#listing_neighborhood_id').val(ui.item.id);
 
 map = null
 geocoder = null
