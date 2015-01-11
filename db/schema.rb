@@ -11,12 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109200252) do
+ActiveRecord::Schema.define(version: 20150111195013) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "cities", force: true do |t|
+    t.string "name"
   end
 
   create_table "listing_neighborhoods", force: true do |t|
@@ -49,9 +53,12 @@ ActiveRecord::Schema.define(version: 20150109200252) do
     t.integer  "neighborhood_id"
     t.integer  "property_type_id"
     t.integer  "listing_type_id"
+    t.integer  "city_id"
+    t.string   "unit_no"
   end
 
   add_index "listings", ["bed_id"], name: "index_listings_on_bed_id"
+  add_index "listings", ["city_id"], name: "index_listings_on_city_id"
   add_index "listings", ["listing_type_id"], name: "index_listings_on_listing_type_id"
   add_index "listings", ["neighborhood_id"], name: "index_listings_on_neighborhood_id"
   add_index "listings", ["property_type_id"], name: "index_listings_on_property_type_id"

@@ -5,5 +5,5 @@ class NeighborhoodsController < ApplicationController
 				render :json => Neighborhood.where("name like ?", "%#{params[:term]}%").map{|neighborhood| {id: neighborhood.id, name: neighborhood.name, value: neighborhood.name}}
 			end			
 		end
-  	end
+  end
 end

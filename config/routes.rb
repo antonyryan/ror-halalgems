@@ -1,4 +1,5 @@
 HorowitzRealEstate::Application.routes.draw do
+  get "city/index"
   get "neighborhoods/index"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]

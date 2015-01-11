@@ -94,7 +94,7 @@ private
 
     def listing_params
       params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
-      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id,
+      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name, :unit_no,
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 end

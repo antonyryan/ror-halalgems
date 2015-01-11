@@ -23,12 +23,17 @@ $(document).ready ->
 #    tokenValue: "name"
 
 $(document).ready ->
+  $('#city_name').autocomplete
+    source: '/cities/index.json',
+    minLength: 2,
+    select: ( event, ui ) ->
+      if ui.item
+        $('#listing_city_id').val(ui.item.id);
+
+$(document).ready ->
 	$('#Neighborhood').autocomplete
 		source: '/neighborhoods/index.json',
-    minLength: 2,
-		select: ( event, ui ) ->
-			if ui.item
-				$('#listing_neighborhood_id').val(ui.item.id);
+    minLength: 2
 
 map = null
 geocoder = null

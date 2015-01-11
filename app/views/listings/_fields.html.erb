@@ -42,10 +42,22 @@
 	<%= f.hidden_field :neighborhood_id %>
 </div>
 
+<div class="form-group<%= ' has-error' unless @listing.errors[:city_id].blank?  %>">
+  <%= f.label :city_name, class: 'control-label' %>
+  <%= f.text_field :city_name, class: 'form-control'  %>
+</div>
+
 <div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank?  %>">
 	<%= f.label :street_address, class: 'control-label' %>
 	<%= f.text_field :street_address, class: "form-control" %>
 </div>
+
+<div class="form-group<%= ' has-error' unless @listing.errors[:unit_no].blank?  %>">
+  <%= f.label :unit_no, class: 'control-label' %>
+  <%= f.text_field :unit_no, class: "form-control" %>
+</div>
+
+
 
 <div class="form-group<%= ' has-error' unless @listing.errors[:price].blank?  %>">
 	<%= f.label :price, class: 'control-label' %>

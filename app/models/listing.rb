@@ -5,6 +5,7 @@ class Listing < ActiveRecord::Base
 	belongs_to :bed
 	belongs_to :neighborhood
 	belongs_to :property_type
+  belongs_to :city
 	has_many :property_photos
 	accepts_nested_attributes_for :property_photos, allow_destroy: true
 
@@ -35,24 +36,14 @@ class Listing < ActiveRecord::Base
 
 	mount_uploader :main_photo, ListingPhotoUploader
 
-  def neighborhood_names
-    names = []
-    neighborhoods.each do |neighborhood|
-      names.push neighborhood.name
-    end
-
-    names.join ', '
+  def city_name
+    city.try :name
   end
 
-  def neighborhood_names=(joined_names)
-    self.neighborhoods.delete_all
-    names = joined_names.to_s.split %r{,\s*}
-    ids = []
-    names.each do |name|
-      id = Neighborhood.find_or_create_by(name: name).id
-      ids.push id
+  def city_name=(name)
+    if name.present?
+      c = City.find_or_create_by(name: name)
+      self.city_id = c.id
     end
-
-    self.neighborhood_ids = ids
   end
 end
