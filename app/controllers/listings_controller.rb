@@ -37,15 +37,6 @@ class ListingsController < ApplicationController
 
 	def update
 		@listing = Listing.find(params[:id])		
-		if params[:Neighborhood].present?
-			neighborhood = Neighborhood.find_by_name(params[:Neighborhood])
-			if neighborhood.nil?
-				neighborhood = Neighborhood.create(name: params[:Neighborhood])	
-			end
-			if neighborhood.id != params[:listing][:neighborhood_id]
-				params[:listing][:neighborhood_id] = neighborhood.id
-			end
-		end
 
 		# if params[:main_photo].present?
 		#   preloaded = Cloudinary::PreloadedFile.new(params[:main_photo])         

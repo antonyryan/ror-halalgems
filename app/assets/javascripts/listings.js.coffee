@@ -30,11 +30,6 @@ $(document).ready ->
       if ui.item
         $('#listing_city_id').val(ui.item.id);
 
-$(document).ready ->
-	$('#Neighborhood').autocomplete
-		source: '/neighborhoods/index.json',
-    minLength: 2
-
 map = null
 geocoder = null
 

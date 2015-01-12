@@ -1,0 +1,8 @@
+$('#error_explanation').remove();
+var new_neighborhood = $('#new_neighborhood');
+<% if @neighborhood.errors.any? %>
+    new_neighborhood.prepend("<%= j render partial: 'shared/error_messages', locals: {object: @neighborhood } %>");
+<% else %>
+    new_neighborhood.find('input[type="text"]').val('');
+    $('#neighborhoods').prepend("<%= j render partial: 'neighborhood', locals: { neighborhood: @neighborhood } %>");
+<% end  %>

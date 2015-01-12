@@ -1,0 +1,12 @@
+<li id="<%= dom_id neighborhood %>" class ="list-group-item">
+  <%= neighborhood.name %>
+  <div class="pull-right">
+      <%= link_to edit_neighborhood_path(neighborhood), remote: true, "aria-label"=> "edit" do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+      <% end %>
+
+      <%= link_to neighborhood, method: :delete, data: { confirm: "You sure?" }, title: 'delete this record', "aria-label"=> "delete" do %>
+            <span class="glyphicon glyphicon-trash"></span>
+      <% end %>
+  </div>
+</li>

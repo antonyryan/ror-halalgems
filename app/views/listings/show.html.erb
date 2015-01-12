@@ -1,8 +1,8 @@
-<% provide(:title, @listing.street_address) %>
+<% provide(:title, @listing.full_address) %>
 <% provide(:java_script, "https://maps.googleapis.com/maps/api/js") %>
 <div class="row">
 	<div class="col-md-6">
-		<h1 id="address"><%= @listing.street_address %> <small><%= @listing.listing_type.name unless @listing.listing_type.nil? %></small></h1>
+		<h1 id="address"><%= @listing.full_address %> <small><%= @listing.listing_type.name unless @listing.listing_type.nil? %></small></h1>
 		<h3 class="zip">Zip: <%= @listing.zip_code %></h3>
 	</div>
 
@@ -27,6 +27,8 @@
 <div class="row">
 	<div class="col-md-8  property-rooms">
 		<%= @listing.bed.name %> / <%= @listing.full_baths_no %> full baths / <%= @listing.half_baths_no %> half baths
+        <p>
+        Days on market: <%= @listing.days_on_market %>
 	</div>
 	<div class="col-md-4 property-size text-right">
 		<%= @listing.status.name unless @listing.status.nil? %>

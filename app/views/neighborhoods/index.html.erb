@@ -1,2 +1,17 @@
-<h1>Neighborhoods#index</h1>
-<p>Find me in app/views/neighborhoods/index.html.erb</p>
+<% provide(:title, 'Neighborhoods') %>
+<h1>Neighborhoods</h1>
+
+<%= form_for(@neighborhood, remote: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="form-group">
+      <%= f.label :name, 'New record', class: 'control-label' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= f.submit "Add neighborhood", class: "btn btn-success" %>
+<% end %>
+<p>
+<ul id="neighborhoods" class="list-group">
+  <%= render @neighborhoods %>
+</ul>
+
+

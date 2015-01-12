@@ -1,0 +1,8 @@
+$('#error_explanation').remove();
+<% if @neighborhood.errors.any? %>
+    $('#<%= dom_id(@neighborhood, :edit) %>').prepend(
+            "<%= j render partial: 'shared/error_messages', locals: {object: @neighborhood } %>"
+    );
+<% else %>
+    $('#<%= dom_id(@neighborhood) %>').replaceWith('<%= j render @neighborhood %>');
+<% end  %>

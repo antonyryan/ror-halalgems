@@ -20,6 +20,7 @@ Neighborhood.create([{name: 'Astoria'}, {name: 'Sunnyside'}, {name: 'Jackson Hei
 			 {name: 'Rego Park'}, {name: 'Corona'}, {name: 'Elmhurst'}, {name: 'E. Elmhurst'}, {name: 'Flushing'},
        {name: 'Whitestone'}, {name: 'Bayside'}, {name: 'Manhattan'}])
 
-PropertyType.create([{name: 'Private House'}, {name: 'Multi-family'}, {name: 'Coop'},  {name: 'Condo'}])
+PropertyType.create([{name: 'Private House'}, {name: 'Multi-family'}, {name: 'Coop'},  {name: 'Condo'},
+                     {name: 'Land'},  {name: 'Garage'},  {name: 'Parking Space'},  {name: 'Single Family'}])
 
 ListingType.create([{name: 'Rental'}, {name: 'Sale'}])

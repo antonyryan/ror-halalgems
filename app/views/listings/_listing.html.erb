@@ -8,28 +8,28 @@
 				<%= image_tag("no_photo_small.png", :width => 280, :height => 185) %>
 			<% end %>			
 			<div class="caption">
-				<h3><%= link_to listing.street_address, listing %></h3>
-				<p><%=listing.status.name unless listing.status.nil? %> | <%= number_to_currency(listing.price) %></p>
+				<h3><%= link_to listing.full_address, listing %></h3>
+				<p><%= listing.bed.try :name %> | Baths: <%= listing.full_baths_no %> | <%= number_to_currency(listing.price) %></p>
 			</div>
 		</div>
 	</div>
 <% else %>
 	<li class="list-group-item">
 		<div class="listing">
-		<% if @display == 'thumb_list' %>
-			<div class="thumb-photo">
-				<% if listing.property_photos.count > 0 %>			
-					<% photo = listing.property_photos.first %>			
-					<%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
-				<% else %>
-					<%= image_tag("no_photo_small.png", :width => 280, :height => 185) %>
-				<% end %>	
-			</div>
-		<% end %>
-		<div class="info">
-			<h3 class="address"><%= link_to listing.street_address, listing %></h3>
-			<h4 calss="price"><%=listing.status.name unless listing.status.nil? %> | <%= number_to_currency(listing.price) %></h4>
-		</div>
+            <% if @display == 'thumb_list' %>
+                <div class="thumb-photo">
+                    <% if listing.property_photos.count > 0 %>
+                        <% photo = listing.property_photos.first %>
+                        <%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
+                    <% else %>
+                        <%= image_tag("no_photo_small.png", :width => 280, :height => 185) %>
+                    <% end %>
+                </div>
+            <% end %>
+            <div class="info">
+                <h3 class="address"><%= link_to listing.full_address, listing %></h3>
+                <h4 calss="price"><%= listing.bed.try :name %> | Baths: <%= listing.full_baths_no %> | <%= number_to_currency(listing.price) %></h4>
+            </div>
 		</div>
 	</li>
 <% end %>

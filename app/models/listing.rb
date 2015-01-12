@@ -46,4 +46,27 @@ class Listing < ActiveRecord::Base
       self.city_id = c.id
     end
   end
+
+  def full_address
+    unless @full_address
+      address = ""
+      unless unit_no.nil?
+        address += "#{unit_no} "
+      end
+
+      unless street_address.empty?
+        address += "#{street_address}, "
+      end
+
+      address += city.try :name unless city.nil?
+
+      @full_address = address
+    end
+
+    @full_address
+  end
+
+  def days_on_market
+    (Date.current - created_at.to_date).to_i
+  end
 end
