@@ -34,26 +34,29 @@ map = null
 geocoder = null
 
 $(document).ready ->
-	if $('#map-canvas').length   
-		mapCanvas = $('#map-canvas');
-		mapOptions = 
-			center: new google.maps.LatLng 44.5403, -78.5463 
-			zoom: 16,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		map = new google.maps.Map $('#map-canvas')[0], mapOptions
-		geocoder = new google.maps.Geocoder
-		codeAddress()
+  if $('#map-canvas').length
+    mapCanvas = $('#map-canvas');
+    mapOptions =
+      center: new google.maps.LatLng 44.5403, -78.5463
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    map = new google.maps.Map $('#map-canvas')[0], mapOptions
+    geocoder = new google.maps.Geocoder
+    codeAddress()
+    return
 
-codeAddress = -> 
-	address = $('#address').text()
-	geocoder.geocode 'address': address, (results, status) ->
-		if status is google.maps.GeocoderStatus.OK 
-			map.setCenter results[0].geometry.location
-			marker = new google.maps.Marker
-				map: map,
-				position: results[0].geometry.location      
-		else 
-			alert('Geocode was not successful for the following reason: ' + status)
+codeAddress = ->
+  address = $('#address').data("value")
+  geocoder.geocode 'address': address, (results, status) ->
+    if status is google.maps.GeocoderStatus.OK
+      map.setCenter results[0].geometry.location
+      marker = new google.maps.Marker
+        map: map,
+        position: results[0].geometry.location
+    else
+      alert('Geocode was not successful for the following reason: ' + status)
+    return
+  return
 
 $(document).ready -> 
 	$(".cloudinary-fileupload").fileupload          

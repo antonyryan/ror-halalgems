@@ -1,10 +1,21 @@
 <% provide(:title, 'Agents') %>
-<h1>Agents</h1>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+        <h1>Agents</h1>
+    </div>
+    <% if current_user.admin? %>
+    <%= link_to "Add", new_user_path, class: "btn btn-primary", role: "button" %>
+    <p>
+    <% end %>
 
-<%= will_paginate %>
+    <%= will_paginate %>
 
-<ul id="users" class="list-group">
-  <%= render @users %>
-</ul>
+    <ul id="users" class="list-group">
+      <%= render @users %>
+    </ul>
 
-<%= will_paginate %>
+
+    <%= will_paginate %>
+  </div>
+</div>

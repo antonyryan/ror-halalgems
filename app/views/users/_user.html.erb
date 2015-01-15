@@ -1,7 +1,20 @@
+<li class="list-group-item">
+  <%= link_to user do %>
+      <%= user.name %>
+      <div class="pull-right">
+          <% if current_user.admin? %>
+              <%= link_to edit_user_path(user), "aria-label"=> "edit" do %>
+                  <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>
+          <% end %>
 
-  <%= link_to user, class:"list-group-item" do %>
-  	<%= user.name %>
-  
+          <% if current_user.admin? && !current_user?(user) %>
+              <%= link_to user, method: :delete, data: { confirm: "You sure?" } do %>
+                  <span class="glyphicon glyphicon-trash"></span>
+              <% end %>
+          <% end %>
+      </div>
   <% end %>
+</li>
 
 

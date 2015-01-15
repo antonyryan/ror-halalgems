@@ -3,13 +3,13 @@
 		<div class="thumbnail">
 			<% if listing.property_photos.count > 0 %>			
 				<% photo = listing.property_photos.first %>			
-				<%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
+				<%= image_tag(photo.photo_url_url(:thumb), style: "height:124px; width: 100%") %>
 			<% else %>
-				<%= image_tag("no_photo_small.png", :width => 280, :height => 185) %>
+				<%= image_tag("no_photo_small.png", style: "height:124px;") %>
 			<% end %>			
 			<div class="caption">
-				<h3><%= link_to listing.full_address, listing %></h3>
-				<p><%= listing.bed.try :name %> | Baths: <%= listing.full_baths_no %> | <%= number_to_currency(listing.price) %></p>
+              <%= link_to listing.full_address, listing %>
+              <p><%= listing.bed.try :name %> | Baths: <%= listing.full_baths_no %> | <%= number_to_currency(listing.price) %></p>
 			</div>
 		</div>
 	</div>
@@ -20,9 +20,9 @@
                 <div class="thumb-photo">
                     <% if listing.property_photos.count > 0 %>
                         <% photo = listing.property_photos.first %>
-                        <%= image_tag(photo.photo_url_url(:thumb), :width => 280, :height => 185) %>
+                        <%= image_tag(photo.photo_url_url(:thumb), width: 151, :height => 100) %>
                     <% else %>
-                        <%= image_tag("no_photo_small.png", :width => 280, :height => 185) %>
+                        <%= image_tag("no_photo_small.png", width: 151, :height => 100) %>
                     <% end %>
                 </div>
             <% end %>

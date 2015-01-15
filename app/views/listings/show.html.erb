@@ -2,7 +2,7 @@
 <% provide(:java_script, "https://maps.googleapis.com/maps/api/js") %>
 <div class="row">
 	<div class="col-md-6">
-		<h1 id="address"><%= @listing.full_address %> <small><%= @listing.listing_type.name unless @listing.listing_type.nil? %></small></h1>
+		<h1 id="address" data-value="<%= @listing.full_address %>"><%= @listing.full_address %> <small><%= @listing.listing_type.name unless @listing.listing_type.nil? %></small></h1>
 		<h3 class="zip">Zip: <%= @listing.zip_code %></h3>
 	</div>
 

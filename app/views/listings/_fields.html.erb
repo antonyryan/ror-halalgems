@@ -37,7 +37,7 @@
 <%= f.hidden_field :listing_type_id %>
 
 <div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank? %>">
-  <%= f.label :neighborhood_id, 'Property Type', class: 'control-label' %>
+  <%= f.label :neighborhood_id, 'Neighborhood', class: 'control-label' %>
   <%= f.collection_select :neighborhood_id, Neighborhood.all, :id, :name, {}, {class: 'form-control'} %>
 </div>
 

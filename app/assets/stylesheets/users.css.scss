@@ -26,3 +26,10 @@ button{
 		color: #000;
 	}
 }
+
+ul.list-group li div.list-buttons { display:none;}
+ul.list-group li:hover div.list-buttons { display:inline-block;}
+
+.list-buttons{
+
+}
