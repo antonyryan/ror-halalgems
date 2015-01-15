@@ -50,15 +50,12 @@ class Listing < ActiveRecord::Base
   def full_address
     unless @full_address
       address = ""
-      unless unit_no.nil?
-        address += "#{unit_no} "
-      end
 
       unless street_address.empty?
         address += "#{street_address}, "
       end
 
-      address += city.try :name unless city.nil?
+      address += neighborhood.try :name unless neighborhood.nil?
 
       @full_address = address
     end
