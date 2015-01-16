@@ -91,4 +91,62 @@
     <%= f.select :half_baths_no, [1, 2, 3, 4], {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
+<p>
+<div class="panel panel-default">
+  <div class="panel-heading">Features</div>
+  <div class="panel-body">
+    <div class="form-inline">
+      <div class="row">
+          <div class="col-md-2">
+              <label>
+                <%= f.check_box :dishwasher %> Dishwasher
+              </label>
+          </div>
+          <div class="col-md-2">
+          <label>
+            <%= f.check_box :backyard %> Backyard
+          </label>
+          </div>
+          <div class="col-md-2">
+          <label>
+            <%= f.check_box :balcony %> Balcony
+          </label>
+          </div>
+          <div class="col-md-2">
+          <label>
+            <%= f.check_box :elevator %> Elevator
+          </label>
+            </div>
+          <div class="col-md-4">
+          <label>
+            <%= f.check_box :walk_up %> Walk-up
+          </label>
+            </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-2">
+          <label>
+            <%= f.check_box :laundry_in_building %> Laundry in building
+          </label>
+            </div>
+          <div class="col-md-2">
+          <label>
+            <%= f.check_box :laundry_in_unit %> Laundry in unit
+          </label>
+            </div>
+          <div class="col-md-2">
+          <label>
+            <%= f.check_box :live_in_super %> Live-in super
+          </label>
+            </div>
+          <div class="col-md-6">
+          <label>
+            <%= f.check_box :absentee_landlord %> Absentee Landlord
+          </label>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
 

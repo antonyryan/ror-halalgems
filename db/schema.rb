@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111195013) do
+ActiveRecord::Schema.define(version: 20150116205550) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150111195013) do
 
   create_table "listings", force: true do |t|
     t.integer  "agent_id"
-    t.string   "main_photo",       default: "wzupztbtjzhe0fi3fpda.jpg"
+    t.string   "main_photo",          default: "wzupztbtjzhe0fi3fpda.jpg"
     t.string   "street_address"
     t.string   "zip_code"
     t.decimal  "price"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 20150111195013) do
     t.integer  "listing_type_id"
     t.integer  "city_id"
     t.string   "unit_no"
+    t.boolean  "dishwasher",          default: false
+    t.boolean  "backyard",            default: false
+    t.boolean  "balcony",             default: false
+    t.boolean  "elevator",            default: false
+    t.boolean  "laundry_in_building", default: false
+    t.boolean  "laundry_in_unit",     default: false
+    t.boolean  "live_in_super",       default: false
+    t.boolean  "absentee_landlord",   default: false
+    t.boolean  "walk_up",             default: false
   end
 
   add_index "listings", ["bed_id"], name: "index_listings_on_bed_id"
