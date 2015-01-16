@@ -1,12 +1,12 @@
 <% provide(:title, @listing.full_address) %>
 <% provide(:java_script, "https://maps.googleapis.com/maps/api/js") %>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<h1 id="address" data-value="<%= @listing.full_address %>"><%= @listing.full_address %> <small><%= @listing.listing_type.name unless @listing.listing_type.nil? %></small></h1>
 		<h3 class="zip"><%= "Unit no: #{@listing.unit_no}" unless @listing.unit_no.nil? || @listing.unit_no.empty? %> <%= "Zip: #{@listing.zip_code}" unless @listing.zip_code.nil? %></h3>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<h2 class="text-right"><%= number_to_currency(@listing.price) %></h2>
 		<h3 class="property_type text-right"><%= @listing.property_type.name unless @listing.property_type.nil? %></h3>
 	</div>
