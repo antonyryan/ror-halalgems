@@ -9,7 +9,7 @@ class NeighborhoodsController < ApplicationController
         @neighborhoods = Neighborhood.all
       end
 			format.json do 				
-				render :json => Neighborhood.where("name like ?", "%#{params[:term]}%").map{|neighborhood| {id: neighborhood.id, name: neighborhood.name, value: neighborhood.name}}
+				render :json => Neighborhood.where("lower(name) like lower(?)", "%#{params[:term]}%").map{|neighborhood| {id: neighborhood.id, name: neighborhood.name, value: neighborhood.name}}
 			end			
 		end
   end
