@@ -36,20 +36,25 @@
 
 <%= f.hidden_field :listing_type_id %>
 
-<div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank? %>">
-  <%= f.label :neighborhood_id, 'Neighborhood', class: 'control-label' %>
-  <%= f.collection_select :neighborhood_id, Neighborhood.all, :id, :name, {}, {class: 'form-control'} %>
-</div>
+<div class="panel panel-default">
+  <div class="panel-heading">Address</div>
+  <div class="panel-body">
+    <div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank? %>">
+      <%= f.label :neighborhood_id, 'Neighborhood', class: 'control-label' %>
+      <%= f.collection_select :neighborhood_id, Neighborhood.all, :id, :name, {}, {class: 'form-control'} %>
+    </div>
 
-<div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank?  %>">
-	<%= f.label :street_address, class: 'control-label' %>
-	<%= f.text_field :street_address, class: "form-control" %>
-</div>
+    <div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank?  %>">
+        <%= f.label :street_address, class: 'control-label' %>
+        <%= f.text_field :street_address, class: "form-control" %>
+    </div>
 
-<div class="form-group<%= ' has-error' unless @listing.errors[:unit_no].blank?  %>">
-  <%= f.label :unit_no, class: 'control-label' %>
-  <%= f.text_field :unit_no, class: "form-control" %>
-</div>
+    <div class="form-group<%= ' has-error' unless @listing.errors[:unit_no].blank?  %>">
+      <%= f.label :unit_no, class: 'control-label' %>
+      <%= f.text_field :unit_no, class: "form-control" %>
+    </div>
+   </div>
+  </div>
 
 
 

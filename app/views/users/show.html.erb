@@ -7,7 +7,7 @@
     <section class="name">
       <p><span class="glyphicon glyphicon-user"></span> <%= @user.name %>
       <p><span class="glyphicon glyphicon-earphone"></span> <%= @user.phone %>
-      <p><span class="glyphicon glyphicon-envelope"></span> <%= @user.email %>
+      <p><span class="glyphicon glyphicon-envelope"></span> <%= mail_to @user.email %>
     </section>
     <section >
 
