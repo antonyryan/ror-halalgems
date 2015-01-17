@@ -89,7 +89,7 @@ private
         :backyard, :balcony, :elevator,
         :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
         :no_pets, :cats, :dogs, :approved_pets_only,
-        :heat_and_hot_water, :gas, :all, :none,
+        :heat_and_hot_water, :gas, :all_utilities, :none,
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 end
