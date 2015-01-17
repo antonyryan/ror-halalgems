@@ -49,7 +49,7 @@ class Listing < ActiveRecord::Base
 
   def full_address
     unless @full_address
-      address = ""
+      address = ''
 
       unless street_address.empty?
         address += "#{street_address}, "
@@ -66,4 +66,42 @@ class Listing < ActiveRecord::Base
   def days_on_market
     (Date.current - created_at.to_date).to_i
   end
+
+  def features
+    f = []
+
+    f.push('dishwasher') if self.dishwasher?
+    f.push('backyard') if self.backyard?
+    f.push('balcony') if self.balcony?
+    f.push('elevator') if self.elevator?
+    f.push('laundry in building') if self.laundry_in_building?
+    f.push('laundry in unit') if self.laundry_in_unit?
+    f.push('live-in super') if self.live_in_super?
+    f.push('absentee landlord') if self.absentee_landlord?
+    f.push('walk up') if self.walk_up?
+
+    f.join ', '
+  end
+
+  def pets
+    p = []
+    p.push('no pets') if self.no_pets?
+    p.push('cats') if self.cats?
+    p.push('dogs') if self.dogs?
+    p.push('approved pets only') if self.approved_pets_only?
+
+    p.join ', '
+  end
+
+  def utilities
+    u = []
+    u.push('heat_and_hot_water') if self.heat_and_hot_water?
+    u.push('gas') if self.gas?
+    u.push('all') if self.all_utilities?
+    u.push('none') if self.none?
+
+    u.join ', '
+  end
+
+
 end

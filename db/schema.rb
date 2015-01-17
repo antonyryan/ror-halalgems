@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116205550) do
+ActiveRecord::Schema.define(version: 20150117200134) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20150116205550) do
     t.boolean  "live_in_super",       default: false
     t.boolean  "absentee_landlord",   default: false
     t.boolean  "walk_up",             default: false
+    t.boolean  "no_pets",             default: false
+    t.boolean  "cats",                default: false
+    t.boolean  "dogs",                default: false
+    t.boolean  "approved_pets_only",  default: false
+    t.boolean  "heat_and_hot_water",  default: false
+    t.boolean  "gas",                 default: false
+    t.boolean  "all_utilities",       default: false
+    t.boolean  "none",                default: false
   end
 
   add_index "listings", ["bed_id"], name: "index_listings_on_bed_id"
@@ -96,6 +104,7 @@ ActiveRecord::Schema.define(version: 20150116205550) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_for_rentals", default: false
   end
 
   create_table "users", force: true do |t|

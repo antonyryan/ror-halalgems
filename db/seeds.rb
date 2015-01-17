@@ -12,8 +12,13 @@ Bed.create([{name: 'Studio'}, {name: 'Junior 1'}, {name: '1 Bedroom'},  {name: '
 			 {name: 'Junior 4'}, {name: '2 Bedroom'}, {name: '2 Bedroom plus den'}, {name: '3 Bedroom'},
 			 {name: '4 Bedroom'}, {name: 'Entire House'}])
 
-Status.create([{name: 'Active'}, {name: 'Under Renovation'}, {name: 'Pending Approval'},  {name: 'Lost'},
-			 {name: 'Rented'}])
+Status.create([ {name: 'New', is_for_rentals: false}, {name: 'Accepted offer', is_for_rentals: false}, {name: 'Under contract', is_for_rentals: false},
+                {name: 'Price change', is_for_rentals: false}, {name: 'Closed', is_for_rentals: false},
+                {name: 'Temporary off market', is_for_rentals: false}, {name: 'Withdrawn', is_for_rentals: false}, {name: 'Closed', is_for_rentals: false},
+
+                {name: 'New', is_for_rentals: true}, {name: 'Price change', is_for_rentals: ture}, {name: 'Deposit/Pending Application', is_for_rentals: true},
+                {name: 'Temporary off market', is_for_rentals: true}, {name: 'Rented', is_for_rentals: true}, {name: 'Lost', is_for_rentals: true}
+			        ])
 #Astoria, Sunnyside, Jackson Heights, Woodside, Long Island City, Forest Hills, Kew Gardens, Rego Park, Corona
 Neighborhood.create([{name: 'Astoria'}, {name: 'Sunnyside'}, {name: 'Jackson Heights'},  {name: 'Woodside'},
 			 {name: 'Long Island City'}, {name: 'Forest Hills'}, {name: 'Kew Gardens'}, 

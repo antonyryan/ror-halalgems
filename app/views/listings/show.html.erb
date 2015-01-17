@@ -58,3 +58,17 @@
 		<div id="map-canvas"></div>
 	</div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% unless @listing.features.empty? %>
+        <p><strong>Features:</strong> <%= @listing.features %></p>
+    <% end %>
+    <% unless @listing.pets.empty? %>
+        <p><strong>Pets:</strong> <%= @listing.pets %></p>
+    <% end %>
+    <% unless @listing.utilities.empty? %>
+        <p><strong>Utilities included:</strong> <%= @listing.pets %></p>
+    <% end %>
+  </div>
+</div>

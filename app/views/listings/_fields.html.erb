@@ -56,42 +56,62 @@
    </div>
   </div>
 
-
-
-<div class="form-group<%= ' has-error' unless @listing.errors[:price].blank?  %>">
-	<%= f.label :price, class: 'control-label' %>
-	<%= f.text_field :price, class: 'form-control' %>
-</div>
-
-<div class="form-inline">
-  <% if @listing.listing_type.try(:name) == 'Rental' %>
-      <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
-        <%= f.label :status_id, 'Status', class: 'control-label' %>
-        <%= f.collection_select :status_id, Status.all, :id, :name, {}, {class: 'form-control'} %>
+<div class="panel panel-default">
+  <div class="panel-heading">Highlights</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:price].blank?  %>">
+              <%= f.label :price, class: 'control-label' %>
+              <%= f.text_field :price, class: 'form-control' %>
+            </div>
       </div>
-  <% end %>
+    </div>
 
-  <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
-    <%= f.label :property_type_id, 'Property Type', class: 'control-label' %>
-    <%= f.collection_select :property_type_id, PropertyType.all, :id, :name, {}, {class: 'form-control'} %>
-  </div>
+    <div class="row">
 
-  <div class="form-group<%= ' has-error' unless @listing.errors[:bed].blank? %>">
-    <%= f.label :bed, 'Beds', class: 'control-label' %>
-    <%= f.collection_select :bed_id, Bed.all, :id, :name, {}, {class: 'form-control'} %>
-  </div>
+            <% if @listing.listing_type.try(:name) == 'Rental' %>
+              <div class="col-md-2">
+                  <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
+                    <%= f.label :status_id, 'Status', class: 'control-label' %>
+                    <%= f.collection_select :status_id, Status.all, :id, :name, {}, {class: 'form-control'} %>
+                  </div>
+              </div>
+            <% end %>
 
-  <div class="form-group<%= ' has-error' unless @listing.errors[:full_baths_no].blank? %>">
-    <%= f.label :full_baths_no, 'Full Baths #', class: 'control-label' %>
-    <%= f.select :full_baths_no, [1, 2, 3, 4], {include_blank: true}, {class: 'form-control'} %>
-  </div>
 
-  <div class="form-group<%= ' has-error' unless @listing.errors[:half_baths_no].blank? %>">
-    <%= f.label :half_baths_no, 'Half Baths #', class: 'control-label' %>
-    <%= f.select :half_baths_no, [1, 2, 3, 4], {include_blank: true}, {class: 'form-control'} %>
-  </div>
+          <div class="col-md-4">
+              <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
+                <%= f.label :property_type_id, 'Property Type', class: 'control-label' %>
+                <%= f.collection_select :property_type_id, PropertyType.all, :id, :name, {}, {class: 'form-control'} %>
+              </div>
+          </div>
+
+          <div class="col-md-2">
+              <div class="form-group<%= ' has-error' unless @listing.errors[:bed].blank? %>">
+                <%= f.label :bed, 'Beds', class: 'control-label' %>
+                <%= f.collection_select :bed_id, Bed.all, :id, :name, {}, {class: 'form-control'} %>
+              </div>
+          </div>
+
+          <div class="col-md-2">
+              <div class="form-group<%= ' has-error' unless @listing.errors[:full_baths_no].blank? %>">
+                <%= f.label :full_baths_no, 'Full Baths #', class: 'control-label' %>
+                <%= f.select :full_baths_no, [1, 2, 3, 4], {include_blank: true}, {class: 'form-control'} %>
+              </div>
+          </div>
+
+          <div class="col-md-2">
+              <div class="form-group<%= ' has-error' unless @listing.errors[:half_baths_no].blank? %>">
+                <%= f.label :half_baths_no, 'Half Baths #', class: 'control-label' %>
+                <%= f.select :half_baths_no, [1, 2, 3, 4], {include_blank: true}, {class: 'form-control'} %>
+              </div>
+          </div>
+        </div>
+      </div>
+
 </div>
-<p>
+
 <div class="panel panel-default">
   <div class="panel-heading">Features</div>
   <div class="panel-body">
@@ -150,3 +170,62 @@
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">Pets</div>
+  <div class="panel-body">
+    <div class="form-inline">
+      <div class="row">
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :no_pets %> No pets
+          </label>
+        </div>
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :cats %> Cats
+          </label>
+        </div>
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :dogs %> Dogs
+          </label>
+        </div>
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :approved_pets_only %> Approved pets only
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Utilities included</div>
+  <div class="panel-body">
+    <div class="form-inline">
+      <div class="row">
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :heat_and_hot_water %> Heat and hot water
+          </label>
+        </div>
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :gas %> Gas
+          </label>
+        </div>
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :all_utilities %> All
+          </label>
+        </div>
+        <div class="col-md-3">
+          <label>
+            <%= f.check_box :none %> None
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
