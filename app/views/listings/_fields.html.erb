@@ -70,15 +70,12 @@
 
     <div class="row">
 
-            <% if @listing.listing_type.try(:name) == 'Rental' %>
-              <div class="col-md-2">
-                  <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
-                    <%= f.label :status_id, 'Status', class: 'control-label' %>
-                    <%= f.collection_select :status_id, Status.all, :id, :name, {}, {class: 'form-control'} %>
-                  </div>
+          <div class="col-md-2">
+              <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
+                <%= f.label :status_id, 'Status', class: 'control-label' %>
+                <%= f.collection_select :status_id, Status.where(is_for_rentals: @listing.listing_type.try(:name) == 'Rental'), :id, :name, {}, {class: 'form-control'} %>
               </div>
-            <% end %>
-
+          </div>
 
           <div class="col-md-4">
               <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">

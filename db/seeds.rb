@@ -16,7 +16,7 @@ Status.create([ {name: 'New', is_for_rentals: false}, {name: 'Accepted offer', i
                 {name: 'Price change', is_for_rentals: false}, {name: 'Closed', is_for_rentals: false},
                 {name: 'Temporary off market', is_for_rentals: false}, {name: 'Withdrawn', is_for_rentals: false}, {name: 'Closed', is_for_rentals: false},
 
-                {name: 'New', is_for_rentals: true}, {name: 'Price change', is_for_rentals: ture}, {name: 'Deposit/Pending Application', is_for_rentals: true},
+                {name: 'New', is_for_rentals: true}, {name: 'Price change', is_for_rentals: true}, {name: 'Deposit/Pending Application', is_for_rentals: true},
                 {name: 'Temporary off market', is_for_rentals: true}, {name: 'Rented', is_for_rentals: true}, {name: 'Lost', is_for_rentals: true}
 			        ])
 #Astoria, Sunnyside, Jackson Heights, Woodside, Long Island City, Forest Hills, Kew Gardens, Rego Park, Corona
@@ -29,3 +29,6 @@ PropertyType.create([{name: 'Private House'}, {name: 'Multi-family'}, {name: 'Co
                      {name: 'Land'},  {name: 'Garage'},  {name: 'Parking Space'},  {name: 'Single Family'}])
 
 ListingType.create([{name: 'Rental'}, {name: 'Sale'}])
+
+
+#Status.create([ {name: 'New', is_for_rentals: false}, {name: 'Accepted offer', is_for_rentals: false}, {name: 'Under contract', is_for_rentals: false},                {name: 'Price change', is_for_rentals: false}, {name: 'Closed', is_for_rentals: false},                {name: 'Temporary off market', is_for_rentals: false}, {name: 'Withdrawn', is_for_rentals: false}, {name: 'Closed', is_for_rentals: false},                {name: 'New', is_for_rentals: true}, {name: 'Price change', is_for_rentals: true}, {name: 'Deposit/Pending Application', is_for_rentals: true},                {name: 'Temporary off market', is_for_rentals: true}, {name: 'Rented', is_for_rentals: true}, {name: 'Lost', is_for_rentals: true}              ])

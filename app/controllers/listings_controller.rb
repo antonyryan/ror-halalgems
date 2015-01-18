@@ -43,10 +43,12 @@ class ListingsController < ApplicationController
 		#   raise "Invalid upload signature" if !preloaded.valid?
 		#   @listing.main_photo = preloaded.identifier
 		# end
-		
+		old_status_id = @listing.status_id
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
-			AgentMailer.listing_changed(@listing, User.all).deliver
+      if old_status_id != @listing.status_id
+			  AgentMailer.listing_changed(@listing).deliver
+      end
 			redirect_to @listing
 		else
 			render 'edit'
@@ -73,7 +75,8 @@ class ListingsController < ApplicationController
 
 		@listing = current_user.listings.build(listing_params)
 		
-	    if @listing.save	      
+	    if @listing.save
+        AgentMailer.listing_created(@listing).deliver
 	      flash[:success] = 'Listing created.'
 	      redirect_to @listing
 	    else
