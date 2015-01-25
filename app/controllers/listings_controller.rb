@@ -29,7 +29,13 @@ class ListingsController < ApplicationController
 	def show
 		@listing = Listing.find(params[:id])
 		#@photo_urls = @listing.property_photos.all
-	end
+    respond_to do |format|
+      format.html
+      format.pdf {
+        render :pdf => "show"
+      }
+    end
+end
 
 	def edit
 		@listing = Listing.find(params[:id])		

@@ -11,6 +11,8 @@ gem 'faker', '1.4.3'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
+#gem "wicked_pdf"
+
 group :development, :test do
   gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '2.13.1'
@@ -53,7 +55,10 @@ group :production do
   gem 'unicorn'
   gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
+  #gem "wkhtmltopdf-heroku"
 end
 
 gem 'carrierwave'
 gem 'cloudinary'
+gem 'prawn'
+gem 'prawnto'

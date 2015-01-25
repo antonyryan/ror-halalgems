@@ -22,7 +22,9 @@
     <% end %>
     <%= link_to 'View agent', @listing.user, class: 'btn btn-primary', role: 'button' %>
     <%= mail_to @listing.user.email, 'Contact agent', class: 'btn btn-primary', role: 'button'%>
+  <%= link_to "Download Flyer", listing_path(@listing, :format => "pdf"), class: "btn btn-primary", role: "button" %>
 </p>
+
 
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 connected-carousels" >
