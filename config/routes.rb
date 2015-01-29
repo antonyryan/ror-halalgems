@@ -3,11 +3,16 @@ HorowitzRealEstate::Application.routes.draw do
   get "neighborhoods/index"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :listings
+  resources :listings do
+    member do
+      get :copy
+    end
+  end
   resources :neighborhoods
   root  'users#index' 
   match 'signin', to: 'sessions#new', via: 'get'
-  match 'signout', to: 'sessions#destroy', via: 'delete' 
+  match 'signout', to: 'sessions#destroy', via: 'delete'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

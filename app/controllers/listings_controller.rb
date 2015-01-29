@@ -88,7 +88,26 @@ end
 	    else
 	      render 'new'
 	    end
-	end
+  end
+
+  def destroy
+    @listing = Listing.find(params[:id])
+    @listing.destroy
+    flash[:success] = "Listing deleted."
+    redirect_to listings_url
+  end
+
+  def copy
+    @listing = Listing.find(params[:id])
+    @new_listing = @listing.dup
+    if @new_listing.save
+      flash[:success] = 'Listing copied.'
+      redirect_to @new_listing
+    else
+      flash[:error] = 'Error.'
+      redirect_back_or @listing
+    end
+  end
 
 private
 

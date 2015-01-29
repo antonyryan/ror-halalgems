@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, length: { minimum: 6 }
+  validates_presence_of :password, :on => :create
+  validates :password, length: { minimum: 6 }, :if => :password_present?
 
   mount_uploader :avatar, ImageUploader
 
@@ -25,5 +26,9 @@ class User < ActiveRecord::Base
 
     def create_remember_token
       self.remember_token = User.digest(User.new_remember_token)
+    end
+
+    def password_present?
+      password.present? || password_confirmation.present?
     end
 end
