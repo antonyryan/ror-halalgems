@@ -20,7 +20,7 @@
     <% if signed_in? %>
       <% if current_user?(@listing.user) || current_user.admin? %>
         <%= link_to "Edit listing", edit_listing_path(@listing), class: "btn btn-default", role: "button" %>
-        #TODO: make post request via form
+        <!-- TODO: make post request via form -->
         <%= link_to "Copy listing", copy_listing_path(@listing), class: "btn btn-default", role: "button" %>
         <%= link_to "Delete listing", @listing, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default", role: "button" %>
       <% end %>
