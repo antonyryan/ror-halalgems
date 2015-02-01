@@ -11,8 +11,19 @@ class ListingsController < ApplicationController
 		@listings = @listings.full_baths(params[:full_baths]) if params[:full_baths].present?
 
 		@listings = @listings.half_baths(params[:half_baths]) if params[:half_baths].present?
+    @listings = @listings.agent_filter(params[:agent_id]) unless params[:agent_id].blank?
 
-		@listings = @listings.paginate(page: params[:page])
+    @listings = @listings.dishwasher_filter(params[:dishwasher]) if params[:dishwasher].present?
+    @listings = @listings.backyard_filter(params[:backyard]) if params[:backyard].present?
+    @listings = @listings.balcony_filter(params[:balcony]) if params[:balcony].present?
+    @listings = @listings.elevator_filter(params[:elevator]) if params[:elevator].present?
+    @listings = @listings.walk_up_filter(params[:walk_up]) if params[:walk_up].present?
+    @listings = @listings.laundry_in_building_filter(params[:laundry_in_building]) if params[:laundry_in_building].present?
+    @listings = @listings.laundry_in_unit_filter(params[:laundry_in_unit]) if params[:laundry_in_unit].present?
+    @listings = @listings.live_in_super_filter(params[:live_in_super]) if params[:live_in_super].present?
+    @listings = @listings.absentee_landlord_filter(params[:absentee_landlord]) if params[:absentee_landlord].present?
+
+    @listings = @listings.paginate(page: params[:page])
 
     @neighborhoods_json = ''
     if params['neighborhood_ids'].present?
@@ -100,7 +111,13 @@ end
   def copy
     @listing = Listing.find(params[:id])
     @new_listing = @listing.dup
+
     if @new_listing.save
+      @listing.property_photos.each do |photo|
+        p = photo.dup
+        p.listing_id =@new_listing.id
+        p.save
+      end
       flash[:success] = 'Listing copied.'
       redirect_to @new_listing
     else

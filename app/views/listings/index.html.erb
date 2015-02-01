@@ -39,6 +39,66 @@
                 <%= select_tag 'half_baths', options_for_select([1, 2, 3, 4], (params['half_baths'] if params['half_baths'].present?)), prompt: "", class: 'form-control' %>
 	        </div>
 
+          <div class='form-group'>
+            <%= label_tag 'agent_id', 'Agent:', class:"control-label" %>
+            <%= select_tag 'agent_id', options_from_collection_for_select(User.all, "id", "name", (params['agent_id'] if params['agent_id'].present?)), prompt: "", class:"form-control" %>
+          </div>
+
+
+
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :dishwasher, params['dishwasher'] %> Dishwasher
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :backyard, params['backyard'] %> Backyard
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :balcony, params['balcony'] %> Balcony
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :elevator, params['elevator'] %> Elevator
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :walk_up, params['walk_up'] %> Walk-up
+                </label>
+              </div>
+
+
+
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :laundry_in_building, params['laundry_in_building'] %> Laundry in building
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :laundry_in_unit, params['laundry_in_unit'] %> Laundry in unit
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :live_in_super, params['live_in_super'] %> Live-in super
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <%= filter_check_box_tag :absentee_landlord, params['absentee_landlord'] %> Absentee Landlord
+                </label>
+              </div>
+
+
+
+
+
 	        <%= submit_tag 'Apply', class: 'btn btn-large btn-primary' %>
         <% end %>
 		

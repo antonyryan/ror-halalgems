@@ -10,5 +10,9 @@ module ListingsHelper
 
 	def link_to_remove_fields(name, f)
     	f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
-  	end
+  end
+
+  def filter_check_box_tag(name, value = nil)
+    check_box_tag name, (value unless value.blank?), (value != '0' unless value.blank?)
+  end
 end

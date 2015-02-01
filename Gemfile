@@ -3,6 +3,7 @@ ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.3'
+#gem 'therubyrhino'
 gem 'sass-rails', "~> 4.0.2"
 gem 'bootstrap-sass', '~> 3.2.0'
 #gem 'autoprefixer-rails'
@@ -41,10 +42,12 @@ group :test do
 end
 
 gem 'uglifier', '2.1.1'
-gem 'coffee-rails', '4.0.1'
+gem 'coffee-rails'
+#gem 'coffee-script'
 gem 'jquery-rails', '3.0.4'
 gem 'jquery-ui-rails','~> 5.0.1'
-gem 'turbolinks', '1.1.1'
+gem 'turbolinks', '2.5.3'
+#gem 'jquery-turbolinks'
 gem 'jbuilder', '1.0.2'
 
 group :doc do
@@ -54,7 +57,7 @@ end
 group :production do
   gem 'unicorn'
   gem 'pg', '0.15.1'
-  gem 'rails_12factor', '0.0.2'
+  gem 'rails_12factor'
   #gem "wkhtmltopdf-heroku"
 end
 

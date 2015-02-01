@@ -33,6 +33,18 @@ class Listing < ActiveRecord::Base
 	scope :min_half_baths, -> (half_baths_no) { where("half_baths_no >= ?", half_baths_no) }
 	scope :max_half_baths, -> (half_baths_no) { where("half_baths_no <= ?", half_baths_no) }
 
+  scope :agent_filter, -> (agent_id) { where user_id: agent_id }
+
+  scope :dishwasher_filter, -> (dishwasher) { where dishwasher: dishwasher != '0' }
+  scope :backyard_filter, -> (backyard) { where backyard: backyard != '0' }
+  scope :balcony_filter, -> (balcony) { where balcony: balcony != '0' }
+  scope :elevator_filter, -> (elevator) { where elevator: elevator != '0' }
+  scope :walk_up_filter, -> (walk_up) { where walk_up: walk_up != '0' }
+  scope :laundry_in_building_filter, -> (laundry_in_building) { where laundry_in_building: laundry_in_building != '0' }
+  scope :laundry_in_unit_filter, -> (laundry_in_unit) { where laundry_in_unit: laundry_in_unit != '0' }
+  scope :live_in_super_filter, -> (live_in_super) { where live_in_super: live_in_super != '0' }
+  scope :absentee_landlord_filter, -> (absentee_landlord) { where absentee_landlord: absentee_landlord != '0' }
+
 
 	mount_uploader :main_photo, ListingPhotoUploader
 
