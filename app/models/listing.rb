@@ -15,6 +15,7 @@ class Listing < ActiveRecord::Base
 	validates :full_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }
 	validates :half_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }
 
+	scope :street_address_search, -> (street_address) { where('street_address like ?', "%#{street_address}%")  }
 	scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id }
 	scope :beds, -> (bed_id) { where bed_id: bed_id }
 

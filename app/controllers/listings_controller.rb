@@ -1,7 +1,11 @@
 class ListingsController < ApplicationController
-	def index
+  before_filter :signed_in_user
+  before_filter :correct_user, only: [:edit, :update, :destroy, :copy]
+
+  def index
 		@listings = Listing.all
-		@listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
+    @listings = @listings.street_address_search(params[:street_address]) if params[:street_address].present?
+    @listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
 		@listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
 		@listings = @listings.beds(params[:beds]) if params[:beds].present?
 		@listings = @listings.neighborhood_filter(params[:neighborhood_ids]) if params[:neighborhood_ids].present?
@@ -64,7 +68,7 @@ end
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
       if old_status_id != @listing.status_id
-			  AgentMailer.listing_changed(@listing).deliver
+			  AgentMailer.listing_changed(@listing, Status.find(old_status_id).name, @listing.status.name).deliver
       end
 			redirect_to @listing
 		else
@@ -137,4 +141,9 @@ private
         :heat_and_hot_water, :gas, :all_utilities, :none,
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
+
+  def correct_user
+    user = Listing.find(params[:id]).user
+    redirect_to(root_url) unless current_user?(user) || current_user.admin?
+  end
 end
