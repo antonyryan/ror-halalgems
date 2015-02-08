@@ -15,4 +15,19 @@ module ListingsHelper
   def filter_check_box_tag(name, value = nil)
     check_box_tag name, (value unless value.blank?), (value != '0' unless value.blank?)
   end
+
+  def sortable_link(column, title = nil)
+    title ||= column.titleize
+    direction = column == sort_column && sort_direction == 'asc' ? 'desc' : 'asc'
+    ds = display_helper
+    glyph =''
+    if column == sort_column
+      if direction == 'asc'
+        glyph = tag 'i', class: "glyphicon glyphicon-arrow-up"
+      else
+        glyph = tag 'i', class: "glyphicon glyphicon-arrow-down"
+      end
+    end
+    return link_to( title, { sort: column, direction: direction, display: ds } ) +' ' + glyph
+  end
 end

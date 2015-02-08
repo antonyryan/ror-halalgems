@@ -1,4 +1,4 @@
-<% if @display=='thumbs' %>
+<% if display_helper=='thumbs' %>
 	<div class="col-sm-6 col-md-3">
 		<div class="thumbnail">
 			<% if listing.property_photos.count > 0 %>			
@@ -13,10 +13,10 @@
 			</div>
 		</div>
 	</div>
-<% else %>
+<% else if  display_helper=='thumb_list' %>
 	<li class="list-group-item">
 		<div class="listing">
-            <% if @display == 'thumb_list' %>
+            <% if display_helper == 'thumb_list' %>
                 <div class="thumb-photo">
                     <% if listing.property_photos.count > 0 %>
                         <% photo = listing.property_photos.first %>
@@ -32,4 +32,12 @@
             </div>
 		</div>
 	</li>
+    <% else %>
+        <tr>
+          <td><%=link_to listing.street_address, listing %></td>
+          <td><%=listing.bed.try :name %></td>
+          <td><%=number_to_currency(listing.price) %></td>
+          <td><%=listing.created_at.to_date.to_formatted_s(:iso8601) %></td>
+        </tr>
+    <% end %>
 <% end %>

@@ -2,8 +2,16 @@ class ListingsController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user, only: [:edit, :update, :destroy, :copy]
 
+  helper_method :sort_column, :sort_direction, :display_helper
+
   def index
-		@listings = Listing.all
+		if sort_column.include? '.'
+      parts = sort_column.split('.')
+      @listings = Listing.includes(parts.first).order("#{parts.first.pluralize}.#{parts.last}" + " " + sort_direction)
+    else
+      @listings = Listing.order(sort_column + " " + sort_direction)
+    end
+
     @listings = @listings.street_address_search(params[:street_address]) if params[:street_address].present?
     @listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
 		@listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
@@ -34,11 +42,11 @@ class ListingsController < ApplicationController
       @neighborhoods_json = Neighborhood.where(id: params['neighborhood_ids'].split(',')).map(&:attributes).to_json
     end
 
-		if params[:display].present?
-			@display = params[:display]
-		else
-			@display = 'thumb_list'
-		end
+		#if params[:display].present?
+		#	@display = params[:display]
+		#else
+		#	@display = 'thumb_list'
+		#end
 	end
 
 	def show
@@ -145,5 +153,18 @@ private
   def correct_user
     user = Listing.find(params[:id]).user
     redirect_to(root_url) unless current_user?(user) || current_user.admin?
+  end
+
+  def sort_column
+    #Listing.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+    params[:sort] || 'created_at'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
+
+  def display_helper
+    params[:display] || 'thumb_list'
   end
 end

@@ -1,7 +1,9 @@
 <div class="row row-offcanvas row-offcanvas-left">
 	<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
 		<%= form_tag(listings_path, :method => :get, role: "form") do %>
-			<%= hidden_field_tag 'display', @display %>            
+			<%= hidden_field_tag 'display', display_helper %>
+            <%= hidden_field_tag 'sort', sort_column %>
+            <%= hidden_field_tag 'direction', sort_direction %>
             <div class='form-group'>
 	            <%= label_tag 'Price:', nil,  class:"control-label" %>
 	            <%= text_field_tag 'price_from', (params['price_from'] if params['price_from'].present?),  class:"form-control", placeholder: 'from' %>            
@@ -114,28 +116,45 @@
 		<div class="row">
 			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 		      <div class="btn-group" role="group" aria-label="First group">		      	
-		        <% params_for_list = params %>
+		        <% params_for_list = params.clone %>
 		        <% params_for_list[:display] = "list" %>
-		        <a href="<%= url_for(params_for_list)%>" type="button" class="btn btn-default<%= ' active' if @display=='list' %>" role="button">List</a>
+		        <a href="<%= url_for(params_for_list)%>" type="button" class="btn btn-default<%= ' active' if display_helper =='list' %>" role="button">List</a>
 
-		        <% params_for_thumb_list = params %>
+		        <% params_for_thumb_list = params.clone %>
 		        <% params_for_thumb_list[:display] = "thumb_list" %>
-		        <a href="<%= url_for(params_for_thumb_list) %>" type="button" class="btn btn-default<%= ' active' if @display=='thumb_list' %>" role="button">List with Tumbs</a>
+		        <a href="<%= url_for(params_for_thumb_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumb_list' %>" role="button">List with Tumbs</a>
 
-		        <% params_for_thumbs = params %>
+		        <% params_for_thumbs = params.clone %>
 		        <% params_for_thumbs[:display] = "thumbs" %>
-		        <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if @display=='thumbs' %>" role="button">Tumbs</a>		        
+		        <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumbs' %>" role="button">Tumbs</a>
 		      </div>		      
 		    </div>
 
-			<% if @display=='thumbs' %>				
+			<% if display_helper =='thumbs' %>
 				<div class="row">
 				  <%= render @listings %>
 				</div>
-			<% else %>				
+			<% else if display_helper =='thumb_list' %>
 				<div class="list-group">
 					<%= render @listings %>
 				</div>
+            <% else %>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th><%= sortable_link "street_address" %></th>
+                        <th><%= sortable_link "bed.name", 'Beds' %></th>
+                        <th><%= sortable_link "price" %></th>
+                        <th><%= sortable_link "created_at" %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <%= render @listings %>
+                      </tbody>
+
+                    </table>
+            <% end %>
 			<% end %>
 
 			<%= will_paginate @listings %>
