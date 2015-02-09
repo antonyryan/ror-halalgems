@@ -60,11 +60,17 @@
   <div class="panel-heading">Highlights</div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
             <div class="form-group<%= ' has-error' unless @listing.errors[:price].blank?  %>">
               <%= f.label :price, class: 'control-label' %>
               <%= f.text_field :price, class: 'form-control' %>
             </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:available_date].blank?  %>">
+          <%= f.label :available_date, class: 'control-label' %>
+          <%= f.date_field :available_date, class: 'form-control' %>
+        </div>
       </div>
     </div>
 

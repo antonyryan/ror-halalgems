@@ -35,9 +35,11 @@
     <% else %>
         <tr>
           <td><%=link_to listing.street_address, listing %></td>
-          <td><%=listing.bed.try :name %></td>
-          <td><%=number_to_currency(listing.price) %></td>
-          <td><%=listing.created_at.to_date.to_formatted_s(:iso8601) %></td>
+          <td><%= listing.neighborhood.try :name %></td>
+          <td><%= listing.bed.try :name %></td>
+          <td><%= number_to_currency(listing.price) %></td>
+          <td><%= listing.available_date %></td>
+          <td><%= listing.user.try :name %></td>
         </tr>
     <% end %>
 <% end %>

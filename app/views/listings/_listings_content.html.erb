@@ -1,0 +1,50 @@
+
+  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group" role="group" aria-label="First group">
+      <% params_for_list = params.clone %>
+      <% params_for_list[:display] = "list" %>
+      <a href="<%= url_for(params_for_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper =='list' %>" role="button">List</a>
+
+      <% params_for_thumb_list = params.clone %>
+      <% params_for_thumb_list[:display] = "thumb_list" %>
+      <a href="<%= url_for(params_for_thumb_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumb_list' %>" role="button">List
+        with Tumbs</a>
+
+      <% params_for_thumbs = params.clone %>
+      <% params_for_thumbs[:display] = "thumbs" %>
+      <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumbs' %>" role="button">Tumbs</a>
+    </div>
+  </div>
+
+  <% if display_helper =='thumbs' %>
+      <div class="row">
+        <%= render @listings %>
+      </div>
+  <% else
+       if display_helper =='thumb_list' %>
+          <div class="list-group">
+            <%= render @listings %>
+          </div>
+      <% else %>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+              <tr>
+                <th><%= sortable_link "street_address" %></th>
+                <th><%= sortable_link "neighborhood.name", 'Neighborhood' %></th>
+                <th><%= sortable_link "bed.name", 'Beds' %></th>
+                <th><%= sortable_link "price" %></th>
+                <th><%= sortable_link "available_date" %></th>
+                <th><%= sortable_link "user.name", 'Agent' %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <%= render @listings %>
+              </tbody>
+
+            </table>
+      <% end %>
+  <% end %>
+
+  <%= will_paginate @listings %>
+  </div>

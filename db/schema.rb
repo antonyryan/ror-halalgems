@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117200134) do
+ActiveRecord::Schema.define(version: 20150209190029) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -72,8 +72,10 @@ ActiveRecord::Schema.define(version: 20150117200134) do
     t.boolean  "gas",                 default: false
     t.boolean  "all_utilities",       default: false
     t.boolean  "none",                default: false
+    t.date     "available_date"
   end
 
+  add_index "listings", ["available_date"], name: "index_listings_on_available_date"
   add_index "listings", ["bed_id"], name: "index_listings_on_bed_id"
   add_index "listings", ["city_id"], name: "index_listings_on_city_id"
   add_index "listings", ["listing_type_id"], name: "index_listings_on_listing_type_id"

@@ -2,7 +2,7 @@ class ListingsController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user, only: [:edit, :update, :destroy, :copy]
 
-  helper_method :sort_column, :sort_direction, :display_helper
+  helper_method :sort_column, :sort_direction
 
   def index
 		if sort_column.include? '.'
@@ -73,10 +73,11 @@ end
 		#   @listing.main_photo = preloaded.identifier
 		# end
 		old_status_id = @listing.status_id
+    puts "OLD STAUSID = #{old_status_id}"
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
       if old_status_id != @listing.status_id
-			  AgentMailer.listing_changed(@listing, Status.find(old_status_id).name, @listing.status.name).deliver
+			  AgentMailer.listing_changed(@listing, Status.find(old_status_id).try(:name), @listing.status.name).deliver
       end
 			redirect_to @listing
 		else
@@ -142,8 +143,8 @@ private
 
     def listing_params
       params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
-      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name, :unit_no, :dishwasher,
-        :backyard, :balcony, :elevator,
+      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name, :unit_no, :available_date,
+        :dishwasher, :backyard, :balcony, :elevator,
         :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
         :no_pets, :cats, :dogs, :approved_pets_only,
         :heat_and_hot_water, :gas, :all_utilities, :none,
@@ -162,9 +163,5 @@ private
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-  end
-
-  def display_helper
-    params[:display] || 'thumb_list'
   end
 end

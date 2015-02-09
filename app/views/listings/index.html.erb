@@ -1,163 +1,23 @@
 <div class="row row-offcanvas row-offcanvas-left">
-	<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-		<%= form_tag(listings_path, :method => :get, role: "form") do %>
-			<%= hidden_field_tag 'display', display_helper %>
-            <%= hidden_field_tag 'sort', sort_column %>
-            <%= hidden_field_tag 'direction', sort_direction %>
-            <div class='form-group'>
-	            <%= label_tag 'Price:', nil,  class:"control-label" %>
-	            <%= text_field_tag 'price_from', (params['price_from'] if params['price_from'].present?),  class:"form-control", placeholder: 'from' %>            
-	            <%= text_field_tag 'price_to', (params['price_to'] if params['price_to'].present?),  class:"form-control", placeholder: 'to' %>            
-	        </div>
 
-	        <div class='form-group'>
-	            <%= label_tag 'listing_type_id', 'Type:', class:"control-label" %>
-				<%= select_tag 'listing_type_id', options_from_collection_for_select(ListingType.all, "id", "name", (params['listing_type_id'] if params['listing_type_id'].present?)), prompt: "", class:"form-control" %>	
-	        </div>
+  <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+    <%= form_tag(listings_path, :method => :get, role: "form") do %>
+        <%= render 'filter_fields' %>
+    <% end %>
+  </div><!--/.sidebar-offcanvas-->
 
-	        <div class='form-group'>
-	            <%= label_tag 'property_type', 'Property Type:', class:"control-label" %>
-				<%= select_tag 'property_type', options_from_collection_for_select(PropertyType.all, "id", "name", (params['property_type'] if params['property_type'].present?)), prompt: "", class:"form-control" %>	
-	        </div>
+  <div class="col-xs-12 col-sm-9">
+    <p class="pull-left visible-xs">
+      <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle sidebar</button>
+    </p>
+    <div class="page-header">
+      <h1>Listings
+        <small>Use sidebar to filter listings.</small>
+      </h1>
+    </div>
+    <div class="row">
+      <%= render 'listings_content' %>
+    </div><!--/row-->
+  </div><!--/.col-xs-12.col-sm-9-->
 
-	        <div class='form-group'>
-                <%= label_tag 'neighborhood_ids', 'Neighborhoods', class: 'control-label' %>
-                <%= text_field_tag 'neighborhood_ids', '' ,
-                                  { data: {pre: @neighborhoods_json }, class: 'form-control' } %>
-	        </div>
-
-	        <div class='form-group'>
-	            <%= label_tag 'beds', 'Beds:', class:"control-label" %>
-				<%= select_tag 'beds', options_from_collection_for_select(Bed.all, "id", "name", (params['beds'] if params['beds'].present?)), prompt: "", class:"form-control" %>	
-	        </div>
-
-	        <div class='form-group'>
-	            <%= label_tag 'full_baths', 'Full baths:',  class:"control-label" %>
-	            <%= select_tag 'full_baths', options_for_select([1, 2, 3, 4], (params['full_baths'] if params['full_baths'].present?)), prompt: "", class: 'form-control' %>
-	        </div>
-
-	        <div class='form-group'>
-	            <%= label_tag 'half_baths', 'Half baths:',  class:"control-label" %>
-                <%= select_tag 'half_baths', options_for_select([1, 2, 3, 4], (params['half_baths'] if params['half_baths'].present?)), prompt: "", class: 'form-control' %>
-	        </div>
-
-          <div class='form-group'>
-            <%= label_tag 'agent_id', 'Agent:', class:"control-label" %>
-            <%= select_tag 'agent_id', options_from_collection_for_select(User.all, "id", "name", (params['agent_id'] if params['agent_id'].present?)), prompt: "", class:"form-control" %>
-          </div>
-
-
-
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :dishwasher, params['dishwasher'] %> Dishwasher
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :backyard, params['backyard'] %> Backyard
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :balcony, params['balcony'] %> Balcony
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :elevator, params['elevator'] %> Elevator
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :walk_up, params['walk_up'] %> Walk-up
-                </label>
-              </div>
-
-
-
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :laundry_in_building, params['laundry_in_building'] %> Laundry in building
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :laundry_in_unit, params['laundry_in_unit'] %> Laundry in unit
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :live_in_super, params['live_in_super'] %> Live-in super
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  <%= filter_check_box_tag :absentee_landlord, params['absentee_landlord'] %> Absentee Landlord
-                </label>
-              </div>
-
-
-
-
-
-	        <%= submit_tag 'Apply', class: 'btn btn-large btn-primary' %>
-        <% end %>
-		
-	</div>
-
-	<div class="col-xs-12 col-sm-9">		
-		<p class="pull-left visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle sidebar</button>
-        </p>
-        <div class="page-header">
-            <h1>Listings <small>Use sidebar to filter listings.</small></h1>
-        </div>
-		<div class="row">
-			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-		      <div class="btn-group" role="group" aria-label="First group">		      	
-		        <% params_for_list = params.clone %>
-		        <% params_for_list[:display] = "list" %>
-		        <a href="<%= url_for(params_for_list)%>" type="button" class="btn btn-default<%= ' active' if display_helper =='list' %>" role="button">List</a>
-
-		        <% params_for_thumb_list = params.clone %>
-		        <% params_for_thumb_list[:display] = "thumb_list" %>
-		        <a href="<%= url_for(params_for_thumb_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumb_list' %>" role="button">List with Tumbs</a>
-
-		        <% params_for_thumbs = params.clone %>
-		        <% params_for_thumbs[:display] = "thumbs" %>
-		        <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumbs' %>" role="button">Tumbs</a>
-		      </div>		      
-		    </div>
-
-			<% if display_helper =='thumbs' %>
-				<div class="row">
-				  <%= render @listings %>
-				</div>
-			<% else if display_helper =='thumb_list' %>
-				<div class="list-group">
-					<%= render @listings %>
-				</div>
-            <% else %>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                      <tr>
-                        <th><%= sortable_link "street_address" %></th>
-                        <th><%= sortable_link "bed.name", 'Beds' %></th>
-                        <th><%= sortable_link "price" %></th>
-                        <th><%= sortable_link "created_at" %></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        <%= render @listings %>
-                      </tbody>
-
-                    </table>
-            <% end %>
-			<% end %>
-
-			<%= will_paginate @listings %>
-		</div>
-	</div>
 </div>
