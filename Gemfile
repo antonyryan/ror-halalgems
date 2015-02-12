@@ -47,7 +47,7 @@ gem 'coffee-rails'
 gem 'jquery-rails', '3.0.4'
 gem 'jquery-ui-rails','~> 5.0.1'
 gem 'turbolinks', '2.5.3'
-#gem 'jquery-turbolinks'
+gem 'jquery-turbolinks','~> 2.1.0'
 gem 'jbuilder', '1.0.2'
 
 group :doc do
@@ -64,4 +64,5 @@ end
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'prawn'
+gem 'prawn-table', '~> 0.2.1'
 gem 'prawnto'

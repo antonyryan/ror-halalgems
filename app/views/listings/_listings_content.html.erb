@@ -14,6 +14,9 @@
       <% params_for_thumbs[:display] = "thumbs" %>
       <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumbs' %>" role="button">Tumbs</a>
     </div>
+    <% params_for_pdf = params.clone %>
+    <% params_for_pdf[:format] = "pdf" %>
+    <%= link_to "Download PDF", url_for(params_for_pdf), class: "btn btn-primary", type: 'button', role: "button" %>
   </div>
 
   <% if display_helper =='thumbs' %>

@@ -42,6 +42,13 @@ class ListingsController < ApplicationController
       @neighborhoods_json = Neighborhood.where(id: params['neighborhood_ids'].split(',')).map(&:attributes).to_json
     end
 
+    respond_to do |format|
+      format.html
+      format.pdf {
+        render :pdf => "index"
+      }
+    end
+
 		#if params[:display].present?
 		#	@display = params[:display]
 		#else
