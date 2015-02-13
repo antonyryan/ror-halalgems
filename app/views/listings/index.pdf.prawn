@@ -10,6 +10,7 @@ items = @listings.map do |listing|
 end
 items.unshift ['Street address', 'Neighborhood', 'Beds', "Price", 'Available date', 'Agent']
 
-pdf.table(items) do
+pdf.table(items, cell_style: {size: 10}) do
   row(0).background_color = "DDDDDD"
+  column(3..4).align = :right
 end
