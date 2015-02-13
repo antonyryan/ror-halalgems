@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209190029) do
+ActiveRecord::Schema.define(version: 20150213190849) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20150209190029) do
   create_table "cities", force: true do |t|
     t.string "name"
   end
+
+  create_table "history_records", force: true do |t|
+    t.string   "message"
+    t.integer  "listing_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "history_records", ["listing_id"], name: "index_history_records_on_listing_id"
 
   create_table "listing_neighborhoods", force: true do |t|
     t.integer "listing_id"

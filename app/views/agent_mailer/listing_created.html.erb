@@ -4,6 +4,6 @@
   <meta charset="utf-8">
 </head>
 <body>
-Listing <%= link_to @listing.street_address, listing_url(@listing.id, host: 'mighty-castle-9932.herokuapp.com') %> has been created.
+Listing <%= link_to @listing.full_address, listing_url(@listing.id, host: 'mighty-castle-9932.herokuapp.com') %> has been created.
 </body>
 </html>

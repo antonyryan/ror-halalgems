@@ -1,4 +1,5 @@
 HorowitzRealEstate::Application.routes.draw do
+  get "history_record/index"
   get "city/index"
   get "neighborhoods/index"
   resources :users
@@ -9,6 +10,7 @@ HorowitzRealEstate::Application.routes.draw do
     end
   end
   resources :neighborhoods
+  resources :history_records, only: [:index]
   root  'users#index' 
   match 'signin', to: 'sessions#new', via: 'get'
   match 'signout', to: 'sessions#destroy', via: 'delete'

@@ -23,6 +23,7 @@
         <!-- TODO: make post request via form -->
         <%= link_to "Copy listing", copy_listing_path(@listing), class: "btn btn-default", role: "button" %>
         <%= link_to "Delete listing", @listing, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default", role: "button" %>
+        <%= link_to "History", history_records_path(listing_id: @listing.id), class: "btn btn-default", role: "button" %>
       <% end %>
     <% end %>
   <%= link_to "Download Flyer", listing_path(@listing, :format => "pdf"), class: "btn btn-primary", role: "button" %>

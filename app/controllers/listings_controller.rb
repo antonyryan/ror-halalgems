@@ -84,6 +84,9 @@ end
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
       if old_status_id != @listing.status_id
+        history =  @listing.history_records.build
+        history.message = "Status changed from '#{Status.find(old_status_id).try(:name)}' to '#{@listing.status.name}' by #{current_user.name}"
+        history.save
 			  AgentMailer.listing_changed(@listing, Status.find(old_status_id).try(:name), @listing.status.name).deliver
       end
 			redirect_to @listing
