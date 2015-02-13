@@ -6,7 +6,98 @@
 
 $(document).ready ->
 	$('[data-toggle="offcanvas"]').click ->
-		$('.row-offcanvas').toggleClass('active') 
+		$('.row-offcanvas').toggleClass('active')
+
+#carousel
+$(document).ready ->
+  # This is the connector function.
+  # It connects one item from the navigation carousel to one item from the
+  # stage carousel.
+  # The default behaviour is, to connect items with the same index from both
+  # carousels. This might _not_ work with circular carousels!
+  connector = (itemNavigation, carouselStage) ->
+    return carouselStage.jcarousel('items').eq(itemNavigation.index());
+
+  $ ->
+    # Setup the carousels. Adjust the options for both carousels here.
+    carouselStage      = $('.carousel-stage').jcarousel()
+    carouselNavigation = $('.carousel-navigation').jcarousel()
+
+    # We loop through the items of the navigation carousel and set it up
+    # as a control for an item from the stage carousel.
+    carouselNavigation.jcarousel('items').each( ->
+      item = $(this)
+
+      # This is where we actually connect to items.
+      target = connector(item, carouselStage);
+
+      item
+      .on 'jcarouselcontrol:active', ->
+          carouselNavigation.jcarousel('scrollIntoView', this)
+          item.addClass('active')
+          return
+      .on 'jcarouselcontrol:inactive', ->
+          item.removeClass('active')
+          return
+      .jcarouselControl
+          target: target,
+          carousel: carouselStage
+      return
+    )
+    # Setup controls for the stage carousel
+    $('.prev-stage')
+    .on 'jcarouselcontrol:inactive', ->
+        $(this).addClass('inactive')
+        return
+
+    .on 'jcarouselcontrol:active', ->
+        $(this).removeClass('inactive')
+        return
+
+    .jcarouselControl
+        target: '-=1'
+
+
+    $('.next-stage')
+    .on 'jcarouselcontrol:inactive', ->
+        $(this).addClass('inactive')
+        return
+
+    .on 'jcarouselcontrol:active', ->
+        $(this).removeClass('inactive')
+        return
+
+    .jcarouselControl
+        target: '+=1'
+
+
+    # Setup controls for the navigation carousel
+    $('.prev-navigation')
+    .on 'jcarouselcontrol:inactive', ->
+        $(this).addClass('inactive')
+        return
+
+    .on 'jcarouselcontrol:active', ->
+        $(this).removeClass('inactive');
+        return
+
+    .jcarouselControl
+        target: '-=1'
+
+
+    $('.next-navigation')
+    .on 'jcarouselcontrol:inactive', ->
+        $(this).addClass('inactive')
+        return
+
+    .on 'jcarouselcontrol:active', ->
+        $(this).removeClass('inactive')
+        return
+
+    .jcarouselControl
+        target: '+=1'
+    return
+  return
 
 split = (val) ->
   val.split( /,\s*/ )
@@ -58,17 +149,17 @@ codeAddress = ->
     return
   return
 
-$(document).ready -> 
-	$(".cloudinary-fileupload").fileupload          
-		dropZone: "#direct_upload",		
-		start: (e) ->			
-			#percents = 0			
-			#$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);  
+$(document).ready ->
+	$(".cloudinary-fileupload").fileupload
+		dropZone: "#direct_upload",
+		start: (e) ->
+			#percents = 0
+			#$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);
 			#$('.sr-only').text(percents+'% Complete')
 			return
 		progress: (e, data) ->
-			#percents = Math.round((data.loaded * 100.0) / data.total)			
-			#$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);  
+			#percents = Math.round((data.loaded * 100.0) / data.total)
+			#$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);
 			#$('.sr-only').text(percents+'% Complete')
 			return
 		fail: (e, data) ->
@@ -77,19 +168,19 @@ $(document).ready ->
 $(document).ready ->
 	$(".cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", (e, data) ->
 		row = $('#photos')
-		fields = $('.add_fields').data('fields')		
+		fields = $('.add_fields').data('fields')
 		time = new Date().getTime()
 		regexp = new RegExp($('.add_fields').data('id'), 'g')
 
 		row.append(fields.replace(regexp, time))
-		
+
 
 		$.cloudinary.image(data.result.public_id, options).prependTo(row.find(".thumbnail:last"))
 		preview = $(".preview").html('');
-		options = 
-			format: data.result.format 
-			width: 940 
-			height: 626 
+		options =
+			format: data.result.format
+			width: 940
+			height: 626
 			crop: "fit"
 		$.cloudinary.image(data.result.public_id, options).appendTo(preview)
 		upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
@@ -98,7 +189,7 @@ $(document).ready ->
 		return)
 	return
 
-view_upload_details = (upload) ->	
+view_upload_details = (upload) ->
 	rows = [];
 	$.each(upload, (k,v) ->
 		rows.push($("<tr>").append($("<td>").text(k)).append($("<td>").text(JSON.stringify(v))))
@@ -112,94 +203,3 @@ jQuery ->
 		$(this).prev('input[type=hidden]').val('1')
 		$(this).closest('fieldset').hide()
 		event.preventDefault()
-
-#carousel
-jQuery ->
-  # This is the connector function.
-  # It connects one item from the navigation carousel to one item from the
-  # stage carousel.
-  # The default behaviour is, to connect items with the same index from both
-  # carousels. This might _not_ work with circular carousels!
-  connector = (itemNavigation, carouselStage) ->
-    return carouselStage.jcarousel('items').eq(itemNavigation.index());
-
-  $ ->
-    # Setup the carousels. Adjust the options for both carousels here.
-    carouselStage      = $('.carousel-stage').jcarousel()
-    carouselNavigation = $('.carousel-navigation').jcarousel()
-
-    # We loop through the items of the navigation carousel and set it up
-    # as a control for an item from the stage carousel.
-    carouselNavigation.jcarousel('items').each( ->
-      item = $(this)
-
-      # This is where we actually connect to items.
-      target = connector(item, carouselStage);
-
-      item
-        .on 'jcarouselcontrol:active', ->
-          carouselNavigation.jcarousel('scrollIntoView', this)
-          item.addClass('active')
-          return
-        .on 'jcarouselcontrol:inactive', ->
-          item.removeClass('active')
-          return
-        .jcarouselControl
-          target: target,
-          carousel: carouselStage
-      return
-    )
-    # Setup controls for the stage carousel
-    $('.prev-stage')
-      .on 'jcarouselcontrol:inactive', ->
-        $(this).addClass('inactive')
-        return
-
-      .on 'jcarouselcontrol:active', ->
-        $(this).removeClass('inactive')
-        return
-
-      .jcarouselControl
-        target: '-=1'
-
-
-    $('.next-stage')
-      .on 'jcarouselcontrol:inactive', ->
-        $(this).addClass('inactive')
-        return
-
-      .on 'jcarouselcontrol:active', ->
-        $(this).removeClass('inactive')
-        return
-
-      .jcarouselControl
-        target: '+=1'
-
-
-    # Setup controls for the navigation carousel
-    $('.prev-navigation')
-      .on 'jcarouselcontrol:inactive', ->
-        $(this).addClass('inactive')
-        return
-
-      .on 'jcarouselcontrol:active', ->
-        $(this).removeClass('inactive');
-        return
-
-      .jcarouselControl
-        target: '-=1'
-
-
-    $('.next-navigation')
-      .on 'jcarouselcontrol:inactive', ->
-        $(this).addClass('inactive')
-        return
-
-      .on 'jcarouselcontrol:active', ->
-        $(this).removeClass('inactive')
-        return
-
-      .jcarouselControl
-        target: '+=1'
-    return
-  return
