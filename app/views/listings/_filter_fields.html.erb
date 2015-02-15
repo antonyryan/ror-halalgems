@@ -2,10 +2,15 @@
 <%= hidden_field_tag 'display', display_helper %>
 <%= hidden_field_tag 'sort', sort_column %>
 <%= hidden_field_tag 'direction', sort_direction %>
+<div class="form-group">
+  <label>
+    <%= filter_check_box_tag :hidden_listings , params['hidden_listings'] %> Hidden listings
+  </label>
+</div>
 <div class='form-group'>
   <%= label_tag 'Price:', nil, class: "control-label" %>
-  <%= text_field_tag 'price_from', (params['price_from'] if params['price_from'].present?), class: "form-control", placeholder: 'from' %>
-  <%= text_field_tag 'price_to', (params['price_to'] if params['price_to'].present?), class: "form-control", placeholder: 'to' %>
+  <p><%= text_field_tag 'price_from', (params['price_from'] if params['price_from'].present?), class: "form-control", placeholder: 'from' %>
+  <p><%= text_field_tag 'price_to', (params['price_to'] if params['price_to'].present?), class: "form-control", placeholder: 'to' %>
 </div>
 
 <div class='form-group'>

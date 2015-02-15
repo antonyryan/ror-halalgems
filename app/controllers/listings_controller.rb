@@ -9,7 +9,13 @@ class ListingsController < ApplicationController
       parts = sort_column.split('.')
       @listings = Listing.includes(parts.first).order("#{parts.first.pluralize}.#{parts.last}" + " " + sort_direction)
     else
-      @listings = Listing.order(sort_column + " " + sort_direction)
+      @listings = Listing.order(sort_column + ' ' + sort_direction)
+    end
+
+    if params[:hidden_listings].present?
+      @listings = @listings.hidden_listings
+    else
+      @listings = @listings.available_listings
     end
 
     @listings = @listings.street_address_search(params[:street_address]) if params[:street_address].present?
