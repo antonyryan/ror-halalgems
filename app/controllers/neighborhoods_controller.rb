@@ -1,6 +1,6 @@
 class NeighborhoodsController < ApplicationController
   before_action :signed_in_user
-  before_action :admin_user
+  before_action :admin_user, only: [:create, :edit, :update, :destroy]
 
   def index
     respond_to do |format|
