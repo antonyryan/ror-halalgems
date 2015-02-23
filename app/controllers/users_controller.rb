@@ -9,7 +9,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @listingss = @user.listings.paginate(page: params[:page])
+
+    if params[:hidden_listings].present?
+      @listingss = @user.listings.hidden_listings.paginate(page: params[:page])
+    else
+      @listingss = @user.listings.available_listings.paginate(page: params[:page])
+    end
 
     sale_obj = ListingType.find_by_name('Sale')
 

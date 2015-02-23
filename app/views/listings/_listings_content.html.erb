@@ -17,6 +17,10 @@
     <% params_for_pdf = params.clone %>
     <% params_for_pdf[:format] = "pdf" %>
     <%= link_to "Download PDF", url_for(params_for_pdf), class: "btn btn-primary", type: 'button', role: "button" %>
+    <span class="pull-right">
+        <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role:'button', class: "btn btn-primary" %>
+        <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role:'button', class: "btn btn-primary" %>
+    </span>
   </div>
 
   <% if display_helper =='thumbs' %>
@@ -33,12 +37,14 @@
             <table class="table">
               <thead>
               <tr>
-                <th><%= sortable_link "street_address" %></th>
-                <th><%= sortable_link "neighborhood.name", 'Neighborhood' %></th>
-                <th><%= sortable_link "bed.name", 'Beds' %></th>
-                <th><%= sortable_link "price" %></th>
-                <th><%= sortable_link "available_date" %></th>
-                <th><%= sortable_link "user.name", 'Agent' %></th>
+                <th></th>
+                <th><%= sortable_link 'street_address' %></th>
+                <th><%= sortable_link 'unit_no', 'Unit' %></th>
+                <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>
+                <th><%= sortable_link 'bed.name', 'Beds' %></th>
+                <th><%= sortable_link 'price' %></th>
+                <th><%= sortable_link 'available_date' %></th>
+                <th><%= sortable_link 'user.name', 'Agent' %></th>
               </tr>
               </thead>
               <tbody>

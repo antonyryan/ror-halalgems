@@ -48,6 +48,9 @@ class ListingsController < ApplicationController
       @neighborhoods_json = Neighborhood.where(id: params['neighborhood_ids'].split(',')).map(&:attributes).to_json
     end
 
+    @sale_id = ListingType.find_by(name: 'Sale').id
+    @rental_id = ListingType.find_by(name: 'Rental').id
+
     respond_to do |format|
       format.html
       format.pdf {

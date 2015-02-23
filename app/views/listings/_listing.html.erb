@@ -34,7 +34,14 @@
 	</li>
     <% else %>
         <tr>
+          <td>
+            <% if listing.property_photos.count > 0 %>
+                <% photo = listing.property_photos.first %>
+                <%= image_tag(photo.photo_url_url(:thumb), width: 30, :height => 30) %>
+            <% end %>
+          </td>
           <td><%=link_to listing.street_address, listing %></td>
+          <td><%= listing.unit_no %></td>
           <td><%= listing.neighborhood.try :name %></td>
           <td><%= listing.bed.try :name %></td>
           <td><%= number_to_currency(listing.price) %></td>
