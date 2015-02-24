@@ -8,7 +8,7 @@
 				<%= image_tag('no_photo_small.png', style: "height:124px;") %>
 			<% end %>			
 			<div class="caption">
-              <%= link_to listing.full_address, listing %>
+              <%= link_to listing.full_address, listing -%> <%= "Unit: #{listing.unit_no}" unless listing.unit_no.empty? -%>
               <p><%= listing.bed.try :name %> | Baths: <%= listing.full_baths_no %> | <%= number_to_currency(listing.price) %></p>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
                 </div>
             <% end %>
             <div class="info">
-                <h3 class="address"><%= link_to listing.full_address, listing %></h3>
+                <h3 class="address"><%= link_to listing.full_address, listing %> <%= "Unit: #{listing.unit_no}" unless listing.unit_no.empty? -%></h3>
                 <h4 class="price"><%= listing.bed.try :name %> | Baths: <%= listing.full_baths_no %> | <%= number_to_currency(listing.price) %></h4>
             </div>
 		</div>
