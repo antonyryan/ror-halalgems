@@ -110,8 +110,17 @@
                 <%= f.select :half_baths_no, [1, 2, 3, 4], {include_blank: true}, {class: 'form-control'} %>
               </div>
           </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:description].blank? %>">
+          <%= f.label :description, class: 'control-label' %>
+          <%= f.text_area :description,  {rows: 5, class: 'form-control'} %>
         </div>
       </div>
+    </div>
+  </div>
 
 </div>
 
