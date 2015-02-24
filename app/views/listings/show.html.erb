@@ -36,6 +36,14 @@
       <%= mail_to @listing.user.email, 'Contact agent', class: 'btn btn-xs btn-primary', role: 'button'%>
       </h3>
   </div>
+
+  <% unless @listing.landlord.nil? %>
+      <div class="col-md-12">
+        <h3>
+          <span class="property_type" >Landlord:</span> <%= @listing.landlord %>
+        </h3>
+      </div>
+  <% end %>
 </div>
 
 
