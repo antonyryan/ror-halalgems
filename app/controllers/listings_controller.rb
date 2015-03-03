@@ -41,7 +41,7 @@ class ListingsController < ApplicationController
     @listings = @listings.live_in_super_filter(params[:live_in_super]) if params[:live_in_super].present?
     @listings = @listings.absentee_landlord_filter(params[:absentee_landlord]) if params[:absentee_landlord].present?
 
-    @listings = @listings.paginate(page: params[:page])
+
 
     @neighborhoods_json = ''
     if params['neighborhood_ids'].present?
@@ -52,7 +52,9 @@ class ListingsController < ApplicationController
     @rental_id = ListingType.find_by(name: 'Rental').id
 
     respond_to do |format|
-      format.html
+      format.html{
+        @listings = @listings.paginate(page: params[:page])
+      }
       format.pdf {
         render :pdf => "index"
       }
@@ -89,7 +91,6 @@ end
 		#   @listing.main_photo = preloaded.identifier
 		# end
 		old_status_id = @listing.status_id
-    puts "OLD STAUSID = #{old_status_id}"
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Listing updated"
       if old_status_id != @listing.status_id
@@ -135,6 +136,7 @@ end
 
   def destroy
     @listing = Listing.find(params[:id])
+
     @listing.destroy
     flash[:success] = "Listing deleted."
     redirect_to listings_url

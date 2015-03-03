@@ -158,15 +158,17 @@ $(document).ready ->
 			#$('.sr-only').text(percents+'% Complete')
 			return
 		progress: (e, data) ->
-			#percents = Math.round((data.loaded * 100.0) / data.total)
-			#$('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);
+			if data.context
+				#data.context.find('.progress').progressbar('option', 'value',parseInt(data.loaded / data.total * 100, 10))
+				percents =parseInt(data.loaded / data.total * 100, 10)
+				data.context.find('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);
 			#$('.sr-only').text(percents+'% Complete')
 			return
 		fail: (e, data) ->
 			$(".status").text("Upload failed")
 
 $(document).ready ->
-	$(".cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", (e, data) ->
+	$(".cloudinary-fileupload").off("fileuploadsend").on("fileuploadsend", (e, data) ->
 		row = $('#photos')
 		fields = $('.add_fields').data('fields')
 		time = new Date().getTime()
@@ -174,15 +176,29 @@ $(document).ready ->
 
 		row.append(fields.replace(regexp, time))
 
+		progressDiv = $('<div/>').addClass('progress').append($('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"/>'))
+		progressDiv.data('id', time)
+		data.context=progressDiv.prependTo(row.find(".thumbnail:last"))
+	)
+$(document).ready ->
+	$(".cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", (e, data) ->
+		row = $('#photos')
+#		fields = $('.add_fields').data('fields')
+		time = data.context.data('id')
+#		regexp = new RegExp($('.add_fields').data('id'), 'g')
+#
+#		row.append(fields.replace(regexp, time))
 
-		$.cloudinary.image(data.result.public_id, options).prependTo(row.find(".thumbnail:last"))
-		preview = $(".preview").html('');
+		data.context.find('img').remove()
+		$.cloudinary.image(data.result.public_id, options).prependTo(data.context.parent())
+		data.context.remove()
+#		preview = $(".preview").html('');
 		options =
 			format: data.result.format
 			width: 940
 			height: 626
 			crop: "fit"
-		$.cloudinary.image(data.result.public_id, options).appendTo(preview)
+#		$.cloudinary.image(data.result.public_id, options).appendTo(preview)
 		upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
 		$('<input/>').attr({type: "hidden", name: 'listing[property_photos_attributes]['+time+'][photo_url]'}).val(upload_info).appendTo(data.form)
 		#view_upload_details(data.result)

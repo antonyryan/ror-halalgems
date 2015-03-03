@@ -6,7 +6,7 @@ class Listing < ActiveRecord::Base
 	belongs_to :neighborhood
 	belongs_to :property_type
   belongs_to :city
-	has_many :property_photos
+	has_many :property_photos, dependent: :destroy
   has_many :history_records
 	accepts_nested_attributes_for :property_photos, allow_destroy: true
 
