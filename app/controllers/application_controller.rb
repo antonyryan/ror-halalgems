@@ -4,9 +4,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
-  helper_method :display_helper
+  helper_method :display_helper, :sort_column, :sort_direction
 
   def display_helper
-    params[:display] || 'thumb_list'
+    params[:display] || 'list'
+  end
+
+  def sort_column
+    #Listing.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+    params[:sort] || 'created_at'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 end

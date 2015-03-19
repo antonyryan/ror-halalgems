@@ -10,10 +10,18 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    if params[:hidden_listings].present?
-      @listingss = @user.listings.hidden_listings.paginate(page: params[:page])
+    if sort_column.include? '.'
+      parts = sort_column.split('.')
+      @listingss = @user.listings.includes(parts.first).order("#{parts.first.pluralize}.#{parts.last}" + ' ' + sort_direction)
     else
-      @listingss = @user.listings.available_listings.paginate(page: params[:page])
+      @listingss = @user.listings.order(sort_column + ' ' + sort_direction)
+    end
+
+    #todo: sorting breaks hidden_listings param
+    if params[:hidden_listings].present?
+      @listingss = @listingss.hidden_listings.paginate(page: params[:page])
+    else
+      @listingss = @listingss.available_listings.paginate(page: params[:page])
     end
 
     sale_obj = ListingType.find_by_name('Sale')

@@ -10,6 +10,8 @@ class Listing < ActiveRecord::Base
   has_many :history_records
 	accepts_nested_attributes_for :property_photos, allow_destroy: true
 
+  before_save :set_status
+
 	validates :street_address, presence: true
 	validates :price, allow_blank: true, numericality: { greater_than: 0 }
 
@@ -119,6 +121,13 @@ class Listing < ActiveRecord::Base
 
     u.join ', '
   end
+
+  private
+    def set_status
+      if self.price_changed?
+        self.status = Status.where(name: 'Price change', is_for_rentals: self.listing_type_id==0 ).first
+      end
+    end
 
 
 end

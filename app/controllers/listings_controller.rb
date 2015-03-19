@@ -2,12 +2,12 @@ class ListingsController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user, only: [:edit, :update, :destroy, :copy]
 
-  helper_method :sort_column, :sort_direction
+  # helper_method :sort_column, :sort_direction
 
   def index
 		if sort_column.include? '.'
       parts = sort_column.split('.')
-      @listings = Listing.includes(parts.first).order("#{parts.first.pluralize}.#{parts.last}" + " " + sort_direction)
+      @listings = Listing.includes(parts.first).order("#{parts.first.pluralize}.#{parts.last}" + ' ' + sort_direction)
     else
       @listings = Listing.order(sort_column + ' ' + sort_direction)
     end
@@ -178,12 +178,5 @@ private
     redirect_to(root_url) unless current_user?(user) || current_user.admin?
   end
 
-  def sort_column
-    #Listing.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
-    params[:sort] || 'created_at'
-  end
 
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-  end
 end

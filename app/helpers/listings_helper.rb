@@ -16,6 +16,8 @@ module ListingsHelper
     check_box_tag name, (value unless value.blank?), (value != '0' unless value.blank?)
   end
 
+
+
   def sortable_link(column, title = nil)
     title ||= column.titleize
     direction = column == sort_column && sort_direction == 'asc' ? 'desc' : 'asc'

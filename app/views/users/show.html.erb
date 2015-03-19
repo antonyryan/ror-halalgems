@@ -1,24 +1,26 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-sm-4">    
+  <aside class="col-sm-4">
     <section>
-    	<%= image_tag(@user.avatar_url, width: 180, height: 220) %>    	
+      <%= image_tag(@user.avatar_url, width: 180, height: 220) %>
     </section>
     <section class="name">
       <p><span class="glyphicon glyphicon-user"></span> <%= @user.name %>
+
       <p><span class="glyphicon glyphicon-earphone"></span> <%= @user.phone %>
+
       <p><span class="glyphicon glyphicon-envelope"></span> <%= mail_to @user.email %>
     </section>
-    <section >
+    <section>
 
       <% if current_user.admin? %>
-        <%= button_to "edit", edit_user_path(@user), method: :get, class: "btn btn-primary pull-left" %>        
+          <%= button_to "edit", edit_user_path(@user), method: :get, class: "btn btn-primary pull-left" %>
       <% end %>
 
       <% if current_user.admin? && !current_user?(@user) %>
-        <%= button_to "delete", @user, method: :delete,
-                                  data: { confirm: "You sure?" }, class: "btn btn-danger pull-left" %>
-      <% end %>      
+          <%= button_to "delete", @user, method: :delete,
+                        data: {confirm: "You sure?"}, class: "btn btn-danger pull-left" %>
+      <% end %>
     </section>
   </aside>
   <div class="col-sm-8">
@@ -34,20 +36,36 @@
               <% params_[:hidden_listings] = 1 %>
               <a href="<%= url_for(params_) %>" class="btn btn-default" role="button">Unavailable listings</a>
           <% end %>
-          <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role:'button', class: "btn btn-primary" %>
-          <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role:'button', class: "btn btn-primary" %></span></h2>
+          <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role: 'button', class: "btn btn-primary" %>
+          <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role: 'button', class: "btn btn-primary" %></span>
+        </h2>
       </div>
-    
-    <div class="row">
-      <div class="col-sm-12">
-      <% if @user.listings.any? %>
-        <div class="list-group">
-          <%= render @listingss %>        
-          <%= will_paginate @listingss %>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <% if @user.listings.any? %>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th><%= sortable_link 'street_address' %></th>
+                    <th><%= sortable_link 'unit_no', 'Unit' %></th>
+                    <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>
+                    <th><%= sortable_link 'bed.name', 'Beds' %></th>
+                    <th><%= sortable_link 'price' %></th>
+                    <th><%= sortable_link 'available_date' %></th>
+                    <th><%= sortable_link 'user.name', 'Agent' %></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <%= render @listingss %>
+                  </tbody>
+                </table>
+              </div>
+          <% end %>
+          </div>
         </div>
-      <% end %>     
+      </div>
     </div>
   </div>
-  </div>
-</div>
-</div>
