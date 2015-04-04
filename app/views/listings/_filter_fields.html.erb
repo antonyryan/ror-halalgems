@@ -8,19 +8,19 @@
   </label>
 </div>
 <div class='form-group'>
-  <%= label_tag 'Price:', nil, class: "control-label" %>
-  <p><%= text_field_tag 'price_from', (params['price_from'] if params['price_from'].present?), class: "form-control", placeholder: 'from' %>
-  <p><%= text_field_tag 'price_to', (params['price_to'] if params['price_to'].present?), class: "form-control", placeholder: 'to' %>
+  <%= label_tag 'Price:', nil, class: 'control-label' %>
+  <p><%= text_field_tag 'price_from', (params['price_from'] if params['price_from'].present?), class: 'form-control', placeholder: 'from' %>
+  <p><%= text_field_tag 'price_to', (params['price_to'] if params['price_to'].present?), class: 'form-control', placeholder: 'to' %>
 </div>
 
 <div class='form-group'>
-  <%= label_tag 'listing_type_id', 'Type:', class: "control-label" %>
-  <%= select_tag 'listing_type_id', options_from_collection_for_select(ListingType.all, "id", "name", (params['listing_type_id'] if params['listing_type_id'].present?)), prompt: "", class: "form-control" %>
+  <%= label_tag 'listing_type_id', 'Type:', class: 'control-label' %>
+  <%= select_tag 'listing_type_id', options_from_collection_for_select(ListingType.all, 'id', 'name', (params['listing_type_id'] if params['listing_type_id'].present?)), prompt: '', class: 'form-control' %>
 </div>
 
 <div class='form-group'>
-  <%= label_tag 'property_type', 'Property Type:', class: "control-label" %>
-  <%= select_tag 'property_type', options_from_collection_for_select(PropertyType.all, "id", "name", (params['property_type'] if params['property_type'].present?)), prompt: "", class: "form-control" %>
+  <%= label_tag 'property_type', 'Property Type:', class: 'control-label' %>
+  <%= select_tag 'property_type', options_from_collection_for_select(PropertyType.all, 'id', 'name', (params['property_type'] if params['property_type'].present?)), prompt: '', class: 'form-control' %>
 </div>
 
 <div class='form-group'>
@@ -30,106 +30,134 @@
 </div>
 
 <div class='form-group'>
-  <%= label_tag 'beds', 'Beds:', class: "control-label" %>
-  <%= select_tag 'beds', options_from_collection_for_select(Bed.all, "id", "name", (params['beds'] if params['beds'].present?)), prompt: "", class: "form-control" %>
+  <%= label_tag 'beds', 'Beds:', class: 'control-label' %>
+  <%= select_tag 'beds', options_from_collection_for_select(Bed.all, 'id', 'name', (params['beds'] if params['beds'].present?)), prompt: '', class: 'form-control' %>
 </div>
 
 <div class='form-group'>
-  <%= label_tag 'full_baths', 'Full baths:', class: "control-label" %>
-  <%= select_tag 'full_baths', options_for_select([1, 2, 3, 4], (params['full_baths'] if params['full_baths'].present?)), prompt: "", class: 'form-control' %>
+  <%= label_tag 'full_baths', 'Full baths:', class: 'control-label' %>
+  <%= select_tag 'full_baths', options_for_select([1, 2, 3, 4], (params['full_baths'] if params['full_baths'].present?)), prompt: '', class: 'form-control' %>
 </div>
 
 <div class='form-group'>
-  <%= label_tag 'half_baths', 'Half baths:', class: "control-label" %>
-  <%= select_tag 'half_baths', options_for_select([1, 2, 3, 4], (params['half_baths'] if params['half_baths'].present?)), prompt: "", class: 'form-control' %>
+  <%= label_tag 'half_baths', 'Half baths:', class: 'control-label' %>
+  <%= select_tag 'half_baths', options_for_select([1, 2, 3, 4], (params['half_baths'] if params['half_baths'].present?)), prompt: '', class: 'form-control' %>
 </div>
 
 <div class='form-group'>
-  <%= label_tag 'agent_id', 'Agent:', class: "control-label" %>
-  <%= select_tag 'agent_id', options_from_collection_for_select(User.all, "id", "name", (params['agent_id'] if params['agent_id'].present?)), prompt: "", class: "form-control" %>
+  <%= label_tag 'agent_id', 'Agent:', class: 'control-label' %>
+  <%= select_tag 'agent_id', options_from_collection_for_select(User.all, 'id', 'name', (params['agent_id'] if params['agent_id'].present?)), prompt: '', class: 'form-control' %>
 </div>
 
 
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :dishwasher, params['dishwasher'] %> Dishwasher
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :backyard, params['backyard'] %> Backyard
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :balcony, params['balcony'] %> Balcony
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :elevator, params['elevator'] %> Elevator
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :walk_up, params['walk_up'] %> Walk-up
-  </label>
-</div>
+<div class="panel panel-default">
+  <div class="panel-heading">Features</div>
+  <div class="panel-body">
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :dishwasher, params['dishwasher'] %> Dishwasher
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :backyard, params['backyard'] %> Backyard
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :balcony, params['balcony'] %> Balcony
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :elevator, params['elevator'] %> Elevator
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :walk_up, params['walk_up'] %> Walk-up
+      </label>
+    </div>
 
 
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :laundry_in_building, params['laundry_in_building'] %> Laundry in building
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :laundry_in_unit, params['laundry_in_unit'] %> Laundry in unit
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :live_in_super, params['live_in_super'] %> Live-in super
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :absentee_landlord, params['absentee_landlord'] %> Absentee Landlord
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :storage_available, params['storage_available'] %> Storage available
-  </label>
-</div>
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :parking_available, params['parking_available'] %> Parking available
-  </label>
-</div>
-
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :no_pets, params['no_pets'] %> No pets
-  </label>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :laundry_in_building, params['laundry_in_building'] %> Laundry in building
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :laundry_in_unit, params['laundry_in_unit'] %> Laundry in unit
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :live_in_super, params['live_in_super'] %> Live-in super
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :absentee_landlord, params['absentee_landlord'] %> Absentee Landlord
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :storage_available, params['storage_available'] %> Storage available
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :parking_available, params['parking_available'] %> Parking available
+      </label>
+    </div>
+  </div>
 </div>
 
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :cats, params['cats'] %> Cats
-  </label>
+<div class="panel panel-default">
+  <div class="panel-heading">Pets</div>
+  <div class="panel-body">
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :no_pets, params['no_pets'] %> No pets
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :cats, params['cats'] %> Cats
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :dogs, params['dogs'] %> Dogs
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <%= filter_check_box_tag :approved_pets_only, params['approved_pets_only'] %> Approved pets only
+      </label>
+    </div>
+  </div>
 </div>
 
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :dogs, params['dogs'] %> Dogs
-  </label>
-</div>
-
-<div class="form-group">
-  <label>
-    <%= filter_check_box_tag :approved_pets_only, params['approved_pets_only'] %> Approved pets only
-  </label>
+<div class="panel panel-default">
+  <div class="panel-heading">Utilities</div>
+  <div class="panel-body">
+    <div class="form-group">
+      <label>    <%= filter_check_box_tag :heat, params['heat'] %> Heat and hot water </label>
+    </div>
+    <div class="form-group">
+      <label>    <%= filter_check_box_tag :gas, params['gas'] %> Gas </label>
+    </div>
+    <div class="form-group">
+      <label>    <%= filter_check_box_tag :all_utilities, params['all_utilities'] %> All </label>
+    </div>
+    <div class="form-group">
+      <label>    <%= filter_check_box_tag :none, params['none'] %> None </label>
+    </div>
+  </div>
 </div>
 
 <%= submit_tag 'Apply', class: 'btn btn-large btn-primary' %>

@@ -61,6 +61,10 @@ class Listing < ActiveRecord::Base
   scope :dogs_filter, -> (dogs) { where dogs: dogs != '0' }
   scope :approved_pets_only_filter, -> (approved_pets_only) { where approved_pets_only: approved_pets_only != '0' }
 
+  scope :heat_filter, -> (heat) { where heat_and_hot_water: heat != '0' }
+  scope :gas_filter, -> (gas) { where gas: gas != '0' }
+  scope :all_filter, -> (all_utilities) { where all_utilities: all_utilities != '0' }
+  scope :none_filter, -> (none) { where none: none != '0' }
 
 	mount_uploader :main_photo, ListingPhotoUploader
 

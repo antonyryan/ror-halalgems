@@ -48,7 +48,10 @@ class ListingsController < ApplicationController
     @listings = @listings.dogs_filter(params[:dogs]) if params[:dogs].present?
     @listings = @listings.approved_pets_only_filter(params[:approved_pets_only]) if params[:approved_pets_only].present?
 
-
+    @listings = @listings.heat_filter(params[:heat]) if params[:heat].present?
+    @listings = @listings.gas_filter(params[:gas]) if params[:gas].present?
+    @listings = @listings.all_filter(params[:all_utilities]) if params[:all_utilities].present?
+    @listings = @listings.none_filter(params[:none]) if params[:none].present?
 
     @neighborhoods_json = ''
     if params['neighborhood_ids'].present?
