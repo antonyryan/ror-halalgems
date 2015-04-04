@@ -97,4 +97,29 @@
     <%= filter_check_box_tag :absentee_landlord, params['absentee_landlord'] %> Absentee Landlord
   </label>
 </div>
+
+<div class="form-group">
+  <label>
+    <%= filter_check_box_tag :no_pets, params['no_pets'] %> No pets
+  </label>
+</div>
+
+<div class="form-group">
+  <label>
+    <%= filter_check_box_tag :cats, params['cats'] %> Cats
+  </label>
+</div>
+
+<div class="form-group">
+  <label>
+    <%= filter_check_box_tag :dogs, params['dogs'] %> Dogs
+  </label>
+</div>
+
+<div class="form-group">
+  <label>
+    <%= filter_check_box_tag :approved_pets_only, params['approved_pets_only'] %> Approved pets only
+  </label>
+</div>
+
 <%= submit_tag 'Apply', class: 'btn btn-large btn-primary' %>

@@ -41,6 +41,11 @@ class ListingsController < ApplicationController
     @listings = @listings.live_in_super_filter(params[:live_in_super]) if params[:live_in_super].present?
     @listings = @listings.absentee_landlord_filter(params[:absentee_landlord]) if params[:absentee_landlord].present?
 
+    @listings = @listings.no_pets_filter(params[:no_pets]) if params[:no_pets].present?
+    @listings = @listings.cats_filter(params[:cats]) if params[:cats].present?
+    @listings = @listings.dogs_filter(params[:dogs]) if params[:dogs].present?
+    @listings = @listings.approved_pets_only_filter(params[:approved_pets_only]) if params[:approved_pets_only].present?
+
 
 
     @neighborhoods_json = ''

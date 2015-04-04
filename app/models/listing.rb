@@ -54,6 +54,11 @@ class Listing < ActiveRecord::Base
   scope :live_in_super_filter, -> (live_in_super) { where live_in_super: live_in_super != '0' }
   scope :absentee_landlord_filter, -> (absentee_landlord) { where absentee_landlord: absentee_landlord != '0' }
 
+  scope :no_pets_filter, -> (no_pets) { where no_pets: no_pets != '0' }
+  scope :cats_filter, -> (cats) { where cats: cats != '0' }
+  scope :dogs_filter, -> (dogs) { where dogs: dogs != '0' }
+  scope :approved_pets_only_filter, -> (approved_pets_only) { where approved_pets_only: approved_pets_only != '0' }
+
 
 	mount_uploader :main_photo, ListingPhotoUploader
 
