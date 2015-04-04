@@ -53,6 +53,8 @@ class Listing < ActiveRecord::Base
   scope :laundry_in_unit_filter, -> (laundry_in_unit) { where laundry_in_unit: laundry_in_unit != '0' }
   scope :live_in_super_filter, -> (live_in_super) { where live_in_super: live_in_super != '0' }
   scope :absentee_landlord_filter, -> (absentee_landlord) { where absentee_landlord: absentee_landlord != '0' }
+  scope :parking_available_filter, -> (parking_available) { where parking_available: parking_available != '0' }
+  scope :storage_available_filter, -> (storage_available) { where storage_available: storage_available != '0' }
 
   scope :no_pets_filter, -> (no_pets) { where no_pets: no_pets != '0' }
   scope :cats_filter, -> (cats) { where cats: cats != '0' }
@@ -105,6 +107,8 @@ class Listing < ActiveRecord::Base
     f.push('live-in super') if self.live_in_super?
     f.push('absentee landlord') if self.absentee_landlord?
     f.push('walk up') if self.walk_up?
+    f.push('parking_available') if self.parking_available?
+    f.push('storage_available') if self.storage_available?
 
     f.join ', '
   end
