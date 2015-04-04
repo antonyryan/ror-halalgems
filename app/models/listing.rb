@@ -18,8 +18,10 @@ class Listing < ActiveRecord::Base
 	validates :full_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }
 	validates :half_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }
 
-  scope :hidden_listings, -> { where(status_id: Status.where(name: ['Rented', 'Lost', 'Closed'])) }
-  scope :available_listings, -> { where(status_id: Status.where.not(name: ['Rented', 'Lost', 'Closed'])) }
+  validates :available_date, presence: true
+
+  scope :hidden_listings, -> { where(status_id: Status.where(name: %w(Rented Lost Closed))) }
+  scope :available_listings, -> { where(status_id: Status.where.not(name: %w(Rented Lost Closed))) }
 
 	scope :street_address_search, -> (street_address) { where('street_address like ?', "%#{street_address}%")  }
 	scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id }
@@ -28,17 +30,17 @@ class Listing < ActiveRecord::Base
 	scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id.split(',') }
 
 	scope :type_filter, -> (property_type_id) { where property_type_id: property_type_id }
-	scope :min_price, -> (price) { where("price >= ?", price) }
-	scope :max_price, -> (price) { where("price <= ?", price) }
+	scope :min_price, -> (price) { where('price >= ?', price) }
+	scope :max_price, -> (price) { where('price <= ?', price) }
 
   scope :full_baths, -> (full_baths_no) { where(full_baths_no: full_baths_no) }
   scope :half_baths, -> (half_baths_no) { where(half_baths_no: half_baths_no) }
 
-	scope :min_full_baths, -> (full_baths_no) { where("full_baths_no >= ?", full_baths_no) }
-	scope :max_full_baths, -> (full_baths_no) { where("full_baths_no <= ?", full_baths_no) }
+	scope :min_full_baths, -> (full_baths_no) { where('full_baths_no >= ?', full_baths_no) }
+	scope :max_full_baths, -> (full_baths_no) { where('full_baths_no <= ?', full_baths_no) }
 
-	scope :min_half_baths, -> (half_baths_no) { where("half_baths_no >= ?", half_baths_no) }
-	scope :max_half_baths, -> (half_baths_no) { where("half_baths_no <= ?", half_baths_no) }
+	scope :min_half_baths, -> (half_baths_no) { where('half_baths_no >= ?', half_baths_no) }
+	scope :max_half_baths, -> (half_baths_no) { where('half_baths_no <= ?', half_baths_no) }
 
   scope :agent_filter, -> (agent_id) { where user_id: agent_id }
 
