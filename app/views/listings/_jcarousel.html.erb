@@ -3,7 +3,7 @@
   <div class="carousel carousel-stage">
     <ul>
       <% @listing.property_photos.each do |photo| %>
-          <li><%= image_tag(photo.photo_url_url, :width => '600px') %></li>
+          <li><%= image_tag(photo.photo_url_url, :height => '380px', width: '600px') %></li>
       <% end %>
     </ul>
   </div>
