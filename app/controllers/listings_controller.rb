@@ -175,7 +175,7 @@ private
     def listing_params
       params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
       	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name, :unit_no, :available_date,
-        :description, :landlord,
+        :description, :landlord, :renter,
         :dishwasher, :backyard, :balcony, :elevator,
         :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
         :storage_available, :parking_available,

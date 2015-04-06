@@ -2,24 +2,24 @@
   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group" role="group" aria-label="First group">
       <% params_for_list = params.clone %>
-      <% params_for_list[:display] = "list" %>
-      <a href="<%= url_for(params_for_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper =='list' %>" role="button">List</a>
+      <% params_for_list[:display] = 'list' %>
+      <a href="<%= url_for(params_for_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper =='list' %>" role='button'>List</a>
 
       <% params_for_thumb_list = params.clone %>
-      <% params_for_thumb_list[:display] = "thumb_list" %>
-      <a href="<%= url_for(params_for_thumb_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumb_list' %>" role="button">List
+      <% params_for_thumb_list[:display] = 'thumb_list' %>
+      <a href="<%= url_for(params_for_thumb_list) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumb_list' %>" role='button'>List
         with Tumbs</a>
 
       <% params_for_thumbs = params.clone %>
-      <% params_for_thumbs[:display] = "thumbs" %>
-      <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumbs' %>" role="button">Tumbs</a>
+      <% params_for_thumbs[:display] = 'thumbs' %>
+      <a href="<%= url_for(params_for_thumbs) %>" type="button" class="btn btn-default<%= ' active' if display_helper=='thumbs' %>" role='button'>Tumbs</a>
     </div>
     <% params_for_pdf = params.clone %>
-    <% params_for_pdf[:format] = "pdf" %>
-    <%= link_to "Download PDF", url_for(params_for_pdf), class: "btn btn-primary", type: 'button', role: "button" %>
-    <span class="pull-right">
-        <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role:'button', class: "btn btn-primary" %>
-        <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role:'button', class: "btn btn-primary" %>
+    <% params_for_pdf[:format] = 'pdf' %>
+    <%= link_to 'Download PDF', url_for(params_for_pdf), class: 'btn btn-primary', type: 'button', role: 'button' %>
+    <span class='pull-right'>
+        <%= link_to 'Create rental', new_listing_path(listing_type_id: @rental_id), role:'button', class: 'btn btn-primary' %>
+        <%= link_to 'Create sale', new_listing_path(listing_type_id: @sale_id), role:'button', class: 'btn btn-primary' %>
     </span>
   </div>
 
