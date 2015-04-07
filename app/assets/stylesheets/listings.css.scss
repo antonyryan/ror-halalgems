@@ -120,6 +120,7 @@ h4.price{
   width: 620px;
   margin: 20px auto;
   position: relative;
+  overflow: hidden;
 }
 
 /** Navigation container **/
@@ -147,6 +148,11 @@ h4.price{
 
 .connected-carousels .carousel li {
   float: left;
+}
+
+.connected-carousels .stage .carousel li {
+  float: left;
+  width: 600px;
 }
 
 /** Stage carousel specific styles **/
