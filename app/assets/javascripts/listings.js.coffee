@@ -10,6 +10,7 @@ $(document).ready ->
 		$('.row-offcanvas').toggleClass('active')
 
 #carousel
+#todo: Add responsiveness http://sorgalla.com/jcarousel/docs/cookbook/responsive-carousel.html
 $(document).ready ->
   # This is the connector function.
   # It connects one item from the navigation carousel to one item from the
