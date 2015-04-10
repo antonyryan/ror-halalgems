@@ -117,7 +117,6 @@ h4.price{
 /** Stage container **/
 
 .connected-carousels .stage {
-  width: 620px;
   margin: 20px auto;
   position: relative;
 }
@@ -125,7 +124,6 @@ h4.price{
 /** Navigation container **/
 
 .connected-carousels .navigation {
-  width: 600px;
   margin: 20px auto;
   position: relative;
 }
@@ -135,6 +133,12 @@ h4.price{
 .connected-carousels .carousel {
   overflow: hidden;
   position: relative;
+}
+
+.connected-carousels .carousel-stage img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .connected-carousels .carousel ul {
@@ -151,7 +155,7 @@ h4.price{
 
 .connected-carousels .stage .carousel li {
   float: left;
-  width: 600px;
+  height: 100%;
 }
 
 /** Stage carousel specific styles **/
@@ -170,8 +174,6 @@ h4.price{
 /** Navigation carousel specific styles **/
 
 .connected-carousels .carousel-navigation {
-  /*height: 60px;
-  width: 240px;*/
   background: #fff;
   border: 10px solid #fff;
   -webkit-border-radius: 5px;

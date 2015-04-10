@@ -22,7 +22,15 @@ $(document).ready ->
 
   $ ->
     # Setup the carousels. Adjust the options for both carousels here.
-    carouselStage      = $('.carousel-stage').jcarousel()
+    carouselStage      = $('.carousel-stage')
+      .on 'jcarousel:create jcarousel:reload', ->
+        element = $(this)
+        width = element.innerWidth()
+        height = element.innerHeight()
+        element.jcarousel('items').css('width', width + 'px')
+        element.jcarousel('items').css('height', height + 'px')
+        return
+      .jcarousel()
     carouselNavigation = $('.carousel-navigation').jcarousel()
 
     # We loop through the items of the navigation carousel and set it up
