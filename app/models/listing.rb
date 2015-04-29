@@ -19,6 +19,7 @@ class Listing < ActiveRecord::Base
 	validates :half_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }
 
   validates :available_date, presence: true
+  validates :landlord, presence: true
 
   scope :hidden_listings, -> { where(status_id: Status.where(name: %w(Rented Lost Closed))) }
   scope :available_listings, -> { where(status_id: Status.where.not(name: %w(Rented Lost Closed))) }

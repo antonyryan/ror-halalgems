@@ -116,10 +116,8 @@
       </div>
       <div class="col-md-4">
         <div class="form-group<%= ' has-error' unless @listing.errors[:landlord].blank? %>">
-          <% if @listing.status.try(:name) == 'Rented' %>
               <%= f.label :landlord, class: 'control-label' %>
               <%= f.text_field :landlord, class: 'form-control' %>
-          <% end %>
         </div>
       </div>
       <div class="col-md-4">
