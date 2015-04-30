@@ -18,10 +18,17 @@ class UsersController < ApplicationController
     end
 
     #todo: sorting breaks hidden_listings param
-    if params[:hidden_listings].present?
-      @listingss = @listingss.hidden_listings.paginate(page: params[:page])
+    #todo: code dupl with listings_controller.rb
+    if params[:status].present?
+      if params[:status] == 'Active'
+        @listingss = @listingss.available_listings
+      elsif params[:status] == 'Unavailable'
+        @listingss = @listingss.hidden_listings
+      elsif params[:status] == 'Pending'
+        @listingss = @listingss.pending_listings
+      end
     else
-      @listingss = @listingss.available_listings.paginate(page: params[:page])
+      @listingss = @listingss.available_listings
     end
 
     sale_obj = ListingType.find_by_name('Sale')

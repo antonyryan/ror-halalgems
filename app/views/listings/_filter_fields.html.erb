@@ -3,9 +3,8 @@
 <%= hidden_field_tag 'sort', sort_column %>
 <%= hidden_field_tag 'direction', sort_direction %>
 <div class="form-group">
-  <label>
-    <%= filter_check_box_tag :hidden_listings , params['hidden_listings'] %> Unavailable listings
-  </label>
+  <label>Status</label>
+  <%= select_tag 'status', options_for_select(['Active', 'Pending', 'Unavailable'], (params['status'] if params['status'].present?)), class: 'form-control'  %>
 </div>
 <div class='form-group'>
   <%= label_tag 'Price:', nil, class: 'control-label' %>

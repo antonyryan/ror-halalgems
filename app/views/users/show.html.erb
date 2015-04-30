@@ -28,16 +28,20 @@
       <div class="col-sm-12">
         <h2>Listings
         <span class="pull-right">
-          <% params_ = params.clone %>
-          <% if params[:hidden_listings].present? %>
-              <% params_.delete(:hidden_listings) %>
-              <a href="<%= url_for(params_) %>" class="btn btn-default active" role="button">Unavailable listings</a>
-          <% else %>
-              <% params_[:hidden_listings] = 1 %>
-              <a href="<%= url_for(params_) %>" class="btn btn-default" role="button">Unavailable listings</a>
-          <% end %>
-          <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role: 'button', class: "btn btn-primary" %>
-          <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role: 'button', class: "btn btn-primary" %></span>
+          <%=  form_tag({}, :method => :get, role: 'form', class: 'form-inline') do -%>
+            <div class="form-group">
+              <%= select_tag 'status',
+                           options_for_select(%w(Active Pending Unavailable),
+                                              (params['status'] if params['status'].present?)),
+                           class: 'form-control', onchange: 'this.form.submit();'  %>
+            </div>
+
+
+            <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role: 'button', class: "btn btn-primary" %>
+             <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role: 'button', class: "btn btn-primary" %>
+              <% end %>
+              </span>
+
         </h2>
       </div>
 

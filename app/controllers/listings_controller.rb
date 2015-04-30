@@ -12,8 +12,14 @@ class ListingsController < ApplicationController
       @listings = Listing.order(sort_column + ' ' + sort_direction)
     end
 
-    if params[:hidden_listings].present?
-      @listings = @listings.hidden_listings
+    if params[:status].present?
+      if params[:status] == 'Active'
+        @listings = @listings.available_listings
+      elsif params[:status] == 'Unavailable'
+        @listings = @listings.hidden_listings
+      elsif params[:status] == 'Pending'
+        @listings = @listings.pending_listings
+      end
     else
       @listings = @listings.available_listings
     end

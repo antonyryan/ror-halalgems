@@ -21,8 +21,9 @@ class Listing < ActiveRecord::Base
   validates :available_date, presence: true
   validates :landlord, presence: true
 
-  scope :hidden_listings, -> { where(status_id: Status.where(name: %w(Rented Lost Closed))) }
-  scope :available_listings, -> { where(status_id: Status.where.not(name: %w(Rented Lost Closed))) }
+  scope :hidden_listings, -> { where(status_id: Status.where(name: ['Rented', 'Lost', 'Closed', 'Temporary off market'])) }
+  scope :available_listings, -> { where(status_id: Status.where.not(name: ['Rented', 'Lost', 'Closed', 'Temporary off market'])) }
+  scope :pending_listings, -> { where(status_id: Status.where(name: 'Deposit/Pending Application')) }
 
 	scope :street_address_search, -> (street_address) { where('street_address like ?', "%#{street_address}%")  }
 	scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id }
