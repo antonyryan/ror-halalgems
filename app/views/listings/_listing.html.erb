@@ -46,6 +46,7 @@
           <td><%= listing.bed.try :name %></td>
           <td><%= number_to_currency(listing.price) %></td>
           <td><%= listing.available_date %></td>
+          <td><%= listing.status.try :name %></td>
           <td><%= listing.user.try :name %></td>
         </tr>
     <% end %>
