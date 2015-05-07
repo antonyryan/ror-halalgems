@@ -34,25 +34,28 @@
           </div>
       <% else %>
           <div class="table-responsive">
-            <table class="table">
-              <thead>
-              <tr>
-                <th></th>
-                <th><%= sortable_link 'street_address' %></th>
-                <th><%= sortable_link 'unit_no', 'Unit' %></th>
-                <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>
-                <th><%= sortable_link 'bed.name', 'Beds' %></th>
-                <th><%= sortable_link 'price' %></th>
-                <th><%= sortable_link 'available_date' %></th>
-                <th><%= sortable_link 'status.name', 'Status' %></th>
-                <th><%= sortable_link 'user.name', 'Agent' %></th>
-              </tr>
-              </thead>
-              <tbody>
-              <%= render @listings %>
-              </tbody>
-
-            </table>
+            <%= form_tag create_email_listings_path do %>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th><%= sortable_link 'street_address' %></th>
+                    <th><%= sortable_link 'unit_no', 'Unit' %></th>
+                    <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>
+                    <th><%= sortable_link 'bed.name', 'Beds' %></th>
+                    <th><%= sortable_link 'price' %></th>
+                    <th><%= sortable_link 'available_date' %></th>
+                    <th><%= sortable_link 'status.name', 'Status' %></th>
+                    <th><%= sortable_link 'user.name', 'Agent' %></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <%= render @listings %>
+                  </tbody>
+                </table>
+                <%= submit_tag 'Email client' %>
+            <% end %>
       <% end %>
   <% end %>
 

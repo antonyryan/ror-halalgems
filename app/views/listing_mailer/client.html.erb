@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<% @listings.each do |listing| %>
+    <h2><%= listing.neighborhood.name %></h2>
+    <% if listing.property_photos.count > 0 %>
+        <%= image_tag(listing.property_photos.first.photo_url_url, :height => '600px') %>
+    <% end %>
+    <p><%= listing.description %></p>
+    <ul>
+      <li><%= listing.bed.name %></li>
+      <li><%= listing.full_baths_no %> full baths</li>
+      <li><%= listing.half_baths_no %> half baths</li>
+      <% unless listing.features.empty? %>
+          <li>>Features: <%= listing.features %></li>
+      <% end %>
+      <% unless listing.pets.empty? %>
+          <li>Pets: <%= listing.pets %></li>
+      <% end %>
+      <% unless listing.utilities.empty? %>
+          <li>Utilities included: <%= listing.utilities %></li>
+      <% end %>
+    </ul>
+<% end %>
+<hr>
+Agent: <b><%= @agent.name %></b><br>
+Email: <%= @agent.email %><br>
+Phone: <%= @agent.phone %><br>
+</body>
+</html>

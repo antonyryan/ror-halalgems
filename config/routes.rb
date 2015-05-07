@@ -8,6 +8,10 @@ HorowitzRealEstate::Application.routes.draw do
     member do
       get :copy
     end
+    collection do
+      post :create_email
+      post :send_email
+    end
   end
   resources :neighborhoods
   resources :history_records, only: [:index]

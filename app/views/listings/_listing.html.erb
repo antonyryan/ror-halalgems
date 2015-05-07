@@ -34,6 +34,7 @@
 	</li>
     <% else %>
         <tr>
+          <td><%= check_box_tag 'listing_ids[]', listing.id %></td>
           <td>
             <% if listing.property_photos.count > 0 %>
                 <% photo = listing.property_photos.first %>

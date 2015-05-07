@@ -48,6 +48,7 @@
       <div class="row">
         <div class="col-sm-12">
           <% if @user.listings.any? %>
+              <%= form_tag create_email_listings_path do %>
               <div class="table-responsive">
                 <table class="table">
                   <thead>
@@ -67,6 +68,8 @@
                   </tbody>
                 </table>
               </div>
+              <%= submit_tag 'Email client' %>
+              <% end %>
           <% end %>
           </div>
         </div>

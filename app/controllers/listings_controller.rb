@@ -176,6 +176,32 @@ end
     end
   end
 
+  def create_email
+    if not params[:listing_ids].present?
+      flash[:error] = 'Selection is empty'
+      redirect_to listings_path
+    else
+      @listings = Listing.find(params[:listing_ids])
+    end
+  end
+
+  def send_email
+    if not params[:listing_ids].present?
+      flash[:error] = 'Selection is empty'
+      redirect_to listings_path
+    else
+      @listings = Listing.find(params[:listing_ids])
+      if params[:email].present?
+        ListingMailer.client(params[:email], @listings, current_user.id).deliver
+        flash[:notice] = 'Email sent'
+        redirect_to listings_path
+      else
+        flash[:error] = 'Email can''t be blank'
+        render 'create_email'
+      end
+    end
+  end
+
 private
 
     def listing_params
