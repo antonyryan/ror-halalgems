@@ -141,7 +141,7 @@ class Listing < ActiveRecord::Base
 
   private
     def set_status
-      if self.price_changed?
+      if self.price_changed? and not self.new_record?
         self.status = Status.where(name: 'Price change', is_for_rentals: self.listing_type_id==0 ).first
       end
     end
