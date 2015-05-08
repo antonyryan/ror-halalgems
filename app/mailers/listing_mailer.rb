@@ -4,6 +4,6 @@ class ListingMailer < ActionMailer::Base
   def client(email, listings, user_id)
     @listings = listings
     @agent = User.find user_id
-    mail(to: email, subject: 'Listings')
+    mail(to: email, subject: 'Listings', cc: @agent.email)
   end
 end
