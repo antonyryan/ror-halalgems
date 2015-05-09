@@ -6,6 +6,7 @@
 <body>
 <% @listings.each do |listing| %>
     <h2><%= listing.neighborhood.name %></h2>
+    <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= url_encode(listing.full_address) %>&zoom=16&size=400x400&sensor=false" />
     <% if listing.property_photos.count > 0 %>
         <%= image_tag(listing.property_photos.first.photo_url_url, :height => '600px') %>
     <% end %>
