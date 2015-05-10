@@ -1,4 +1,4 @@
-
+  <%= render 'email_listing_form' %>
   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group" role="group" aria-label="First group">
       <% params_for_list = params.clone %>
@@ -17,6 +17,7 @@
     <% params_for_pdf = params.clone %>
     <% params_for_pdf[:format] = 'pdf' %>
     <%= link_to 'Download PDF', url_for(params_for_pdf), class: 'btn btn-primary', type: 'button', role: 'button' %>
+    <%= button_tag('Email Client', data: { toggle: 'modal', target: '#myModal' }, class: 'btn btn-primary') %>
     <span class='pull-right'>
         <%= link_to 'Create rental', new_listing_path(listing_type_id: @rental_id), role:'button', class: 'btn btn-primary' %>
         <%= link_to 'Create sale', new_listing_path(listing_type_id: @sale_id), role:'button', class: 'btn btn-primary' %>
@@ -34,8 +35,7 @@
           </div>
       <% else %>
           <div class="table-responsive">
-            <%= form_tag create_email_listings_path do %>
-                <table class="table">
+                <table id="listings_from" class="table">
                   <thead>
                   <tr>
                     <th></th>
@@ -54,8 +54,6 @@
                   <%= render @listings %>
                   </tbody>
                 </table>
-                <%= submit_tag 'Email client' %>
-            <% end %>
       <% end %>
   <% end %>
 

@@ -229,3 +229,35 @@ jQuery ->
 		$(this).prev('input[type=hidden]').val('1')
 		$(this).closest('fieldset').hide()
 		event.preventDefault()
+
+jQuery ->
+	$('#myModal').on 'show.bs.modal', (event) ->
+		selected = []
+		c = 0
+		$('#listings_from input:checked').each ->
+      field = $('<input name="listing_ids[]" id="listing_ids_" type="hidden">').val($(this).val())
+      form = $('#send_email_form')
+      form.append(field)
+      c = c+1
+    if c == 0
+      event.preventDefault()
+      $("div.alert").remove();
+      alertErr = $('<div class="alert alert-error">Selection is empty</div>');
+      $('#mainContainer').prepend(alertErr)
+
+jQuery ->
+	$('#send').click ->
+		formValid = true
+		$('input').each ->
+			formGroup = $(this).parents('.form-group')
+			glyphicon = formGroup.find('.form-control-feedback')
+			if this.checkValidity()
+				formGroup.addClass('has-success').removeClass('has-error')
+				glyphicon.addClass('glyphicon-ok').removeClass('glyphicon-remove')
+			else
+				formGroup.addClass('has-error').removeClass('has-success')
+				glyphicon.addClass('glyphicon-remove').removeClass('glyphicon-ok')
+				formValid = false
+		if formValid
+			$('#myModal').modal('hide')
+			$('#send_email_form').submit()
