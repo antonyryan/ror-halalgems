@@ -193,7 +193,7 @@ end
       @listings = Listing.find(params[:listing_ids])
       if params[:email].present?
         ListingMailer.client(params[:email], @listings, current_user.id).deliver
-        flash[:notice] = 'Email sent'
+        flash[:success] = 'Email sent'
         redirect_to listings_path
       else
         flash[:error] = 'Email can''t be blank'

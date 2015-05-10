@@ -244,6 +244,9 @@ jQuery ->
       $("div.alert").remove();
       alertErr = $('<div class="alert alert-error">Selection is empty</div>');
       $('#mainContainer').prepend(alertErr)
+jQuery ->
+  $('#myModal').on 'shown.bs.modal', (event) ->
+    $('#email').focus()
 
 jQuery ->
 	$('#send').click ->
