@@ -48,6 +48,8 @@ class ListingsController < ApplicationController
     @listings = @listings.absentee_landlord_filter(params[:absentee_landlord]) if params[:absentee_landlord].present?
     @listings = @listings.parking_available_filter(params[:parking_available]) if params[:parking_available].present?
     @listings = @listings.storage_available_filter(params[:storage_available]) if params[:storage_available].present?
+    @listings = @listings.yard_filter(params[:yard]) if params[:yard].present?
+    @listings = @listings.patio_filter(params[:patio]) if params[:patio].present?
 
     @listings = @listings.no_pets_filter(params[:no_pets]) if params[:no_pets].present?
     @listings = @listings.cats_filter(params[:cats]) if params[:cats].present?
@@ -210,7 +212,7 @@ private
         :description, :landlord, :renter,
         :dishwasher, :backyard, :balcony, :elevator,
         :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
-        :storage_available, :parking_available,
+        :storage_available, :parking_available, :yard, :patio,
         :no_pets, :cats, :dogs, :approved_pets_only,
         :heat_and_hot_water, :gas, :all_utilities, :none,
       	property_photos_attributes: [:id, :photo_url, :_destroy])

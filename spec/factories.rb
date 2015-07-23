@@ -12,8 +12,15 @@ FactoryGirl.define do
     end
   end
 
+  factory :bed do
+    sequence(:name)  { |n| "bed #{n}" }
+  end
+
   factory :listing do
     street_address "Some address"
+    available_date {Date::tomorrow}
+    landlord 'some name'
     user
+    bed
   end   
 end

@@ -57,6 +57,9 @@ class Listing < ActiveRecord::Base
   scope :absentee_landlord_filter, -> (absentee_landlord) { where absentee_landlord: absentee_landlord != '0' }
   scope :parking_available_filter, -> (parking_available) { where parking_available: parking_available != '0' }
   scope :storage_available_filter, -> (storage_available) { where storage_available: storage_available != '0' }
+  scope :yard_filter, -> (yard) { where yard: yard != '0' }
+  scope :patio_filter, -> (patio) { where patio: patio != '0' }
+
 
   scope :no_pets_filter, -> (no_pets) { where no_pets: no_pets != '0' }
   scope :cats_filter, -> (cats) { where cats: cats != '0' }
@@ -115,6 +118,8 @@ class Listing < ActiveRecord::Base
     f.push('walk up') if self.walk_up?
     f.push('parking_available') if self.parking_available?
     f.push('storage_available') if self.storage_available?
+    f.push('yard') if self.yard?
+    f.push('patio') if self.patio?
 
     f.join ', '
   end

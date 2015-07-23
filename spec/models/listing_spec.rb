@@ -1,25 +1,90 @@
 require 'spec_helper'
 
 describe Listing do
-	let(:user) { FactoryGirl.create(:user) } 
-	before do
-		@listing = Listing.new(street_address: "Some address")
-	end
+  let(:user) { FactoryGirl.create(:user) }
+  before do
+    @listing = Listing.new(street_address: 'Some address', available_date: Date::tomorrow, landlord: 'some name')
+  end
 
-	subject { @listing }
+  subject { @listing }
 
-	it { should respond_to(:agent_id) }   
-	it { should respond_to(:main_photo) }
-	it { should respond_to(:street_address) }
-	it { should respond_to(:zip_code) }
-	it { should respond_to(:price) }
-	it { should respond_to(:size) }
-	it { should respond_to(:description) }  
+  it { should respond_to(:agent_id) }
+  it { should respond_to(:main_photo) }
+  it { should respond_to(:street_address) }
+  it { should respond_to(:zip_code) }
+  it { should respond_to(:price) }
+  it { should respond_to(:size) }
+  it { should respond_to(:description) }
 
-	it { should be_valid }
+  it { should respond_to(:yard) }
+  it { should respond_to(:patio) }
 
-	describe 'when address is blank' do
-		before { @listing.street_address = '' }
-		it { should_not be_valid }
-	end
+  it { should be_valid }
+
+  describe 'when address is blank' do
+    before { @listing.street_address = '' }
+    it { should_not be_valid }
+  end
+
+  describe 'when price is blank' do
+    before { @listing.price = nil }
+    it { should be_valid }
+  end
+
+  describe 'when price is zero' do
+    before { @listing.price = 0.0 }
+    it { should_not be_valid }
+  end
+
+  describe 'when price is negative' do
+    before { @listing.price = -1.0 }
+    it { should_not be_valid }
+  end
+
+  describe 'when full_baths_no is blank' do
+    before { @listing.full_baths_no = nil }
+    it { should be_valid }
+  end
+
+  describe 'when full_baths_no is zero' do
+    before { @listing.full_baths_no = 0 }
+    it { should_not be_valid }
+  end
+
+  describe 'when full_baths_no is negative' do
+    before { @listing.full_baths_no = -1 }
+    it { should_not be_valid }
+  end
+  describe 'when full_baths_no is not integer' do
+    before { @listing.full_baths_no = 1.5 }
+    it { should_not be_valid }
+  end
+  describe 'when half_baths_no is blank' do
+    before { @listing.half_baths_no = nil }
+    it { should be_valid }
+  end
+
+  describe 'when half_baths_no is zero' do
+    before { @listing.half_baths_no = 0 }
+    it { should_not be_valid }
+  end
+
+  describe 'when half_baths_no is negative' do
+    before { @listing.half_baths_no = -1 }
+    it { should_not be_valid }
+  end
+  describe 'when half_baths_no is not integer' do
+    before { @listing.half_baths_no = 1.5 }
+    it { should_not be_valid }
+  end
+
+  describe 'when available_date is not present' do
+    before { @listing.available_date = nil }
+    it { should_not be_valid }
+  end
+  describe 'when landlord is blank' do
+    before { @listing.landlord = ' ' }
+    it { should_not be_valid }
+  end
+
 end
