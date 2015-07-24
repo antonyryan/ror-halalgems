@@ -116,8 +116,8 @@
       </div>
       <div class="col-md-4">
         <div class="form-group<%= ' has-error' unless @listing.errors[:landlord].blank? %>">
-              <%= f.label :landlord, class: 'control-label' %>
-              <%= f.text_field :landlord, class: 'form-control' %>
+          <%= f.label :landlord, class: 'control-label' %>
+          <%= f.text_field :landlord, class: 'form-control' %>
         </div>
       </div>
       <div class="col-md-4">
@@ -205,12 +205,12 @@
             <%= f.check_box :storage_available %> Storage Available
           </label>
         </div>
-      <div class="col-md-2">
+        <div class="col-md-2">
           <label>
             <%= f.check_box :yard %> Yard
           </label>
         </div>
-      <div class="col-md-2">
+        <div class="col-md-2">
           <label>
             <%= f.check_box :patio %> Patio
           </label>

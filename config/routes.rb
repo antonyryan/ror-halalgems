@@ -15,6 +15,13 @@ HorowitzRealEstate::Application.routes.draw do
   end
   resources :neighborhoods
   resources :history_records, only: [:index]
+
+  resources :reports, only: [] do
+    collection do
+      get :listings_by_period
+    end
+  end
+
   root  'users#index' 
   match 'signin', to: 'sessions#new', via: 'get'
   match 'signout', to: 'sessions#destroy', via: 'delete'

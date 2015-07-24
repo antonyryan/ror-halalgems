@@ -1,0 +1,17 @@
+<% provide :title, 'Report: Listings by period' %>
+
+<h1 class="page-header">Report: Listings by period</h1>
+<p id="total"><%= @total %> listings</p>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Agent</th>
+    <th>Count</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @agent_count.each do |record| %>
+      <%= render partial: 'agent_count', object: record, as: 'record' %>
+  <% end %>
+  </tbody>
+</table>
