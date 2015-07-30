@@ -15,5 +15,8 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require flot/jquery.flot
+//= require flot/jquery.flot.time
+//= require flot/jquery.flot.resize
 //= require_tree .
 

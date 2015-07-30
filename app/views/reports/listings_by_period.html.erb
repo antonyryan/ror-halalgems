@@ -1,12 +1,26 @@
 <% provide :title, 'Report: Listings by period' %>
 
 <h1 class="page-header">Report: Listings by period</h1>
-<p id="total"><%= @total %> listings</p>
+<nav class="navbar hidden-print">
+  <%= form_tag listings_by_period_reports_path, method: :get, class: 'navbar-form navbar-left' do %>
+      <div class="form-group">
+        <%= label_tag :start_date, "From", class: 'control-label' %>
+      <%= date_field_tag :start_date, @start_date.to_date, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :end, "to", class: 'control-label' %>
+      <%= date_field_tag :end_date, @end_date.to_date, class: 'form-control' %>
+        </div>
+      <%= submit_tag 'Refresh', class: 'btn btn-default' %>
+  <% end %>
+</nav>
+<h3>from <%= @start_date.to_date %> to <%= @end_date.to_date %></h3>
+<p>Total count: <span id="total"><%= @total %> listings</span></p>
 <table class="table">
   <thead>
   <tr>
     <th>Agent</th>
-    <th>Count</th>
+    <th class="text-right">Listed</th>
   </tr>
   </thead>
   <tbody>
@@ -15,3 +29,23 @@
   <% end %>
   </tbody>
 </table>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Chart
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="flot-chart">
+          <div id="plot" class="flot-chart-content" data-var="<%= @plot_data %>"></div>
+        </div>
+      </div>
+      <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+  </div>
+</div>
+
+
