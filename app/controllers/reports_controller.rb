@@ -7,7 +7,9 @@ class ReportsController < ApplicationController
 
     @agent_count = Listing.where(created_at: @start_date..@end_date).group(:user_id).count
     # @plot_data = @agent_count.map {|record| [record[0], record[1]]}
-    @plot_data = @agent_count.map {|record|  {label: User.find(record[0]).name, data:[[record[0], record[1]]] }}.to_json
+    @plot_data = @agent_count.map.with_index {
+        |record, index|  {label: User.find(record[0]).name, data:[[index, record[1]]] }
+    }.to_json
 
   end
 end
