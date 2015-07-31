@@ -2,7 +2,7 @@
 
 <h1 class="page-header">Report: Listings by period</h1>
 <nav class="navbar hidden-print">
-  <%= form_tag listings_by_period_reports_path, method: :get, class: 'navbar-form navbar-left' do %>
+  <%= form_tag nil, method: :get, class: 'navbar-form navbar-left' do %>
       <div class="form-group">
         <%= label_tag :start_date, "From", class: 'control-label' %>
       <%= date_field_tag :start_date, @start_date.to_date, class: 'form-control' %>

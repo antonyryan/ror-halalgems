@@ -19,6 +19,7 @@ HorowitzRealEstate::Application.routes.draw do
   resources :reports, only: [] do
     collection do
       get :listings_by_period
+      get :rented_listings_by_period
     end
   end
 
