@@ -6,7 +6,7 @@ jQuery ->
   data = $("#plot").data("var")
   tmpArr = $.makeArray(data)
   aticks = $.map tmpArr, (val, i) ->
-    [[val.data[0][0]+0.5, val.label]]
+    [[val.data[0][0] + 0.5, val.label]]
 
 
   options = {
@@ -34,4 +34,25 @@ jQuery ->
 #      content: "date:%x, total: %y"
 #    }
   };
+  
+  pieoptions = {
+    series: {
+      pie: {
+        show: true
+      }
+    },
+    grid: {
+      hoverable: true
+    },
+    tooltip: true,
+    tooltipOpts: {
+      content: "%p.0%, %s",
+      shifts: {
+        x: 20,
+        y: 0
+      },
+      defaultTheme: false
+    }
+  }
+
   $.plot($("#plot"), data, options);

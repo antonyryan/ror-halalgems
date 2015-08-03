@@ -1,4 +1,7 @@
 class ReportsController < ApplicationController
+  before_action :signed_in_user
+  before_action :admin_user
+
   def listings_by_period
     @start_date = params[:start_date] || 1.month.ago.beginning_of_day
     @end_date = params[:end_date] || Date.current.end_of_day
