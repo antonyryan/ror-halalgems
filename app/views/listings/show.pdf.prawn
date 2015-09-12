@@ -161,7 +161,7 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
   pdf.text 'Email', color: blue_color, :size => 10, style: :bold, :indent_paragraphs => 10
   pdf.text @listing.user.email, :size => 10, style: :bold, :indent_paragraphs => 10
 
-  if @listing.user.avatar_url.present?
+  if @listing.user.avatar.present?
     pdf.bounding_box([pdf.bounds.width / 2 + gap, 140], width: pdf.bounds.width / 2 - gap, height: 140) do
       pdf.stroke_bounds
       # pdf.image open("http://res.cloudinary.com/hpmowmbqq/image/upload/v1422469666/mqjuntllqlhfex6847br.jpg"), fit: [pdf.bounds.width, pdf.bounds.height]
