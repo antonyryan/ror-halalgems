@@ -106,7 +106,7 @@ end
 pdf.fill_color '000000'
 
 pdf.bounding_box([firs_width + gap, main_y_pos], width: second_width, height: 480) do
-pdf.default_leading 4
+  pdf.default_leading 4
 
   pdf.text 'Residence Information', color: blue_color, :size => 10, style: :bold
   pdf.text "#{@listing.bed.name}, #{@listing.full_baths_no} full baths, #{@listing.half_baths_no} half baths", :size => 10, style: :bold
@@ -125,6 +125,8 @@ pdf.default_leading 4
 
   pdf.move_down 5
   pdf.text_box (@listing.description || ""), at: [0, pdf.cursor], height: pdf.cursor,  :size => 10
+
+  pdf.default_leading 0
 end
 
 pdf.move_down gap
@@ -163,7 +165,6 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
 
   if @listing.user.avatar.present?
     pdf.bounding_box([pdf.bounds.width / 2 + gap, 140], width: pdf.bounds.width / 2 - gap, height: 140) do
-      pdf.stroke_bounds
       # pdf.image open("http://res.cloudinary.com/hpmowmbqq/image/upload/v1422469666/mqjuntllqlhfex6847br.jpg"), fit: [pdf.bounds.width, pdf.bounds.height]
       pdf.image open(@listing.user.avatar_url), fit: [pdf.bounds.width, pdf.bounds.height]
     end
