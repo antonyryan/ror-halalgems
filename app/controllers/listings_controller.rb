@@ -91,8 +91,9 @@ class ListingsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
-        render :pdf => "show"
+        render :pdf => 'show'
       }
+      format.xml
     end
 end
 

@@ -51,6 +51,12 @@ describe 'ListingPages' do
         it { should have_text 'patio' }
       end
     end
+
+    describe 'xml' do
+      before { visit listing_path(listing, format: :xml) }
+
+      it { should have_xpath "//property[@id='#{listing.id}']" }
+    end
   end
 
   describe 'edit' do
