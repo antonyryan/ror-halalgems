@@ -215,7 +215,7 @@ private
         :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
         :storage_available, :parking_available, :yard, :patio,
         :no_pets, :cats, :dogs, :approved_pets_only,
-        :heat_and_hot_water, :gas, :all_utilities, :none,
+        :heat_and_hot_water, :gas, :all_utilities, :none, :is_for_export, :fake_address,
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 
