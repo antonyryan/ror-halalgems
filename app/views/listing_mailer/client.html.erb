@@ -155,19 +155,19 @@
                     <td width="389" style="padding: 0; vertical-align: top; background: #f2f2f2;">
                       <img src="<%= "#{Rails.root}/app/assets/images/tit_agent.png" %>" alt="Agent"/></td>
                     <td width="180" rowspan="2" style="background: #f2f2f2;">
-                      <img src="<%= listing.user.avatar_url %>" width="180" height="220" alt="Agent: <%= listing.user.name %>" style="display: block;">
+                      <img src="<%= current_user.avatar_url %>" width="180" height="220" alt="Agent: <%= current_user.name %>" style="display: block;">
                     </td>
                   </tr>
                   <tr>
                     <td style="background: #f2f2f2; padding: 0; padding-left: 15px; font-size: 16px; font-family: 'Open Sans', sans-serif; color: #444;">
-                      <h3 style="margin: 0; font-size: 23px;"><%= listing.user.name %></h3>
+                      <h3 style="margin: 0; font-size: 23px;"><%= current_user.name %></h3>
                       <ul style="margin-bottom: 0; padding:0; list-style: none;">
                         <li style="color: #0095da; font-weight: bold;">Phone</li>
-                        <li style="color: #444444;"><%= listing.user.phone %></li>
+                        <li style="color: #444444;"><%= current_user.phone %></li>
                       </ul>
                       <ul style="margin-top: 0; padding: 0; list-style: none;">
                         <li style="color: #0095da; font-weight: bold;">Email</li>
-                        <li><a href="mailto:<%= listing.user.email %>" style="color: #444444;"><%= listing.user.email %></a>
+                        <li><a href="mailto:<%= current_user.email %>" style="color: #444444;"><%= current_user.email %></a>
                         </li>
                       </ul>
                     </td>
