@@ -28,6 +28,7 @@ HorowitzRealEstate::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { host: '127.0.0.1:3000' }
+  config.action_mailer.asset_host = 'http://127.0.0.1:3000'
 
 #  config.serve_static_assets = false
 end
