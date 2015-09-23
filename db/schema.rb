@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916181843) do
+ActiveRecord::Schema.define(version: 20150923145829) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20150916181843) do
 
   create_table "listings", force: true do |t|
     t.integer  "agent_id"
-    t.string   "main_photo",          default: "wzupztbtjzhe0fi3fpda.jpg"
+    t.string   "main_photo",                default: "wzupztbtjzhe0fi3fpda.jpg"
     t.string   "street_address"
     t.string   "zip_code"
     t.decimal  "price"
@@ -64,32 +64,34 @@ ActiveRecord::Schema.define(version: 20150916181843) do
     t.integer  "listing_type_id"
     t.integer  "city_id"
     t.string   "unit_no"
-    t.boolean  "dishwasher",          default: false
-    t.boolean  "backyard",            default: false
-    t.boolean  "balcony",             default: false
-    t.boolean  "elevator",            default: false
-    t.boolean  "laundry_in_building", default: false
-    t.boolean  "laundry_in_unit",     default: false
-    t.boolean  "live_in_super",       default: false
-    t.boolean  "absentee_landlord",   default: false
-    t.boolean  "walk_up",             default: false
-    t.boolean  "no_pets",             default: false
-    t.boolean  "cats",                default: false
-    t.boolean  "dogs",                default: false
-    t.boolean  "approved_pets_only",  default: false
-    t.boolean  "heat_and_hot_water",  default: false
-    t.boolean  "gas",                 default: false
-    t.boolean  "all_utilities",       default: false
-    t.boolean  "none",                default: false
+    t.boolean  "dishwasher",                default: false
+    t.boolean  "backyard",                  default: false
+    t.boolean  "balcony",                   default: false
+    t.boolean  "elevator",                  default: false
+    t.boolean  "laundry_in_building",       default: false
+    t.boolean  "laundry_in_unit",           default: false
+    t.boolean  "live_in_super",             default: false
+    t.boolean  "absentee_landlord",         default: false
+    t.boolean  "walk_up",                   default: false
+    t.boolean  "no_pets",                   default: false
+    t.boolean  "cats",                      default: false
+    t.boolean  "dogs",                      default: false
+    t.boolean  "approved_pets_only",        default: false
+    t.boolean  "heat_and_hot_water",        default: false
+    t.boolean  "gas",                       default: false
+    t.boolean  "all_utilities",             default: false
+    t.boolean  "none",                      default: false
     t.date     "available_date"
     t.string   "landlord"
-    t.boolean  "parking_available",   default: false
-    t.boolean  "storage_available",   default: false
+    t.boolean  "parking_available",         default: false
+    t.boolean  "storage_available",         default: false
     t.string   "renter"
-    t.boolean  "yard",                default: false
-    t.boolean  "patio",               default: false
-    t.boolean  "is_for_export",       default: false
+    t.boolean  "yard",                      default: false
+    t.boolean  "patio",                     default: false
+    t.boolean  "export_to_streeteasy",      default: false
     t.string   "fake_address"
+    t.boolean  "export_to_nakedapartments", default: false
+    t.string   "title"
   end
 
   add_index "listings", ["available_date"], name: "index_listings_on_available_date"

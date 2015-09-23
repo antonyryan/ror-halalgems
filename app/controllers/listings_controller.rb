@@ -118,6 +118,17 @@ end
         history.save
 			  AgentMailer.listing_changed(@listing, Status.find(old_status_id).try(:name), @listing.status.name).deliver
       end
+
+      # xml_content = render_to_string :action => 'show', :formats => [:xml]
+      # url = URI.parse('http://myastoriarealestate.com/xml/')
+      # url = URI.parse('http://127.0.0.1:3000/xml/')
+      # request = Net::HTTP::Post.new(url.path)
+      # request.body = xml_content
+      # request.content_type = 'text/xml'
+      # request.content_length =xml_content.bytesize()
+      # response = Net::HTTP.request #start(url.host, url.port) {|http| http.request(request)}
+
+      # HTTParty.post('http://127.0.0.1:3000/xml/', :body => xml_content )
 			redirect_to @listing
 		else
 			render 'edit'
@@ -210,12 +221,12 @@ private
     def listing_params
       params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
       	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name, :unit_no, :available_date,
-        :description, :landlord, :renter,
+        :description, :landlord, :renter, :title,
         :dishwasher, :backyard, :balcony, :elevator,
         :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
         :storage_available, :parking_available, :yard, :patio,
         :no_pets, :cats, :dogs, :approved_pets_only,
-        :heat_and_hot_water, :gas, :all_utilities, :none, :is_for_export, :fake_address,
+        :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 

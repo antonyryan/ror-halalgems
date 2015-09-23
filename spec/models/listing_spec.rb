@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Listing do
   let(:user) { FactoryGirl.create(:user) }
+  let(:neighborhood) { FactoryGirl.create(:neighborhood) }
   before do
-    @listing = Listing.new(street_address: 'Some address', available_date: Date::tomorrow, landlord: 'some name')
+    @listing = Listing.new(street_address: 'Some address', available_date: Date::tomorrow, landlord: 'some name',
+                           neighborhood: neighborhood)
   end
 
   subject { @listing }
@@ -18,6 +20,11 @@ describe Listing do
 
   it { should respond_to(:yard) }
   it { should respond_to(:patio) }
+  it { should respond_to(:fake_address) }
+  it { should respond_to(:export_to_streeteasy) }
+  it { should respond_to(:export_to_nakedapartments) }
+  it { should respond_to :title }
+  it { should respond_to :headline }
 
   it { should be_valid }
 
@@ -85,6 +92,16 @@ describe Listing do
   describe 'when landlord is blank' do
     before { @listing.landlord = ' ' }
     it { should_not be_valid }
+  end
+
+  describe 'when title is blank' do
+    before { @listing.title = ' ' }
+    its(:headline ) { should eq @listing.neighborhood.name }
+  end
+
+  describe 'when title is not blank' do
+    before { @listing.title = 'some' }
+    its(:headline ) { should eq @listing.title }
   end
 
 end

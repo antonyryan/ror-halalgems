@@ -66,3 +66,5 @@ gem 'cloudinary'
 gem 'prawn'
 gem 'prawn-table', '~> 0.2.1'
 gem 'prawnto'
+
+gem 'httparty', '~> 0.13.5'

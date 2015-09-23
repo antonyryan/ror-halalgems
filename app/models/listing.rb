@@ -1,22 +1,22 @@
 class Listing < ActiveRecord::Base
-	belongs_to :user
-	belongs_to :listing_type
-	belongs_to :status
-	belongs_to :bed
-	belongs_to :neighborhood
-	belongs_to :property_type
+  belongs_to :user
+  belongs_to :listing_type
+  belongs_to :status
+  belongs_to :bed
+  belongs_to :neighborhood
+  belongs_to :property_type
   belongs_to :city
-	has_many :property_photos, dependent: :destroy
+  has_many :property_photos, dependent: :destroy
   has_many :history_records
-	accepts_nested_attributes_for :property_photos, allow_destroy: true
+  accepts_nested_attributes_for :property_photos, allow_destroy: true
 
   before_save :set_status
 
-	validates :street_address, presence: true
-	validates :price, allow_blank: true, numericality: { greater_than: 0 }
+  validates :street_address, presence: true
+  validates :price, allow_blank: true, numericality: {greater_than: 0}
 
-	validates :full_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }
-	validates :half_baths_no, allow_blank: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :full_baths_no, allow_blank: true, numericality: {only_integer: true, greater_than: 0}
+  validates :half_baths_no, allow_blank: true, numericality: {only_integer: true, greater_than: 0}
 
   validates :available_date, presence: true
   validates :landlord, presence: true
@@ -25,24 +25,24 @@ class Listing < ActiveRecord::Base
   scope :available_listings, -> { where(status_id: Status.where.not(name: ['Rented', 'Lost', 'Closed', 'Temporary off market'])) }
   scope :pending_listings, -> { where(status_id: Status.where(name: 'Deposit/Pending Application')) }
 
-	scope :street_address_search, -> (street_address) { where('street_address like ?', "%#{street_address}%")  }
-	scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id }
-	scope :beds, -> (bed_id) { where bed_id: bed_id }
+  scope :street_address_search, -> (street_address) { where('street_address like ?', "%#{street_address}%") }
+  scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id }
+  scope :beds, -> (bed_id) { where bed_id: bed_id }
 
-	scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id.split(',') }
+  scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id.split(',') }
 
-	scope :type_filter, -> (property_type_id) { where property_type_id: property_type_id }
-	scope :min_price, -> (price) { where('price >= ?', price) }
-	scope :max_price, -> (price) { where('price <= ?', price) }
+  scope :type_filter, -> (property_type_id) { where property_type_id: property_type_id }
+  scope :min_price, -> (price) { where('price >= ?', price) }
+  scope :max_price, -> (price) { where('price <= ?', price) }
 
   scope :full_baths, -> (full_baths_no) { where(full_baths_no: full_baths_no) }
   scope :half_baths, -> (half_baths_no) { where(half_baths_no: half_baths_no) }
 
-	scope :min_full_baths, -> (full_baths_no) { where('full_baths_no >= ?', full_baths_no) }
-	scope :max_full_baths, -> (full_baths_no) { where('full_baths_no <= ?', full_baths_no) }
+  scope :min_full_baths, -> (full_baths_no) { where('full_baths_no >= ?', full_baths_no) }
+  scope :max_full_baths, -> (full_baths_no) { where('full_baths_no <= ?', full_baths_no) }
 
-	scope :min_half_baths, -> (half_baths_no) { where('half_baths_no >= ?', half_baths_no) }
-	scope :max_half_baths, -> (half_baths_no) { where('half_baths_no <= ?', half_baths_no) }
+  scope :min_half_baths, -> (half_baths_no) { where('half_baths_no >= ?', half_baths_no) }
+  scope :max_half_baths, -> (half_baths_no) { where('half_baths_no <= ?', half_baths_no) }
 
   scope :agent_filter, -> (agent_id) { where user_id: agent_id }
 
@@ -71,7 +71,7 @@ class Listing < ActiveRecord::Base
   scope :all_filter, -> (all_utilities) { where all_utilities: all_utilities != '0' }
   scope :none_filter, -> (none) { where none: none != '0' }
 
-	mount_uploader :main_photo, ListingPhotoUploader
+  mount_uploader :main_photo, ListingPhotoUploader
 
   def city_name
     city.try :name
@@ -144,12 +144,20 @@ class Listing < ActiveRecord::Base
     u.join ', '
   end
 
-  private
+  def headline
+    if title.present?
+      title
+    else
+      neighborhood.try(:name)
+    end
+  end
+
+    private
     def set_status
       if self.price_changed? and not self.new_record?
-        self.status = Status.where(name: 'Price change', is_for_rentals: self.listing_type_id==0 ).first
+        self.status = Status.where(name: 'Price change', is_for_rentals: self.listing_type_id==0).first
       end
     end
 
 
-end
+  end

@@ -25,7 +25,7 @@ height = price_height + type_height + 20
 
 pdf.bounding_box([0, y_pos], width: pdf.bounds.width, height: height) do
   # pdf.stroke_bounds
-  pdf.text @listing.full_address, :size => 24, style: :bold, :valign => :bottom
+  pdf.text @listing.headline, :size => 24, style: :bold, :valign => :bottom
 
 
   pdf.fill_color blue_color

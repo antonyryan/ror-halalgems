@@ -17,7 +17,7 @@
             </tr>
             <tr>
               <td width="430">
-                <h1 style="margin: 10px 0; font-size: 26px; font-family: 'Open Sans', sans-serif; color: #444; line-height: 1.3;"><%= listing.neighborhood.name %></h1>
+                <h1 style="margin: 10px 0; font-size: 26px; font-family: 'Open Sans', sans-serif; color: #444; line-height: 1.3;"><%= listing.headline %></h1>
               </td>
               <td bgcolor="#0095da" style="font-size: 34px; font-weight: bold; font-family: 'Open Sans', sans-serif; color: #ffffff; text-align: center;"><%= number_to_currency(listing.price) %></td>
             </tr>
@@ -142,6 +142,7 @@
             <tr>
               <td style="padding-top:10px;">
                 <p style="border: 1px solid #999999;">
+                  <!-- todo: use coords instead of address -->
                   <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= url_encode(listing.full_address) %>&zoom=16&size=572x400&sensor=false" width="572" height="400" style="display: block;">
                 </p>
               </td>
