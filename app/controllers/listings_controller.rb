@@ -1,5 +1,6 @@
 class ListingsController < ApplicationController
-  before_filter :signed_in_user
+  before_filter :index_page_filter, only: [:index]
+  before_filter :signed_in_user, except: [:index]
   before_filter :correct_user, only: [:edit, :update, :destroy, :copy]
 
   # helper_method :sort_column, :sort_direction
@@ -74,8 +75,20 @@ class ListingsController < ApplicationController
         @listings = @listings.paginate(page: params[:page])
       }
       format.pdf {
-        render :pdf => "index"
+        render pdf: 'index'
       }
+      format.xml do
+        if params[:type] == 'rental'
+          @listings = Listing.listing_type_filter(ListingType.find_by_name('Rental').id)
+        elsif params[:type] == 'sale'
+          @listings = Listing.listing_type_filter(ListingType.find_by_name('Sale').id)
+        elsif params[:type] == 'all'
+          @listings = Listing.all
+        else
+          @listings = []
+        end
+
+      end
     end
 
 		#if params[:display].present?
@@ -216,7 +229,12 @@ end
     end
   end
 
-private
+  private
+    def index_page_filter
+      unless request.format.xml?
+        signed_in_user
+      end
+    end
 
     def listing_params
       params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
@@ -230,10 +248,10 @@ private
       	property_photos_attributes: [:id, :photo_url, :_destroy])
     end
 
-  def correct_user
-    user = Listing.find(params[:id]).user
-    redirect_to(root_url) unless current_user?(user) || current_user.admin?
-  end
+    def correct_user
+      user = Listing.find(params[:id]).user
+      redirect_to(root_url) unless current_user?(user) || current_user.admin?
+    end
 
 
 end

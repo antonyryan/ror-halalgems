@@ -32,4 +32,80 @@ module ListingsHelper
     end
     return link_to( title, { sort: column, direction: direction, display: ds } ) +' ' + glyph
   end
+
+  def status_for_export(status)
+    #active|off-market|temp-off-market|in-contract|contract-out|contract-signed|sold|rented
+    if status == 'New'
+      return 'active'
+    end
+    if status == 'Accepted offer'
+      return 'active'
+    end
+    if status == 'Under contract'
+      return 'in-contract'
+    end
+    if status == 'Price change'
+      return 'active'
+    end
+    if status == 'Closed'
+      return 'off-market'
+    end
+    if status == 'Temporary off market'
+      return 'temp-off-market'
+    end
+    if status == 'Withdrawn'
+      return 'active'
+    end
+    if status == 'Deposit/Pending Application'
+      return 'temp-off-market'
+    end
+    if status == 'Lost'
+      return 'off-market'
+    end
+    if status == 'Rented'
+      return 'rented'
+    end
+
+    status
+  end
+
+  def bed_for_export(bed)
+    if bed == 'Studio'
+      return 0
+    end
+    if (bed == 'Junior 1') or (bed == '1 Bedroom') or (bed == '1 Bedroom plus den')
+      return 1
+    end
+
+    if (bed == 'Junior 4') or (bed == '4 Bedroom')
+      return 4
+    end
+
+    if (bed == '2 Bedroom') or (bed == '2 Bedroom plus den')
+      return 2
+    end
+
+    if bed == '3 Bedroom'
+      return 3
+    end
+
+    0
+  end
+
+  def property_type_for_export(property_type)
+  #   condo|coop|townhouse|condop|rental|house|other
+    if property_type == 'Private House'
+      return 'house'
+    end
+    if property_type == 'Multi-family'
+      return 'other'
+    end
+    if property_type == 'Coop'
+      return 'coop'
+    end
+    if property_type == 'Condo'
+      return 'condo'
+    end
+    'other'
+  end
 end
