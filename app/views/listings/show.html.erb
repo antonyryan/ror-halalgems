@@ -44,6 +44,14 @@
         </h3>
       </div>
   <% end %>
+
+  <% if @listing.access.present? %>
+      <div class="col-md-12">
+        <h3>
+          <span class="property_type" >Access:</span> <%= @listing.access %>
+        </h3>
+      </div>
+  <% end %>
 </div>
 
 

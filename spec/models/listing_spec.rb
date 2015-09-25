@@ -25,6 +25,7 @@ describe Listing do
   it { should respond_to(:export_to_nakedapartments) }
   it { should respond_to :title }
   it { should respond_to :headline }
+  it { should respond_to :access }
 
   it { should be_valid }
 
