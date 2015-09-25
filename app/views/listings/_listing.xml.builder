@@ -1,7 +1,7 @@
 xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
              status: status_for_export(listing.status.try(:name)), url: listing_url(listing) ) do
   xml.location do
-    if params[:format].to_s.downcase == 'nakedapartments'
+    if params[:to].to_s.downcase == 'nakedapartments'
       xml.address listing.street_address
     else
       xml.address listing.fake_address

@@ -78,12 +78,20 @@ class ListingsController < ApplicationController
         render pdf: 'index'
       }
       format.xml do
+        if params[:to].to_s.downcase == 'nakedapartments'
+          @listings = Listing.where(export_to_nakedapartments: true)
+        elsif params[:to].to_s.downcase == 'streeteasy'
+          @listings = Listing.where(export_to_streeteasy: true)
+        else
+          @listings = []
+        end
+
         if params[:type] == 'rental'
-          @listings = Listing.listing_type_filter(ListingType.find_by_name('Rental').id)
+          @listings = @listings.listing_type_filter(ListingType.find_by_name('Rental').id)
         elsif params[:type] == 'sale'
-          @listings = Listing.listing_type_filter(ListingType.find_by_name('Sale').id)
+          @listings = @listings.listing_type_filter(ListingType.find_by_name('Sale').id)
         elsif params[:type] == 'all'
-          @listings = Listing.all
+          @listings = @listings
         else
           @listings = []
         end
