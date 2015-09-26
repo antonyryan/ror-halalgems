@@ -45,8 +45,6 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
     # <mlsname></mlsname> The name of the MLS that this listing is listed in.
     # <built></built> Date or year the property was originally built
 
-    # xml.landlord listing.landlord
-
     xml.amenities do
       # <doorman></doorman>
       # <prewar></prewar>
@@ -73,31 +71,34 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
       # <washerdryer></washerdryer>
       # <furnished></furnished>
 
-      # <pets></pets> Does this property allow pets
-      # todo: do pets
+      if listing.cats? or listing.dogs? or listing.approved_pets_only?
+        xml.pets
+      end
+
       if listing.dishwasher?
         xml.dishwasher
       end
 
-      # <other></other>A comma delimited string of other amenities
-    #   todo: do other
-    end
+      others = []
+      others.push('backyard') if listing.backyard?
+      others.push('laundry in building') if listing.laundry_in_building?
+      others.push('laundry in unit') if listing.laundry_in_unit?
+      others.push('live-in super') if listing.live_in_super?
+      others.push('absentee landlord') if listing.absentee_landlord?
+      others.push('walk up') if listing.walk_up?
+      others.push('yard') if listing.yard?
 
-    # todo: move to other
-    # xml.utilities do
-    #   if listing.heat_and_hot_water?
-    #     xml.heatandhotwater
-    #   end
-    #   if listing.gas?
-    #     xml.gas
-    #   end
-    #   if listing.all_utilities?
-    #     xml.all
-    #   end
-    #   if listing.none?
-    #     xml.none
-    #   end
-    # end
+      others.push('heat_and_hot_water') if listing.heat_and_hot_water?
+      others.push('gas') if listing.gas?
+      others.push('all') if listing.all_utilities?
+      others.push('none') if listing.none?
+
+      other = others.join ', '
+
+      unless other.blank?
+        xml.other other
+      end
+    end
   end
 
   xml.agents do
