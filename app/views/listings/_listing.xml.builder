@@ -3,12 +3,14 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
   xml.location do
     if params[:to].to_s.downcase == 'nakedapartments'
       xml.address listing.street_address
+      xml.apartment listing.unit_no
+      xml.city listing.neighborhood.try(:name)
     else
       xml.address listing.fake_address
+      xml.apartment listing.fake_unit_no
+      xml.city listing.fake_city.try(:name)
     end
     # todo: required!
-    xml.apartment listing.unit_no
-    xml.city listing.neighborhood.try(:name)
     xml.state 'NY'
     xml.zipcode listing.zip_code
 

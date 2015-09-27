@@ -6,7 +6,7 @@ class ListingsController < ApplicationController
   # helper_method :sort_column, :sort_direction
 
   def index
-		if sort_column.include? '.'
+    if sort_column.include? '.'
       parts = sort_column.split('.')
       @listings = Listing.includes(parts.first).order("#{parts.first.pluralize}.#{parts.last}" + ' ' + sort_direction)
     else
@@ -27,15 +27,15 @@ class ListingsController < ApplicationController
 
     @listings = @listings.street_address_search(params[:street_address]) if params[:street_address].present?
     @listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
-		@listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
-		@listings = @listings.beds(params[:beds]) if params[:beds].present?
-		@listings = @listings.neighborhood_filter(params[:neighborhood_ids]) if params[:neighborhood_ids].present?
-		@listings = @listings.min_price(params[:price_from]) if params[:price_from].present?
-		@listings = @listings.max_price(params[:price_to]) if params[:price_to].present?
+    @listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
+    @listings = @listings.beds(params[:beds]) if params[:beds].present?
+    @listings = @listings.neighborhood_filter(params[:neighborhood_ids]) if params[:neighborhood_ids].present?
+    @listings = @listings.min_price(params[:price_from]) if params[:price_from].present?
+    @listings = @listings.max_price(params[:price_to]) if params[:price_to].present?
 
-		@listings = @listings.full_baths(params[:full_baths]) if params[:full_baths].present?
+    @listings = @listings.full_baths(params[:full_baths]) if params[:full_baths].present?
 
-		@listings = @listings.half_baths(params[:half_baths]) if params[:half_baths].present?
+    @listings = @listings.half_baths(params[:half_baths]) if params[:half_baths].present?
     @listings = @listings.agent_filter(params[:agent_id]) unless params[:agent_id].blank?
 
     @listings = @listings.dishwasher_filter(params[:dishwasher]) if params[:dishwasher].present?
@@ -71,7 +71,7 @@ class ListingsController < ApplicationController
     @rental_id = ListingType.find_by(name: 'Rental').id
 
     respond_to do |format|
-      format.html{
+      format.html {
         @listings = @listings.paginate(page: params[:page])
       }
       format.pdf {
@@ -86,29 +86,31 @@ class ListingsController < ApplicationController
           @listings = []
         end
 
-        if params[:type] == 'rental'
-          @listings = @listings.listing_type_filter(ListingType.find_by_name('Rental').id)
-        elsif params[:type] == 'sale'
-          @listings = @listings.listing_type_filter(ListingType.find_by_name('Sale').id)
-        elsif params[:type] == 'all'
-          @listings = @listings
-        else
-          @listings = []
+        unless @listings.empty?
+          if params[:type] == 'rental'
+            @listings = @listings.listing_type_filter(ListingType.find_by_name('Rental').id)
+          elsif params[:type] == 'sale'
+            @listings = @listings.listing_type_filter(ListingType.find_by_name('Sale').id)
+          elsif params[:type] == 'all'
+            @listings = @listings
+          else
+            @listings = []
+          end
         end
 
       end
     end
 
-		#if params[:display].present?
-		#	@display = params[:display]
-		#else
-		#	@display = 'thumb_list'
-		#end
-	end
+    #if params[:display].present?
+    #	@display = params[:display]
+    #else
+    #	@display = 'thumb_list'
+    #end
+  end
 
-	def show
-		@listing = Listing.find(params[:id])
-		#@photo_urls = @listing.property_photos.all
+  def show
+    @listing = Listing.find(params[:id])
+    #@photo_urls = @listing.property_photos.all
     respond_to do |format|
       format.html
       format.pdf {
@@ -116,28 +118,28 @@ class ListingsController < ApplicationController
       }
       format.xml
     end
-end
+  end
 
-	def edit
-		@listing = Listing.find(params[:id])		
-	end
+  def edit
+    @listing = Listing.find(params[:id])
+  end
 
-	def update
-		@listing = Listing.find(params[:id])		
+  def update
+    @listing = Listing.find(params[:id])
 
-		# if params[:main_photo].present?
-		#   preloaded = Cloudinary::PreloadedFile.new(params[:main_photo])         
-		#   raise "Invalid upload signature" if !preloaded.valid?
-		#   @listing.main_photo = preloaded.identifier
-		# end
-		old_status_id = @listing.status_id
-		if @listing.update_attributes(listing_params)
-			flash[:success] = "Listing updated"
+    # if params[:main_photo].present?
+    #   preloaded = Cloudinary::PreloadedFile.new(params[:main_photo])
+    #   raise "Invalid upload signature" if !preloaded.valid?
+    #   @listing.main_photo = preloaded.identifier
+    # end
+    old_status_id = @listing.status_id
+    if @listing.update_attributes(listing_params)
+      flash[:success] = "Listing updated"
       if old_status_id != @listing.status_id
-        history =  @listing.history_records.build
+        history = @listing.history_records.build
         history.message = "Status changed from '#{Status.find(old_status_id).try(:name)}' to '#{@listing.status.name}' by #{current_user.name}"
         history.save
-			  AgentMailer.listing_changed(@listing, Status.find(old_status_id).try(:name), @listing.status.name).deliver
+        AgentMailer.listing_changed(@listing, Status.find(old_status_id).try(:name), @listing.status.name).deliver
       end
 
       # xml_content = render_to_string :action => 'show', :formats => [:xml]
@@ -150,39 +152,39 @@ end
       # response = Net::HTTP.request #start(url.host, url.port) {|http| http.request(request)}
 
       # HTTParty.post('http://127.0.0.1:3000/xml/', :body => xml_content )
-			redirect_to @listing
-		else
-			render 'edit'
-		end
-	end
+      redirect_to @listing
+    else
+      render 'edit'
+    end
+  end
 
-	def new
-		@listing = current_user.listings.build
-		if params[:listing_type_id].present?
-			@listing.listing_type_id = params[:listing_type_id]
-		end
-	end
+  def new
+    @listing = current_user.listings.build
+    if params[:listing_type_id].present?
+      @listing.listing_type_id = params[:listing_type_id]
+    end
+  end
 
-	def create
-		if params[:Neighborhood].present?
-			neighborhood = Neighborhood.find_by_name(params[:Neighborhood])
-			if neighborhood.nil?
-				neighborhood = Neighborhood.create(name: params[:Neighborhood])	
-			end
-			if neighborhood.id != params[:listing][:neighborhood_id]
-				params[:listing][:neighborhood_id] = neighborhood.id
-			end
-		end
+  def create
+    if params[:Neighborhood].present?
+      neighborhood = Neighborhood.find_by_name(params[:Neighborhood])
+      if neighborhood.nil?
+        neighborhood = Neighborhood.create(name: params[:Neighborhood])
+      end
+      if neighborhood.id != params[:listing][:neighborhood_id]
+        params[:listing][:neighborhood_id] = neighborhood.id
+      end
+    end
 
-		@listing = current_user.listings.build(listing_params)
-		
-	    if @listing.save
-        AgentMailer.listing_created(@listing).deliver
-	      flash[:success] = 'Listing created.'
-	      redirect_to @listing
-	    else
-	      render 'new'
-	    end
+    @listing = current_user.listings.build(listing_params)
+
+    if @listing.save
+      AgentMailer.listing_created(@listing).deliver
+      flash[:success] = 'Listing created.'
+      redirect_to @listing
+    else
+      render 'new'
+    end
   end
 
   def destroy
@@ -231,36 +233,36 @@ end
         flash[:success] = 'Email sent'
         redirect_to listings_path
       else
-        flash[:error] = 'Email can''t be blank'
+        flash[:error] = 'Email can' 't be blank'
         render 'create_email'
       end
     end
   end
 
   private
-    def index_page_filter
-      unless request.format.xml?
-        signed_in_user
-      end
+  def index_page_filter
+    unless request.format.xml?
+      signed_in_user
     end
+  end
 
-    def listing_params
-      params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id, 
-      	:full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name, :unit_no, :available_date,
-        :description, :landlord, :renter, :title,
-        :dishwasher, :backyard, :balcony, :elevator,
-        :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
-        :storage_available, :parking_available, :yard, :patio,
-        :no_pets, :cats, :dogs, :approved_pets_only,
-        :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
-        :access, :fake_city_id, :fake_unit_no,
-      	property_photos_attributes: [:id, :photo_url, :_destroy])
-    end
+  def listing_params
+    params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id,
+                                    :full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name, :unit_no, :available_date,
+                                    :description, :landlord, :renter, :title,
+                                    :dishwasher, :backyard, :balcony, :elevator,
+                                    :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
+                                    :storage_available, :parking_available, :yard, :patio,
+                                    :no_pets, :cats, :dogs, :approved_pets_only,
+                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
+                                    :access, :fake_city_id, :fake_unit_no,
+                                    property_photos_attributes: [:id, :photo_url, :_destroy])
+  end
 
-    def correct_user
-      user = Listing.find(params[:id]).user
-      redirect_to(root_url) unless current_user?(user) || current_user.admin?
-    end
+  def correct_user
+    user = Listing.find(params[:id]).user
+    redirect_to(root_url) unless current_user?(user) || current_user.admin?
+  end
 
 
 end
