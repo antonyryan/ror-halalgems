@@ -70,9 +70,20 @@
     <label>
       <%= f.check_box :export_to_nakedapartments %> Export to NakedApartments
     </label>
+
+    <div class="form-group<%= ' has-error' unless @listing.errors[:fake_city_id].blank? %>">
+      <%= f.label :fake_city_id, 'City', class: 'control-label' %>
+      <%= f.collection_select :fake_city_id, Neighborhood.all, :id, :name, {}, {class: 'form-control'} %>
+    </div>
+
     <div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank? %>">
       <%= f.label :fake_address, 'Address #2', class: 'control-label' %>
       <%= f.text_field :fake_address, class: 'form-control' %>
+    </div>
+
+    <div class="form-group<%= ' has-error' unless @listing.errors[:fake_unit_no].blank? %>">
+      <%= f.label :fake_unit_no, class: 'control-label' %>
+      <%= f.text_field :fake_unit_no, class: "form-control" %>
     </div>
   </div>
 </div>

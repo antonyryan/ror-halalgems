@@ -8,11 +8,11 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
     end
     # todo: required!
     xml.apartment listing.unit_no
-    xml.city 'New York'
+    xml.city listing.neighborhood.try(:name)
     xml.state 'NY'
     xml.zipcode listing.zip_code
 
-    xml.neighborhood listing.neighborhood.try(:name)
+    # xml.neighborhood listing.neighborhood.try(:name)
   end
 
   xml.details do
@@ -31,7 +31,6 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
     # <lotarea> Area of the lot in whole or partial acres, examples: '3', '0.85'
     # <lotsize></lotsize> Dimensions of the lot as length and width in linear feet, examples: '20x40', '60x90'
 
-    # <availableon></availableon> If this is a rental property the date the property becomes available for move in. Example 2006-09-25
     xml.availableOn listing.available_date
     # <listedon></listedon> If this property is already on the market this should be the date it was first listed. Example: 2006-09-21
     # <soldon></soldon> If this property is sold, this should be the date that it sold on. Example: 2006-05-22

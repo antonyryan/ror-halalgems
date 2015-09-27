@@ -26,6 +26,9 @@ describe Listing do
   it { should respond_to :title }
   it { should respond_to :headline }
   it { should respond_to :access }
+  it { should respond_to :fake_city_id }
+  it { should respond_to :fake_city }
+  it { should respond_to :fake_unit_no }
 
   it { should be_valid }
 
