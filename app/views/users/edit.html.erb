@@ -1,4 +1,4 @@
-<% provide(:title, "Edit agent info") %>
+<% provide(:title, 'Edit agent info') %>
 <h1>Edit agent info</h1>
 
 <%= form_for(@user, role: 'form') do |f| %>
@@ -11,7 +11,7 @@
     </section>
     <section>
       <%= f.hidden_field(:avatar_cache) %>
-      <%= f.file_field(:avatar, class: "form-control") %>      
+      <%= f.file_field(:avatar, class: 'form-control') %>
     </section>    
   </aside>
   <div class="col-sm-8">
@@ -32,29 +32,34 @@
         </div>
         <div class="tab-pane" id="spec">
           <div class="form-group">
+            <%= f.label :license_type %>
+            <%= f.text_field :license_type, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
             <%= f.label :license_no %>
-            <%= f.text_field :license_no, class: "form-control" %>
+            <%= f.text_field :license_no, class: 'form-control' %>
           </div>
 
           <div class="form-group">
             <%= f.label :social_security_no %>
-            <%= f.text_field :social_security_no, class: "form-control" %>
+            <%= f.text_field :social_security_no, class: 'form-control' %>
           </div>
 
           <div class="form-group">
             <%= f.label :address %>
-            <%= f.text_field :address, class: "form-control" %>
+            <%= f.text_field :address, class: 'form-control' %>
           </div>
 
           <div class="form-group">
             <%= f.label :commision_split %>
-            <%= f.text_field :commision_split, class: "form-control" %>
+            <%= f.text_field :commision_split, class: 'form-control' %>
           </div>
         </div>
       </div>
     <% end %> 
 
-    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>      
+    <%= f.submit 'Save changes', class: 'btn btn-large btn-primary' %>
   </div>
   
 </div>

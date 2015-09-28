@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927174014) do
+ActiveRecord::Schema.define(version: 20150928182734) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20150927174014) do
     t.string   "license_no"
     t.string   "social_security_no"
     t.float    "commision_split"
+    t.string   "license_type"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
