@@ -1,5 +1,5 @@
 require 'open-uri'
-require "prawn/measurement_extensions"
+require 'prawn/measurement_extensions'
 
 pdf.font_families.update('OpenSans' => {
                              normal: "#{Rails.root.join('vendor', 'assets', 'fonts')}/OpenSans-Regular.ttf",
@@ -8,7 +8,11 @@ pdf.font_families.update('OpenSans' => {
                              bold_italic: "#{Rails.root.join('vendor', 'assets', 'fonts')}/OpenSans-SemiboldItalic.ttf"
                          })
 pdf.font('OpenSans')
+
 blue_color = '0095DA'
+black_color = '444444'
+
+pdf.fill_color black_color
 pdf.float do
   pdf.image "#{Rails.root}/app/assets/images/logo.png"
 end
@@ -37,20 +41,22 @@ pdf.bounding_box([0, y_pos], width: pdf.bounds.width, height: height) do
     pdf.text type_name, color: 'FFFFFF', :size => 12
   end
 end
-pdf.fill_rectangle [0, pdf.cursor], pdf.bounds.width, 6
-pdf.fill_color '#000000'
+
+pdf.fill_rectangle [0, pdf.cursor], pdf.bounds.width, 5
+pdf.move_down 4
+pdf.fill_color black_color
 
 pdf.move_down 8
 pdf.text((@listing.property_type.present? ? @listing.property_type.name : '') +
              (@listing.unit_no.present? ? " / Unit no: #{@listing.unit_no}" : ''), size: 10)
-pdf.move_down 2
+pdf.move_down 10
 
 main_y_pos = pdf.cursor
 gap = 15
 firs_width = pdf.bounds.width * 0.75
 second_width = pdf.bounds.width * 0.25 - gap
 
-pdf.fill_color 'eeeeee'
+pdf.fill_color 'ffffff'
 pdf.bounding_box([0, main_y_pos], width: firs_width, height: 480) do
   small_width = (pdf.bounds.width - 2 * gap) / 3
   small_height = (pdf.bounds.height - 280 - 2 * gap) / 2
@@ -63,6 +69,7 @@ pdf.bounding_box([0, main_y_pos], width: firs_width, height: 480) do
       pdf.image open(images[0].photo_url_url), fit: [pdf.bounds.width, pdf.bounds.height], position: :center
     end
   end
+  pdf.fill_color 'eeeeee'
   y_pos = pdf.cursor
   pdf.bounding_box([0, y_pos - gap], width: small_width, height: small_height) do
     pdf.fill_rectangle [0, pdf.bounds.height], pdf.bounds.width, pdf.bounds.height
@@ -103,28 +110,29 @@ pdf.bounding_box([0, main_y_pos], width: firs_width, height: 480) do
     end
   end
 end
-pdf.fill_color '000000'
+pdf.fill_color black_color
 
 pdf.bounding_box([firs_width + gap, main_y_pos], width: second_width, height: 480) do
   pdf.default_leading 4
+  pdf.font('OpenSans', :size => 11, style: :bold) do
+    pdf.text 'Residence Information', color: blue_color
+    pdf.text "#{@listing.bed.name}, #{@listing.full_baths_no} full baths, #{@listing.half_baths_no} half baths"
 
-  pdf.text 'Residence Information', color: blue_color, :size => 10, style: :bold
-  pdf.text "#{@listing.bed.name}, #{@listing.full_baths_no} full baths, #{@listing.half_baths_no} half baths", :size => 10, style: :bold
+    pdf.move_down 5
+    pdf.text 'Features', color: blue_color
+    pdf.text @listing.features
+
+    pdf.move_down 5
+    pdf.text 'Pets', color: blue_color
+    pdf.text @listing.pets
+
+    pdf.move_down 5
+    pdf.text 'Utilities', color: blue_color
+    pdf.text @listing.utilities
+  end
 
   pdf.move_down 5
-  pdf.text 'Features', color: blue_color, :size => 10, style: :bold
-  pdf.text @listing.features, :size => 10, style: :bold
-
-  pdf.move_down 5
-  pdf.text 'Pets', color: blue_color, :size => 10, style: :bold
-  pdf.text @listing.pets, :size => 10, style: :bold
-
-  pdf.move_down 5
-  pdf.text 'Utilities', color: blue_color, :size => 10, style: :bold
-  pdf.text @listing.utilities, :size => 10, style: :bold
-
-  pdf.move_down 5
-  pdf.text_box (@listing.description || ""), at: [0, pdf.cursor], height: pdf.cursor,  :size => 10
+  pdf.text_box (@listing.description || ''), at: [0, pdf.cursor], height: pdf.cursor,  :size => 10
 
   pdf.default_leading 0
 end
@@ -149,20 +157,21 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
   pdf.fill_color '463706'
   pdf.fill_polygon [-4, start_y - 20], [0, start_y - 20], [0, start_y - 24]
 
-  pdf.fill_color '000000'
+  pdf.fill_color black_color
   pdf.formatted_text_box [{text: 'AGENT', color: 'FFFFFF'}], at: [10, start_y - 4], :size => 14, style: :bold
 
   pdf.move_down 35
   pdf.text current_user.name, size: 16, style: :bold, :indent_paragraphs => 10
 
+  pdf.default_leading 4
   pdf.move_down 8
-  pdf.text 'Phone', color: blue_color, :size => 10, style: :bold, :indent_paragraphs => 10
-  pdf.text current_user.phone, :size => 10, style: :bold, :indent_paragraphs => 10
+  pdf.text 'Phone', color: blue_color, :size => 11, style: :bold, :indent_paragraphs => 10
+  pdf.text current_user.phone, :size => 11, style: :bold, :indent_paragraphs => 10
 
   pdf.move_down 8
-  pdf.text 'Email', color: blue_color, :size => 10, style: :bold, :indent_paragraphs => 10
-  pdf.text current_user.email, :size => 10, style: :bold, :indent_paragraphs => 10
-
+  pdf.text 'Email', color: blue_color, :size => 11, style: :bold, :indent_paragraphs => 10
+  pdf.text current_user.email, :size => 11, style: :bold, :indent_paragraphs => 10
+  pdf.default_leading 0
   if current_user.avatar.present?
     pdf.bounding_box([pdf.bounds.width / 2 + gap, 140], width: pdf.bounds.width / 2 - gap, height: 140) do
       # pdf.image open("http://res.cloudinary.com/hpmowmbqq/image/upload/v1422469666/mqjuntllqlhfex6847br.jpg"), fit: [pdf.bounds.width, pdf.bounds.height]

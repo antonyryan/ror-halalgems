@@ -1,4 +1,5 @@
 class ListingsController < ApplicationController
+  require 'prawnto'
   before_filter :index_page_filter, only: [:index]
   before_filter :signed_in_user, except: [:index]
   before_filter :correct_user, only: [:edit, :update, :destroy, :copy]
@@ -114,6 +115,7 @@ class ListingsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
+        prawnto :inline=>true, :prawn=>{:margin=>20}
         render :pdf => 'show'
       }
       format.xml
