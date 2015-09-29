@@ -14,18 +14,25 @@ black_color = '444444'
 
 pdf.fill_color black_color
 pdf.float do
-  pdf.image "#{Rails.root}/app/assets/images/logo.png"
+  pdf.image "#{Rails.root}/app/assets/images/logo.png", scale: 0.25
 end
+
+gap = 15
+firs_width = pdf.bounds.width * 0.75
+second_width = pdf.bounds.width * 0.25 - gap
 
 y_pos = pdf.cursor
 type_name = (@listing.listing_type.try :name || 'none').upcase
-price = number_to_currency(@listing.price)
+price = "$#{@listing.price.to_i}"
 
-width = 160 #pdf.width_of(type_name, size: 16, :styles => [:normal])
+width = second_width #pdf.width_of(type_name, size: 16, :styles => [:normal])
 
 price_height = pdf.height_of(price, :size => 24, style: :bold)
 type_height = pdf.height_of(type_name, :size => 16)
 height = price_height + type_height + 20
+
+price_width = pdf.width_of(price, size: 24, :styles => [:bold])
+ident = (width - price_width) / 2
 
 pdf.bounding_box([0, y_pos], width: pdf.bounds.width, height: height) do
   # pdf.stroke_bounds
@@ -35,26 +42,27 @@ pdf.bounding_box([0, y_pos], width: pdf.bounds.width, height: height) do
   pdf.fill_color blue_color
   pdf.fill_rectangle [pdf.bounds.right - width, height], width, height
 
-  pdf.text price, color: 'FFFFFF', :size => 24, style: :bold, :valign => :bottom, align: :right
 
-  pdf.bounding_box([pdf.bounds.right - width + 5, height - 5], width: width - 5) do
-    pdf.text type_name, color: 'FFFFFF', :size => 12
+  pdf.bounding_box([pdf.bounds.right - width, height - 10], width: width, height: height - 10) do
+    pdf.indent(ident) do
+      pdf.text type_name, color: 'FFFFFF', :size => 12
+      pdf.fill_color 'ffffff'
+      pdf.text_box price, at: [0, price_height], width: pdf.bounds.width, height: price_height, :size => 24,
+                   style: :bold, :valign => :bottom, owerflow: :truncate
+    end
   end
 end
 
+pdf.fill_color blue_color
 pdf.fill_rectangle [0, pdf.cursor], pdf.bounds.width, 5
-pdf.move_down 4
 pdf.fill_color black_color
 
-pdf.move_down 8
+pdf.move_down 10
 pdf.text((@listing.property_type.present? ? @listing.property_type.name : '') +
              (@listing.unit_no.present? ? " / Unit no: #{@listing.unit_no}" : ''), size: 10)
 pdf.move_down 10
 
 main_y_pos = pdf.cursor
-gap = 15
-firs_width = pdf.bounds.width * 0.75
-second_width = pdf.bounds.width * 0.25 - gap
 
 pdf.fill_color 'ffffff'
 pdf.bounding_box([0, main_y_pos], width: firs_width, height: 480) do
@@ -141,7 +149,7 @@ pdf.move_down gap
 y_pos = pdf.cursor
 bottom_left_width = ((firs_width - 2*gap)/3)*2+gap
 pdf.bounding_box([0, pdf.cursor], width: bottom_left_width, height: 140) do
-  map_url = "http://maps.googleapis.com/maps/api/staticmap?zoom=15&center=#{URI.encode(@listing.full_address)}&size=#{(pdf.bounds.width).to_i}x#{(pdf.bounds.height).to_i}"
+  map_url = "http://maps.googleapis.com/maps/api/staticmap?zoom=15&center=#{URI.encode(@listing.full_address)}&size=#{(pdf.bounds.width).to_i}x#{(pdf.bounds.height).to_i}&markers=#{URI.encode(@listing.full_address)}"
   pdf.image open(map_url)
 end
 
@@ -162,6 +170,7 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
 
   pdf.move_down 35
   pdf.text current_user.name, size: 16, style: :bold, :indent_paragraphs => 10
+  pdf.text current_user.license_type, size: 9, :indent_paragraphs => 10
 
   pdf.default_leading 4
   pdf.move_down 8

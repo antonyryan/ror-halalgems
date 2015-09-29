@@ -108,39 +108,39 @@ class Listing < ActiveRecord::Base
   def features
     f = []
 
-    f.push('dishwasher') if self.dishwasher?
-    f.push('backyard') if self.backyard?
-    f.push('balcony') if self.balcony?
-    f.push('elevator') if self.elevator?
-    f.push('laundry in building') if self.laundry_in_building?
-    f.push('laundry in unit') if self.laundry_in_unit?
-    f.push('live-in super') if self.live_in_super?
-    f.push('absentee landlord') if self.absentee_landlord?
-    f.push('walk up') if self.walk_up?
-    f.push('parking_available') if self.parking_available?
-    f.push('storage_available') if self.storage_available?
-    f.push('yard') if self.yard?
-    f.push('patio') if self.patio?
+    f.push('Dishwasher') if self.dishwasher?
+    f.push('Backyard') if self.backyard?
+    f.push('Balcony') if self.balcony?
+    f.push('Elevator') if self.elevator?
+    f.push('Laundry in building') if self.laundry_in_building?
+    f.push('Laundry in unit') if self.laundry_in_unit?
+    f.push('Live-in super') if self.live_in_super?
+    f.push('Absentee landlord') if self.absentee_landlord?
+    f.push('Walk up') if self.walk_up?
+    f.push('Parking available') if self.parking_available?
+    f.push('Storage available') if self.storage_available?
+    f.push('Yard') if self.yard?
+    f.push('Patio') if self.patio?
 
     f.join ', '
   end
 
   def pets
     p = []
-    p.push('no pets') if self.no_pets?
-    p.push('cats') if self.cats?
-    p.push('dogs') if self.dogs?
-    p.push('approved pets only') if self.approved_pets_only?
+    p.push('No pets') if self.no_pets?
+    p.push('Cats') if self.cats?
+    p.push('Dogs') if self.dogs?
+    p.push('Approved pets only') if self.approved_pets_only?
 
     p.join ', '
   end
 
   def utilities
     u = []
-    u.push('heat_and_hot_water') if self.heat_and_hot_water?
-    u.push('gas') if self.gas?
-    u.push('all') if self.all_utilities?
-    u.push('none') if self.none?
+    u.push('Heat and hot water') if self.heat_and_hot_water?
+    u.push('Gas') if self.gas?
+    u.push('All') if self.all_utilities?
+    u.push('None') if self.none?
 
     u.join ', '
   end
