@@ -90,7 +90,7 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
       others.push('walk up') if listing.walk_up?
       others.push('yard') if listing.yard?
 
-      others.push('heat_and_hot_water') if listing.heat_and_hot_water?
+      others.push('heat and hot water') if listing.heat_and_hot_water?
       others.push('gas') if listing.gas?
       others.push('all') if listing.all_utilities?
       others.push('none') if listing.none?
