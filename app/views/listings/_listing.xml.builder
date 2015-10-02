@@ -22,7 +22,11 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
     # <noFee/> <!-- include if no fee -->
     # <maintenance/> <!-- monthly (Also Common Charges for condos) -->
     # <exclusive> If this is an exclusive listing include this tag. If it is not exclusive then leave this tag out.
-    xml.exclusive
+    if (params[:to].to_s.downcase != 'nakedapartments') or
+        ((params[:to].to_s.downcase == 'nakedapartments') and !listing.hide_address_for_nakedapartments?)
+      xml.exclusive
+    end
+
     # <taxes/> <!-- monthly -->
     xml.bedrooms bed_for_export(listing.bed.name)
     xml.bathrooms listing.full_baths_no

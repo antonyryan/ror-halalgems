@@ -257,7 +257,7 @@ class ListingsController < ApplicationController
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
                                     :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
-                                    :access, :fake_city_id, :fake_unit_no,
+                                    :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     property_photos_attributes: [:id, :photo_url, :_destroy])
   end
 

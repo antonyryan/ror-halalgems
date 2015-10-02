@@ -29,6 +29,7 @@ describe Listing do
   it { should respond_to :fake_city_id }
   it { should respond_to :fake_city }
   it { should respond_to :fake_unit_no }
+  it { should respond_to :hide_address_for_nakedapartments }
 
   it { should be_valid }
 

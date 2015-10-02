@@ -71,6 +71,12 @@
       <%= f.check_box :export_to_nakedapartments %> Export to NakedApartments
     </label>
 
+    <div class="form-group<%= ' has-error' unless @listing.errors[:hide_address_for_nakedapartments].blank? %>">
+      <label>
+        <%= f.check_box :hide_address_for_nakedapartments %> Hide address in NakedApartments
+      </label>
+    </div>
+
     <div class="form-group<%= ' has-error' unless @listing.errors[:fake_city_id].blank? %>">
       <%= f.label :fake_city_id, 'City #2', class: 'control-label' %>
       <%= f.collection_select :fake_city_id, Neighborhood.all, :id, :name, {}, {class: 'form-control'} %>
