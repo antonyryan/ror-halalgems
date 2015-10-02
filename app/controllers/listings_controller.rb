@@ -88,11 +88,11 @@ class ListingsController < ApplicationController
         end
 
         unless @listings.empty?
-          if params[:type] == 'rental'
+          if params[:type].to_s.downcase == 'rental'
             @listings = @listings.listing_type_filter(ListingType.find_by_name('Rental').id)
-          elsif params[:type] == 'sale'
+          elsif params[:type].to_s.downcase == 'sale'
             @listings = @listings.listing_type_filter(ListingType.find_by_name('Sale').id)
-          elsif params[:type] == 'all'
+          elsif params[:type].to_s.downcase == 'all'
             @listings = @listings
           else
             @listings = []

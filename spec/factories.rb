@@ -34,7 +34,7 @@ FactoryGirl.define do
     status
     listing_type
     property_type
-    street_address "Some address"
+    street_address 'Some address'
     available_date {Date::tomorrow}
     landlord 'some name'
     user

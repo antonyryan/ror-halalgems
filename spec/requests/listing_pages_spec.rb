@@ -24,7 +24,7 @@ describe 'ListingPages' do
           listing.save
           visit listing_path(listing)
         end
-        it { should_not have_text 'yard' }
+        it { should_not have_text 'Yard' }
       end
       describe 'when yard if  set' do
         before do
@@ -32,23 +32,24 @@ describe 'ListingPages' do
           listing.save
           visit listing_path(listing)
         end
-        it { should have_text 'yard' }
-        end
+        it { should have_text 'Yard' }
+      end
+
       describe 'when patio if not set' do
         before do
           listing.patio = false
           listing.save
           visit listing_path(listing)
         end
-        it { should_not have_text 'patio' }
+        it { should_not have_text 'Patio' }
       end
-      describe 'when patio if  set' do
+      describe 'when patio is  set' do
         before do
           listing.patio = true
           listing.save
           visit listing_path(listing)
         end
-        it { should have_text 'patio' }
+        it { should have_text 'Patio' }
       end
     end
 
@@ -65,5 +66,50 @@ describe 'ListingPages' do
 
     it { should have_field 'listing_yard' }
     it { should have_field 'listing_patio' }
+  end
+
+  describe 'index' do
+    describe 'xml' do
+      let(:sale_listing) { FactoryGirl.create(:listing, listing_type_id: ListingType.where(name: 'Sale').first.id) }
+      let(:rental_listing) { FactoryGirl.create(:listing, listing_type_id: ListingType.where(name: 'Rental').first.id) }
+      describe 'invalid params' do
+        describe 'when zero params' do
+          before { visit listings_path(format: :xml) }
+          it { should have_xpath '//properties' }
+          it { should_not have_xpath '//property' }
+        end
+
+        describe 'when no the to param' do
+          before { visit listings_path(format: :xml, type: 'all') }
+          it { should have_xpath '//properties' }
+          it { should_not have_xpath '//property' }
+        end
+
+        describe 'when no the type param' do
+          before { visit listings_path(format: :xml, to: 'streeteasy') }
+          it { should have_xpath '//properties' }
+          it { should_not have_xpath '//property' }
+        end
+      end
+
+      describe 'streeteasy' do
+        describe 'no export flag' do
+          before { visit listings_path(format: :xml, to: 'streeteasy', type: 'all') }
+          it { should have_xpath '//properties' }
+          it { should_not have_xpath '//property' }
+        end
+
+        describe 'with export flag' do
+          before do
+            sale_listing.export_to_streeteasy = true
+            sale_listing.save!
+            visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
+          end
+          it { should have_xpath '//properties' }
+          it { should have_xpath "//property[@id='#{sale_listing.id}']" }
+          it { should_not have_xpath "//property[@id='#{rental_listing.id}']" }
+        end
+      end
+    end
   end
 end
