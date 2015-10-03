@@ -13,6 +13,7 @@ blue_color = '0095DA'
 black_color = '444444'
 
 pdf.fill_color black_color
+
 pdf.float do
   pdf.image "#{Rails.root}/app/assets/images/logo.png", scale: 0.25
 end
@@ -25,25 +26,27 @@ y_pos = pdf.cursor
 type_name = (@listing.listing_type.try :name || 'none').upcase
 price = "$#{@listing.price.to_i}"
 
-width = second_width #pdf.width_of(type_name, size: 16, :styles => [:normal])
+blue_box_width = second_width #pdf.width_of(type_name, size: 16, :styles => [:normal])
+title_box_width = pdf.bounds.width - blue_box_width
 
 price_height = pdf.height_of(price, :size => 24, style: :bold)
 type_height = pdf.height_of(type_name, :size => 16)
 height = price_height + type_height + 20
 
 price_width = pdf.width_of(price, size: 24, :styles => [:bold])
-ident = (width - price_width) / 2
+ident = (blue_box_width - price_width) / 2
+title_height = pdf.height_of(@listing.headline, :size => 24, style: :bold)
 
 pdf.bounding_box([0, y_pos], width: pdf.bounds.width, height: height) do
   # pdf.stroke_bounds
-  pdf.text @listing.headline, :size => 24, style: :bold, :valign => :bottom
-
+  pdf.text_box @listing.headline, at: [0, title_height], width: title_box_width, height: title_height,
+               overflow: :shrink_to_fit, :size => 24, style: :bold, :valign => :bottom
 
   pdf.fill_color blue_color
-  pdf.fill_rectangle [pdf.bounds.right - width, height], width, height
+  pdf.fill_rectangle [pdf.bounds.right - blue_box_width, height], blue_box_width, height
 
 
-  pdf.bounding_box([pdf.bounds.right - width, height - 10], width: width, height: height - 10) do
+  pdf.bounding_box([pdf.bounds.right - blue_box_width, height - 10], width: blue_box_width, height: height - 10) do
     pdf.indent(ident) do
       pdf.text type_name, color: 'FFFFFF', :size => 12
       pdf.fill_color 'ffffff'
@@ -168,7 +171,7 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
   pdf.fill_color black_color
   pdf.formatted_text_box [{text: 'AGENT', color: 'FFFFFF'}], at: [10, start_y - 4], :size => 14, style: :bold
 
-  pdf.move_down 35
+  pdf.move_down 30
   pdf.text current_user.name, size: 16, style: :bold, :indent_paragraphs => 10
   pdf.text current_user.license_type, size: 9, :indent_paragraphs => 10
 
@@ -188,113 +191,3 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
     end
   end
 end
-
-# pdf.text @listing.full_address, :size => 24, style: :bold
-#
-# pdf.fill_color blue_color
-# pdf.float do
-#   type_name = @listing.listing_type.try :name || 'none'
-#   price = number_to_currency(@listing.price)
-#   width = pdf.width_of(type_name, size: 16, :styles => [:normal])
-#
-#   # height = pdf.height_of_formatted(
-#   #     [
-#   #         {:text => type_name, size: 16, :styles => [:normal]},
-#   #         {:text => price, :size => 24, :styles => [:bold]}
-#   #     ]
-#   # )
-#
-#   price_height = pdf.height_of(price, :size => 24, style: :bold)
-#   type_height = pdf.height_of(type_name, :size => 16)
-#   height = price_height + type_height
-#
-#   pdf.fill_rectangle [pdf.bounds.right - width, y_pos], width, height
-#   #pdf.fill_color "000000"
-#   pdf.bounding_box([pdf.bounds.right - width, y_pos], width: width, height: height) do
-#     pdf.text type_name, color: 'FFFFFF', :size => 16
-#     pdf.text price, color: 'FFFFFF', :size => 24, style: :bold
-#   end
-# end
-
-#
-
-# red_color = 'CE003D'
-# pdf.float do
-#   pdf.fill_color red_color
-#   x_pos = pdf.bounds.absolute_left - 10
-#   y_pos = pdf.bounds.absolute_top
-#   h = pdf.bounds.height
-#   pdf.canvas do
-#     pdf.fill_rectangle [x_pos, y_pos], 10, h
-#
-#   end
-#   pdf.fill_rectangle [0, pdf.cursor], pdf.bounds.width,
-#                      pdf.height_of(@listing.full_address, :size => 30, :style => :italic)
-#   pdf.fill_color "#000000"
-# end
-# pdf.move_down 7
-# y_pos = pdf.cursor
-# pdf.text @listing.full_address, :size => 30, :style => :italic, color: "FFFFFF"
-#
-# pdf.float do
-#   unless @listing.listing_type.nil?
-#     type_name = @listing.listing_type.name
-#     width = pdf.width_of( type_name ) +5
-#     height = pdf.height_of( type_name ) +5
-#     #pdf.fill_color "1AB3EA"
-#     pdf.fill_rounded_rectangle [pdf.bounds.right - width - 4, y_pos],
-#                                width, height, 5
-#     #pdf.fill_color "000000"
-#     pdf.bounding_box([pdf.bounds.right - width -2 , y_pos], width: width, height: height) do
-#       pdf.text type_name, color: "FFFFFF", valign: :center
-#     end
-#   end
-# end
-#
-# y_pos = pdf.cursor
-# half = pdf.bounds.width/2
-# pdf.bounding_box([0, y_pos], width: half - 5) do
-#   pdf.text("Unit no: #{@listing.unit_no}") unless @listing.unit_no.nil? || @listing.unit_no.empty?
-#   pdf.text("Zip: #{@listing.zip_code}") unless @listing.zip_code.nil?
-# end
-#
-# pdf.bounding_box([half+10, y_pos], width: half - 5) do
-#   pdf.text(@listing.property_type.name, color: red_color, align: :right) unless @listing.property_type.nil?
-#   pdf.text number_to_currency(@listing.price), style: :bold, color: red_color, align: :right
-# end
-#
-# if @listing.property_photos.count > 0
-#   pdf.image open(@listing.property_photos.first.photo_url_url), width: pdf.bounds.width
-# end
-#
-# pdf.move_down 10
-# pdf.text "#{@listing.bed.name} / #{@listing.full_baths_no} full baths / #{@listing.half_baths_no} half baths",
-#          size: 16, style: :italic
-# pdf.text @listing.description
-#
-# pdf.move_down 10
-#
-#
-# y_pos = pdf.cursor
-# pdf.bounding_box([0, y_pos], width: half - 5) do
-#   pdf.text "<b>Agent:</b> #{@listing.user.name}", inline_format: true
-#   unless @listing.user.phone.blank?
-#     pdf.text "<b>Phone:</b> #{@listing.user.phone}", inline_format: true
-#   end
-#
-#   unless @listing.user.email.blank?
-#     pdf.text "<b>Email:</b> #{@listing.user.email}", inline_format: true
-#   end
-# end
-#
-# pdf.bounding_box( [half+10, y_pos], width: half - 5) do
-#   unless @listing.features.empty?
-#           pdf.text "<b>Features:</b> #{@listing.features}", inline_format: true
-#   end
-#   unless @listing.pets.empty?
-#     pdf.text "<b>Pets:</b> #{@listing.pets}", inline_format: true
-#   end
-#   unless @listing.utilities.empty?
-#     pdf.text "<b>Utilities:</b> #{@listing.utilities}", inline_format: true
-#   end
-# end

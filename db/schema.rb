@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002162344) do
+ActiveRecord::Schema.define(version: 20151003165341) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20151002162344) do
     t.string   "access"
     t.integer  "fake_city_id"
     t.string   "fake_unit_no"
-    t.boolean  "hide_address_for_nakedapartments", default: false
+    t.boolean  "hide_address_for_nakedapartments", default: true
   end
 
   add_index "listings", ["available_date"], name: "index_listings_on_available_date"
