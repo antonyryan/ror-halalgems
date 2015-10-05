@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003165341) do
+ActiveRecord::Schema.define(version: 20151005181105) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20151003165341) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "listing_id"
+    t.integer  "order_num"
   end
 
   add_index "property_photos", ["listing_id"], name: "index_property_photos_on_listing_id"

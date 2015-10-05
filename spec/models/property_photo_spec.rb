@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe PropertyPhoto do
-  pending "add some examples to (or delete) #{__FILE__}"
+    before do
+      @photo = PropertyPhoto.new(listing_id: 1)
+    end
+
+    subject { @photo}
+
+    it { should respond_to(:listing_id) }
+    it { should respond_to(:photo_url) }
+    it { should respond_to(:order_num) }
 end
