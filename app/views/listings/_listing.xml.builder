@@ -18,7 +18,7 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
   end
 
   xml.details do
-    xml.price listing.price
+    xml.price listing.price.to_i
     # <noFee/> <!-- include if no fee -->
     # <maintenance/> <!-- monthly (Also Common Charges for condos) -->
     # <exclusive> If this is an exclusive listing include this tag. If it is not exclusive then leave this tag out.
