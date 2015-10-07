@@ -14,6 +14,7 @@ class Listing < ActiveRecord::Base
   before_save :set_status
 
   validates :street_address, presence: true
+  validates :zip_code, presence: true
   validates :price, allow_blank: true, numericality: {greater_than: 0}
 
   validates :full_baths_no, allow_blank: true, numericality: {only_integer: true, greater_than: 0}

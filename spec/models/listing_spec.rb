@@ -5,7 +5,7 @@ describe Listing do
   let(:neighborhood) { FactoryGirl.create(:neighborhood) }
   before do
     @listing = Listing.new(street_address: 'Some address', available_date: Date::tomorrow, landlord: 'some name',
-                           neighborhood: neighborhood)
+                           neighborhood: neighborhood, zip_code: '1')
   end
 
   subject { @listing }
@@ -37,6 +37,12 @@ describe Listing do
     before { @listing.street_address = '' }
     it { should_not be_valid }
   end
+
+  describe 'when zip code is blank' do
+    before { @listing.zip_code = ' ' }
+    it { should_not be_valid }
+  end
+
 
   describe 'when price is blank' do
     before { @listing.price = nil }

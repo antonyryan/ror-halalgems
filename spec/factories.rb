@@ -39,5 +39,6 @@ FactoryGirl.define do
     landlord 'some name'
     user
     bed
+    zip_code '111053'
   end   
 end
