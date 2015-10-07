@@ -70,7 +70,10 @@ describe 'ListingPages' do
 
   describe 'index' do
     describe 'xml' do
-      let(:sale_listing) { FactoryGirl.create(:listing, listing_type_id: ListingType.where(name: 'Sale').first.id) }
+      let (:neighborhood) { FactoryGirl.create(:neighborhood) }
+      let (:fake_neighborhood) { FactoryGirl.create(:neighborhood) }
+      let(:sale_listing) { FactoryGirl.create(:listing, listing_type_id: ListingType.where(name: 'Sale').first.id,
+                                              street_address: 'test', unit_no: '1B', neighborhood_id: neighborhood.id) }
       let(:rental_listing) { FactoryGirl.create(:listing, listing_type_id: ListingType.where(name: 'Rental').first.id) }
       describe 'invalid params' do
         describe 'when zero params' do
@@ -108,6 +111,54 @@ describe 'ListingPages' do
           it { should have_xpath '//properties' }
           it { should have_xpath "//property[@id='#{sale_listing.id}']" }
           it { should_not have_xpath "//property[@id='#{rental_listing.id}']" }
+
+          describe 'address' do
+            describe 'when address 2 is empty' do
+              it { should have_selector 'address', text: 'test' }
+            end
+
+            describe 'when address 2 is present' do
+              before do
+                sale_listing.fake_address = 'fake'
+                sale_listing.save!
+                visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
+              end
+              it { should_not have_selector 'address', text: 'test' }
+              it { should have_selector 'address', text: 'fake' }
+            end
+          end
+
+          describe 'unit_no' do
+            describe 'when fake_unit_no is empty' do
+              it { should have_selector 'apartment', text: '1B' }
+            end
+
+            describe 'when fake_unit_no is present' do
+              before do
+                sale_listing.fake_unit_no = 'fake_unit_no'
+                sale_listing.save!
+                visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
+              end
+              it { should_not have_selector 'apartment', text: '1B' }
+              it { should have_selector 'apartment', text: 'fake_unit_no' }
+            end
+          end
+
+          describe 'city' do
+            describe 'when fake_city_id is empty' do
+              it { should have_selector 'city', text: neighborhood.name }
+            end
+
+            describe 'when fake_city_id is present' do
+              before do
+                sale_listing.fake_city_id = fake_neighborhood.id
+                sale_listing.save!
+                visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
+              end
+              it { should_not have_selector 'city', text: neighborhood.name }
+              it { should have_selector 'city', text: fake_neighborhood.name }
+            end
+          end
         end
       end
     end

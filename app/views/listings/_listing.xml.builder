@@ -6,9 +6,23 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
       xml.apartment listing.unit_no
       xml.city listing.neighborhood.try(:name)
     else
-      xml.address listing.fake_address
-      xml.apartment listing.fake_unit_no
-      xml.city listing.fake_city.try(:name)
+      if listing.fake_address.blank?
+        xml.address listing.street_address
+      else
+        xml.address listing.fake_address
+      end
+
+      if listing.fake_unit_no.blank?
+        xml.apartment listing.unit_no
+      else
+        xml.apartment listing.fake_unit_no
+      end
+
+      if listing.fake_city_id.blank?
+        xml.city listing.neighborhood.try(:name)
+      else
+        xml.city listing.fake_city.try(:name)
+      end
     end
     # todo: required!
     xml.state 'NY'
