@@ -84,7 +84,7 @@
 
     <div class="form-group<%= ' has-error' unless @listing.errors[:fake_city_id].blank? %>">
       <%= f.label :fake_city_id, 'City #2', class: 'control-label' %>
-      <%= f.collection_select :fake_city_id, Neighborhood.all, :id, :name, {}, {class: 'form-control'} %>
+      <%= f.collection_select :fake_city_id, Neighborhood.all, :id, :name, { prompt: true }, {class: 'form-control'} %>
     </div>
 
     <div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank? %>">
