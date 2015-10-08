@@ -172,7 +172,9 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
   pdf.formatted_text_box [{text: 'AGENT', color: 'FFFFFF'}], at: [10, start_y - 4], :size => 14, style: :bold
 
   pdf.move_down 30
-  pdf.text current_user.name, size: 16, style: :bold, :indent_paragraphs => 10
+  pdf.text_box current_user.name, at: [10, pdf.cursor], width: 130, height: 25, size: 16, style: :bold, overflow: :shrink_to_fit
+
+  pdf.move_down 25
   pdf.text current_user.license_type, size: 9, :indent_paragraphs => 10
 
   pdf.default_leading 4
@@ -184,10 +186,10 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
   pdf.text 'Email', color: blue_color, :size => 11, style: :bold, :indent_paragraphs => 10
   pdf.text current_user.email, :size => 11, style: :bold, :indent_paragraphs => 10
   pdf.default_leading 0
-  if current_user.avatar.present?
+  # if current_user.avatar.present?
     pdf.bounding_box([pdf.bounds.width / 2 + gap, 140], width: pdf.bounds.width / 2 - gap, height: 140) do
-      # pdf.image open("http://res.cloudinary.com/hpmowmbqq/image/upload/v1422469666/mqjuntllqlhfex6847br.jpg"), fit: [pdf.bounds.width, pdf.bounds.height]
-      pdf.image open(current_user.avatar_url), fit: [pdf.bounds.width, pdf.bounds.height]
+      pdf.image open("http://res.cloudinary.com/hpmowmbqq/image/upload/v1422469666/mqjuntllqlhfex6847br.jpg"), fit: [pdf.bounds.width, pdf.bounds.height]
+      # pdf.image open(current_user.avatar_url), fit: [pdf.bounds.width, pdf.bounds.height]
     end
-  end
+  # end
 end
