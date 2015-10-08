@@ -184,8 +184,10 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
 
   pdf.move_down 8
   pdf.text 'Email', color: blue_color, :size => 11, style: :bold, :indent_paragraphs => 10
-  pdf.text current_user.email, :size => 11, style: :bold, :indent_paragraphs => 10
-  # pdf.text 'jen.harvey@horowitzre.com', :size => 11, style: :bold, :indent_paragraphs => 10
+
+  email_height = pdf.height_of(current_user.email, :size => 11, style: :bold)
+  pdf.text_box current_user.email, at: [10, pdf.cursor], width: 130, height: email_height+5,  :size => 11, style: :bold,
+               overflow: :shrink_to_fit
   pdf.default_leading 0
   if current_user.avatar.present?
     pdf.bounding_box([pdf.bounds.width / 2 + gap, 140], width: pdf.bounds.width / 2 - gap, height: 140) do
