@@ -35,7 +35,7 @@ height = price_height + type_height + 20
 
 price_width = pdf.width_of(price, size: 24, :styles => [:bold])
 ident = (blue_box_width - price_width) / 2
-title_height = pdf.height_of(@listing.headline, :size => 24, style: :bold)
+title_height =40# pdf.height_of(@listing.headline, :size => 24, style: :bold)
 
 pdf.bounding_box([0, y_pos], width: pdf.bounds.width, height: height) do
   # pdf.stroke_bounds
