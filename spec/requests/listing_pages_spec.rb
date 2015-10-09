@@ -66,6 +66,31 @@ describe 'ListingPages' do
 
     it { should have_field 'listing_yard' }
     it { should have_field 'listing_patio' }
+
+    describe 'change agent' do
+      let(:admin_user) { FactoryGirl.create(:admin) }
+      describe 'as regular user' do
+        it { should_not have_field 'listing_user_id' }
+      end
+
+      describe 'as admin user' do
+        before do
+          sign_in admin_user
+          visit edit_listing_path(listing)
+        end
+        describe 'page' do
+          it { should have_field 'listing_user_id' }
+        end
+        describe 'save' do
+          before do
+            page.select admin_user.name, from: 'listing_user_id'
+            click_button 'Save'
+          end
+          specify { expect(listing.reload.user_id).to  eq admin_user.id }
+        end
+      end
+
+    end
   end
 
   describe 'index' do

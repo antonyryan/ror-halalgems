@@ -115,7 +115,7 @@ class ListingsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
-        prawnto :inline=>true, :prawn=>{:margin=>20}
+        prawnto :inline => true, :prawn => {:margin => 20}
         render :pdf => 'show'
       }
       format.xml
@@ -242,30 +242,53 @@ class ListingsController < ApplicationController
   end
 
   private
-  def index_page_filter
-    unless request.format.xml?
-      signed_in_user
+    def index_page_filter
+      unless request.format.xml?
+        signed_in_user
+      end
     end
-  end
 
-  def listing_params
-    params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id,
-                                    :full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name,
-                                    :unit_no, :zip_code, :available_date,
-                                    :description, :landlord, :renter, :title,
-                                    :dishwasher, :backyard, :balcony, :elevator,
-                                    :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
-                                    :storage_available, :parking_available, :yard, :patio,
-                                    :no_pets, :cats, :dogs, :approved_pets_only,
-                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
-                                    :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
-                                    property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
-  end
+    def listing_params
+      if current_user.admin?
+        listing_params_admin
+      else
+        listing_params_regular
+      end
+    end
 
-  def correct_user
-    user = Listing.find(params[:id]).user
-    redirect_to(root_url) unless current_user?(user) || current_user.admin?
-  end
+
+    def listing_params_regular
+      params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id,
+                                      :full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name,
+                                      :unit_no, :zip_code, :available_date,
+                                      :description, :landlord, :renter, :title,
+                                      :dishwasher, :backyard, :balcony, :elevator,
+                                      :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
+                                      :storage_available, :parking_available, :yard, :patio,
+                                      :no_pets, :cats, :dogs, :approved_pets_only,
+                                      :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
+                                      :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
+                                      property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
+    end
+
+    def listing_params_admin
+      params.require(:listing).permit(:street_address, :listing_type_id, :main_photo, :price, :status_id, :bed_id,
+                                      :full_baths_no, :half_baths_no, :neighborhood_id, :property_type_id, :city_name,
+                                      :unit_no, :zip_code, :available_date, :user_id,
+                                      :description, :landlord, :renter, :title,
+                                      :dishwasher, :backyard, :balcony, :elevator,
+                                      :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
+                                      :storage_available, :parking_available, :yard, :patio,
+                                      :no_pets, :cats, :dogs, :approved_pets_only,
+                                      :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
+                                      :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
+                                      property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
+    end
+
+    def correct_user
+      user = Listing.find(params[:id]).user
+      redirect_to(root_url) unless current_user?(user) || current_user.admin?
+    end
 
 
 end
