@@ -177,12 +177,12 @@ pdf.bounding_box([bottom_left_width + gap, y_pos], width: pdf.bounds.width - bot
   pdf.move_down 25
   pdf.text current_user.license_type, size: 9, :indent_paragraphs => 10
 
-  pdf.default_leading 4
+  pdf.default_leading 2
   pdf.move_down 8
   pdf.text 'Phone', color: blue_color, :size => 11, style: :bold, :indent_paragraphs => 10
   pdf.text current_user.phone, :size => 11, style: :bold, :indent_paragraphs => 10
 
-  pdf.move_down 8
+
   pdf.text 'Email', color: blue_color, :size => 11, style: :bold, :indent_paragraphs => 10
 
   email_height = pdf.height_of(current_user.email, :size => 11, style: :bold)
