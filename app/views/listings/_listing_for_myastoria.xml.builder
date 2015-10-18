@@ -92,7 +92,7 @@
     end
 
     xml.agents do
-      xml.agent(id: listing.user.try(:id)) do
+      xml.agent(id: listing.user.id) do
         xml.name listing.user.name
         xml.email listing.user.email
         xml.phone_numbers do
