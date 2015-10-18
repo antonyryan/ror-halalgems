@@ -259,7 +259,7 @@ class ListingsController < ApplicationController
         # end
 
         authenticate_or_request_with_http_basic do |user, password|
-          user == 'myastoria' && password == 'cp$3wuzjh4F&sCJ='
+          user == 'myastoria' && password == 'PvpGbXhTuDNpB2T7'
         end
       end
     else

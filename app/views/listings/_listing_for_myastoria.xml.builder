@@ -4,7 +4,7 @@
       xml.address listing.street_address
       xml.zipcode listing.zip_code
       xml.unit listing.unit_no
-      xml.neighborhood listing.neighborhood.try :name
+      xml.neighborhood listing.neighborhood.name
     end
 
     xml.details do
