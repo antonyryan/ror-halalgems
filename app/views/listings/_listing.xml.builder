@@ -44,6 +44,8 @@ else
         xml.exclusive
       end
 
+      # xml.feature_listing
+
       # <taxes/> <!-- monthly -->
       xml.bedrooms bed_for_export(listing.bed.name)
       xml.bathrooms listing.full_baths_no

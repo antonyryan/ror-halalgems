@@ -30,6 +30,9 @@ describe Listing do
   it { should respond_to :fake_city }
   it { should respond_to :fake_unit_no }
   it { should respond_to :hide_address_for_nakedapartments }
+  it { should respond_to :exported_to_nakedapartments }
+  it { should respond_to :exported_to_streeteasy }
+  it { should respond_to :exported_to_myastoria }
 
   it { should be_valid }
 

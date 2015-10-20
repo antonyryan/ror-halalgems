@@ -100,7 +100,15 @@ class ListingsController < ApplicationController
             @listings = []
           end
         end
-
+        unless @listings.empty?
+          if params[:to].to_s.downcase == 'nakedapartments'
+            @listings.update_all(exported_to_nakedapartments: true)
+          elsif params[:to].to_s.downcase == 'streeteasy'
+            @listings.update_all(exported_to_streeteasy: true)
+          elsif params[:to].to_s.downcase == 'myastoria'
+            @listings.update_all(exported_to_myastoria: true)
+          end
+        end
       end
     end
 
@@ -286,7 +294,7 @@ class ListingsController < ApplicationController
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
                                     :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
-                                    :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
+                                    :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments, :exported_to_nakedapartments,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
   end
 

@@ -1,46 +1,83 @@
 <% provide(:title, @listing.full_address) %>
 
 <div class="row" xmlns="http://www.w3.org/1999/html">
-	<div class="col-md-8">
-		<h1 id="address" data-value="<%= @listing.full_address %>">
-          <%= @listing.full_address %> <small><span class="label label-info"><%= @listing.listing_type.name unless @listing.listing_type.nil? %></span></small>
-        </h1>
-		<h3 class="zip">
-          <%= "Unit no: #{@listing.unit_no}" unless @listing.unit_no.nil? || @listing.unit_no.empty? %>
-          <%= "Zip: #{@listing.zip_code}" unless @listing.zip_code.nil? %>
-        </h3>
-	</div>
+  <div class="col-md-8">
+    <h1 id="address" data-value="<%= @listing.full_address %>">
+      <%= @listing.full_address %>
+      <small><span class="label label-info"><%= @listing.listing_type.name unless @listing.listing_type.nil? %></span>
+      </small>
+      <% if @listing.export_to_nakedapartments? %>
+          <%
+             if @listing.exported_to_nakedapartments?
+               class_name = 'success'
+             else
+               class_name = 'default'
+             end
+          %>
+          <small>
+            <span class="label label-<%= class_name %>">NA</span>
+          </small>
+      <% end %>
+      <% if @listing.export_to_streeteasy? %>
+          <%
+             if @listing.exported_to_streeteasy?
+               class_name = 'success'
+             else
+               class_name = 'default'
+             end
+          %>
+          <small>
+            <span class="label label-<%= class_name %>">SE</span>
+          </small>
+      <% end %>
+      <%
+         if @listing.exported_to_myastoria?
+           class_name = 'success'
+         else
+           class_name = 'default'
+         end
+      %>
+      <small>
+        <span class="label label-<%= class_name %>">MA</span>
+      </small>
+    </h1>
+    <h3 class="zip">
+      <%= "Unit no: #{@listing.unit_no}" unless @listing.unit_no.nil? || @listing.unit_no.empty? %>
+      <%= "Zip: #{@listing.zip_code}" unless @listing.zip_code.nil? %>
+    </h3>
+  </div>
 
-	<div class="col-md-4">
-		<h2 class="text-right"><%= number_to_currency(@listing.price) %></h2>
-		<h3 class="property_type text-right"><%= @listing.property_type.name unless @listing.property_type.nil? %></h3>
-	</div>
+  <div class="col-md-4">
+    <h2 class="text-right"><%= number_to_currency(@listing.price) %></h2>
+
+    <h3 class="property_type text-right"><%= @listing.property_type.name unless @listing.property_type.nil? %></h3>
+  </div>
 </div>
 <p>
-    <% if signed_in? %>
+  <% if signed_in? %>
       <% if current_user?(@listing.user) || current_user.admin? %>
-        <%= link_to 'Edit listing', edit_listing_path(@listing), class: 'btn btn-default', role: 'button' %>
-        <!-- TODO: make post request via form -->
-        <%= link_to 'Copy listing', copy_listing_path(@listing), class: 'btn btn-default', role: 'button' %>
-        <%= link_to 'Delete listing', @listing, method: :delete, data: { confirm: 'You sure?' }, class: 'btn btn-default', role: 'button' %>
-        <%= link_to 'History', history_records_path(listing_id: @listing.id), class: 'btn btn-default', role: 'button' %>
+          <%= link_to 'Edit listing', edit_listing_path(@listing), class: 'btn btn-default', role: 'button' %>
+          <!-- TODO: make post request via form -->
+          <%= link_to 'Copy listing', copy_listing_path(@listing), class: 'btn btn-default', role: 'button' %>
+          <%= link_to 'Delete listing', @listing, method: :delete, data: {confirm: 'You sure?'}, class: 'btn btn-default', role: 'button' %>
+          <%= link_to 'History', history_records_path(listing_id: @listing.id), class: 'btn btn-default', role: 'button' %>
       <% end %>
-    <% end %>
+  <% end %>
   <%= link_to 'Download Flyer', listing_path(@listing, :format => 'pdf'), class: 'btn btn-primary', role: 'button' %>
 </p>
 
 <div class="row">
   <div class="col-md-12">
-      <h3><span class="property_type" >Agent:</span> <%= @listing.user.try :name %>
+    <h3><span class="property_type">Agent:</span> <%= @listing.user.try :name %>
       <%= link_to 'View agent', @listing.user, class: 'btn btn-xs btn-primary', role: 'button' %>
-      <%= mail_to @listing.user.email, 'Contact agent', class: 'btn btn-xs btn-primary', role: 'button'%>
-      </h3>
+      <%= mail_to @listing.user.email, 'Contact agent', class: 'btn btn-xs btn-primary', role: 'button' %>
+    </h3>
   </div>
 
   <% unless @listing.landlord.nil? %>
       <div class="col-md-12">
         <h3>
-          <span class="property_type" >Landlord:</span> <%= @listing.landlord %>
+          <span class="property_type">Landlord:</span> <%= @listing.landlord %>
         </h3>
       </div>
   <% end %>
@@ -48,7 +85,7 @@
   <% if @listing.access.present? %>
       <div class="col-md-12">
         <h3>
-          <span class="property_type" >Access:</span> <%= @listing.access %>
+          <span class="property_type">Access:</span> <%= @listing.access %>
         </h3>
       </div>
   <% end %>
@@ -56,36 +93,41 @@
 
 
 <div class="row">
-	<div class="col-md-7 connected-carousels" >
-		<% if @listing.property_photos.count > 0 %>
-          <% if @listing.property_photos.count == 1 %>
-			<% photo = @listing.property_photos.first %>			
-			<%= image_tag(photo.photo_url_url, :width => '100%') %>
-          <% else %>
+  <div class="col-md-7 connected-carousels">
+    <% if @listing.property_photos.count > 0 %>
+        <% if @listing.property_photos.count == 1 %>
+            <% photo = @listing.property_photos.first %>
+            <%= image_tag(photo.photo_url_url, :width => '100%') %>
+        <% else %>
             <%= render 'jcarousel' %>
-          <% end %>
-		<% else %>
-			<%= image_tag('no_photo.png', :width => '100%') %>
-		<% end %>
-	</div>
+        <% end %>
+    <% else %>
+        <%= image_tag('no_photo.png', :width => '100%') %>
+    <% end %>
+  </div>
 
-    <div class="col-md-5 property-rooms">
-      <p><%= @listing.bed.name %></p>
-      <p><%= @listing.full_baths_no %> full baths</p>
-      <p><%= @listing.half_baths_no %> half baths</p>
-      <p>Days on market: <%= @listing.days_on_market %></p>
-      <p>Available at: <%= @listing.available_date %></p>
-      <p><%= @listing.status.try :name %></p>
-    </div>
+  <div class="col-md-5 property-rooms">
+    <p><%= @listing.bed.name %></p>
+
+    <p><%= @listing.full_baths_no %> full baths</p>
+
+    <p><%= @listing.half_baths_no %> half baths</p>
+
+    <p>Days on market: <%= @listing.days_on_market %></p>
+
+    <p>Available at: <%= @listing.available_date %></p>
+
+    <p><%= @listing.status.try :name %></p>
+  </div>
 </div>
 
 <div class="row">
-	<div class="col-md-7 property-description">
-		<%= @listing.description %>
-	</div>
-	<div class="col-md-5 property-size text-right">
-		<div id="map-canvas"></div>
-	</div>
+  <div class="col-md-7 property-description">
+    <%= @listing.description %>
+  </div>
+  <div class="col-md-5 property-size text-right">
+    <div id="map-canvas"></div>
+  </div>
 </div>
 
 <div class="row">
