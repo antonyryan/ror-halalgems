@@ -8,6 +8,7 @@
     end
 
     xml.details do
+      xml.headline listing.title
       xml.price listing.price
       xml.bedrooms listing.bed.name
       xml.bathrooms listing.full_baths_no
@@ -17,6 +18,7 @@
       xml.description listing.description
       xml.propertyType listing.property_type.name
       xml.landlord listing.landlord
+      xml.access listing.access
 
       xml.amenities do
         if listing.elevator?
