@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020192646) do
+ActiveRecord::Schema.define(version: 20151022091350) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20151020192646) do
     t.boolean  "exported_to_nakedapartments",      default: false
     t.boolean  "exported_to_streeteasy",           default: false
     t.boolean  "exported_to_myastoria",            default: false
+    t.boolean  "featured",                         default: false
   end
 
   add_index "listings", ["available_date"], name: "index_listings_on_available_date"

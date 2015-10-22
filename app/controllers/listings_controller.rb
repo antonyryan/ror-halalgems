@@ -293,8 +293,10 @@ class ListingsController < ApplicationController
                                     :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
-                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
-                                    :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments, :exported_to_nakedapartments,
+                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy,
+                                    :export_to_nakedapartments, :fake_address,
+                                    :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
+                                    :exported_to_nakedapartments, :featured,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
   end
 
@@ -307,7 +309,8 @@ class ListingsController < ApplicationController
                                     :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
-                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_nakedapartments, :fake_address,
+                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy,
+                                    :export_to_nakedapartments, :fake_address,  :featured,
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
   end

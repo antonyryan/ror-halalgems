@@ -44,9 +44,11 @@ else
         xml.exclusive
       end
 
-      # xml.feature_listing
+      if (params[:to].to_s.downcase == 'nakedapartments') and listing.featured?
+        xml.featured
+      end
 
-      # <taxes/> <!-- monthly -->
+        # <taxes/> <!-- monthly -->
       xml.bedrooms bed_for_export(listing.bed.name)
       xml.bathrooms listing.full_baths_no
       xml.half_baths listing.half_baths_no

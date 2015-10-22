@@ -33,6 +33,7 @@ describe Listing do
   it { should respond_to :exported_to_nakedapartments }
   it { should respond_to :exported_to_streeteasy }
   it { should respond_to :exported_to_myastoria }
+  it { should respond_to :featured }
 
   it { should be_valid }
 
