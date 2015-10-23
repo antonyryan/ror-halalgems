@@ -120,8 +120,14 @@ class ListingsController < ApplicationController
   end
 
   def show
-    @listing = Listing.find(params[:id])
-    #@photo_urls = @listing.property_photos.all
+    begin
+      @listing = Listing.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_url, :flash => { :error => 'Record not found.' }
+      return
+    end
+
+      #@photo_urls = @listing.property_photos.all
     respond_to do |format|
       format.html
       format.pdf {
