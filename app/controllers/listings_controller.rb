@@ -82,7 +82,7 @@ class ListingsController < ApplicationController
         if params[:to].to_s.downcase == 'nakedapartments'
           @listings = Listing.where(export_to_nakedapartments: true)
         elsif params[:to].to_s.downcase == 'streeteasy'
-          @listings = Listing.where(export_to_streeteasy: true)
+          @listings = Listing.where(export_to_streeteasy: true, status_id: Status.where.not(name: %w(Closed Lost)).pluck(:id))
         elsif params[:to].to_s.downcase == 'myastoria'
           @listings = Listing.all
         else
@@ -119,6 +119,20 @@ class ListingsController < ApplicationController
     #end
   end
 
+
+  # class ApplicationController < ActionController::Base
+  #   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  #
+  #   def render_404
+  #     respond_to do |format|
+  #       format.html { render :action => "errors/404.html.erb", :status => 404 }
+  #       # and so on..
+  #     end
+  #   end
+  # end
+  # Yes, you can also do a redirect instead of render, but this is not a good idea. Any semi-automatic interaction
+  # with your site will think that the transfer was successfull (because the returned code was not 404),
+  # but the received resource was not the one your client wanted.
   def show
     begin
       @listing = Listing.find(params[:id])
