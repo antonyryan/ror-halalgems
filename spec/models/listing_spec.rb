@@ -22,6 +22,7 @@ describe Listing do
   it { should respond_to(:patio) }
   it { should respond_to(:fake_address) }
   it { should respond_to(:export_to_streeteasy) }
+  it { should respond_to(:export_to_myastoria) }
   it { should respond_to(:export_to_nakedapartments) }
   it { should respond_to :title }
   it { should respond_to :headline }

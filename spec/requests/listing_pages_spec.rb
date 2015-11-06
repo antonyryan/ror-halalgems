@@ -86,7 +86,7 @@ describe 'ListingPages' do
             page.select admin_user.name, from: 'listing_user_id'
             click_button 'Save'
           end
-          specify { expect(listing.reload.user_id).to  eq admin_user.id }
+          specify { expect(listing.reload.user_id).to eq admin_user.id }
         end
       end
 
@@ -186,6 +186,26 @@ describe 'ListingPages' do
           end
         end
       end
+
+      describe 'myastoria' do
+        describe 'no export flag' do
+          before { visit url_for controller: 'listings', action: 'index', format: :xml, user: 'myastoria', password: 'PvpGbXhTuDNpB2T7', :escape => false, :only_path=>false, :overwrite_params=>{ to: 'myastoria', type: 'all'}}
+          it { should have_xpath '//properties' }
+          it { should_not have_xpath '//property' }
+        end
+
+        describe 'with export flag' do
+          before do
+            sale_listing.export_to_myastoria = true
+            sale_listing.save!
+            visit url_for controller: 'listings', action: 'index', format: :xml, user: 'myastoria', password: 'PvpGbXhTuDNpB2T7', :escape => false, :only_path=>false, :overwrite_params=>{ to: 'myastoria', type: 'all'}
+          end
+          it { should have_xpath '//properties' }
+          it { should have_xpath "//property[@id='#{sale_listing.id}']" }
+          it { should_not have_xpath "//property[@id='#{rental_listing.id}']" }
+        end
+      end
+
     end
   end
 end

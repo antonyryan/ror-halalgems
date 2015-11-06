@@ -84,7 +84,7 @@ class ListingsController < ApplicationController
         elsif params[:to].to_s.downcase == 'streeteasy'
           @listings = Listing.where(export_to_streeteasy: true, status_id: Status.where.not(name: %w(Closed Lost)).pluck(:id))
         elsif params[:to].to_s.downcase == 'myastoria'
-          @listings = Listing.all
+          @listings = Listing.where export_to_myastoria: true
         else
           @listings = []
         end
@@ -313,7 +313,7 @@ class ListingsController < ApplicationController
                                     :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
-                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy,
+                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_myastoria,
                                     :export_to_nakedapartments, :fake_address,
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     :exported_to_nakedapartments, :featured,
@@ -329,7 +329,7 @@ class ListingsController < ApplicationController
                                     :laundry_in_building, :laundry_in_unit, :live_in_super, :absentee_landlord, :walk_up,
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
-                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy,
+                                    :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_myastoria,
                                     :export_to_nakedapartments, :fake_address,  :featured,
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])

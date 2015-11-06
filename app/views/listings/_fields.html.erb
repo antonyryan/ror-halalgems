@@ -77,6 +77,10 @@
       <%= f.check_box :export_to_nakedapartments %> Export to NakedApartments
     </label>
 
+    <label>
+      <%= f.check_box :export_to_myastoria %> Export to MyAstoria
+    </label>
+
     <div class="form-group<%= ' has-error' unless @listing.errors[:hide_address_for_nakedapartments].blank? %>">
       <label>
         <%= f.check_box :hide_address_for_nakedapartments %> Hide address in NakedApartments
