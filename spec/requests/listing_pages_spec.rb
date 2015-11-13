@@ -122,7 +122,12 @@ describe 'ListingPages' do
 
       describe 'streeteasy' do
         describe 'no export flag' do
-          before { visit listings_path(format: :xml, to: 'streeteasy', type: 'all') }
+          before do
+            user = 'streeteasy'
+            pw = 'CeRHRVws76DMKt4a'
+            authenticate user, pw
+            visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
+          end
           it { should have_xpath '//properties' }
           it { should_not have_xpath '//property' }
         end
@@ -131,6 +136,10 @@ describe 'ListingPages' do
           before do
             sale_listing.export_to_streeteasy = true
             sale_listing.save!
+            user = 'streeteasy'
+            pw = 'CeRHRVws76DMKt4a'
+            authenticate user, pw
+            # request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
             visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
           end
           it { should have_xpath '//properties' }
@@ -189,7 +198,10 @@ describe 'ListingPages' do
 
       describe 'myastoria' do
         describe 'no export flag' do
-          before { visit url_for controller: 'listings', action: 'index', format: :xml, user: 'myastoria', password: 'PvpGbXhTuDNpB2T7', :escape => false, :only_path=>false, :overwrite_params=>{ to: 'myastoria', type: 'all'}}
+          before do
+            authenticate 'myastoria', 'PvpGbXhTuDNpB2T7'
+            visit listings_path(format: :xml, to: 'myastoria', type: 'all')
+          end
           it { should have_xpath '//properties' }
           it { should_not have_xpath '//property' }
         end
@@ -198,7 +210,8 @@ describe 'ListingPages' do
           before do
             sale_listing.export_to_myastoria = true
             sale_listing.save!
-            visit url_for controller: 'listings', action: 'index', format: :xml, user: 'myastoria', password: 'PvpGbXhTuDNpB2T7', :escape => false, :only_path=>false, :overwrite_params=>{ to: 'myastoria', type: 'all'}
+            authenticate 'myastoria', 'PvpGbXhTuDNpB2T7'
+            visit listings_path(format: :xml, to: 'myastoria', type: 'all')
           end
           it { should have_xpath '//properties' }
           it { should have_xpath "//property[@id='#{sale_listing.id}']" }

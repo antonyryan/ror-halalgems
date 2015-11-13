@@ -289,6 +289,10 @@ class ListingsController < ApplicationController
         authenticate_or_request_with_http_basic do |user, password|
           user == 'myastoria' && password == 'PvpGbXhTuDNpB2T7'
         end
+      elsif params[:to].to_s.downcase == 'streeteasy'
+        authenticate_or_request_with_http_basic do |user, password|
+          user == 'streeteasy' && password == 'CeRHRVws76DMKt4a'
+        end
       end
     else
       signed_in_user
