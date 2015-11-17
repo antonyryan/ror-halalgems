@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :signed_in_user
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
 
   def index
     @users = User.paginate(page: params[:page])
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       @display = params[:display]
     else
       @display = 'thumb_list'
-    end    
+    end
   end
 
   def new
@@ -75,21 +75,21 @@ class UsersController < ApplicationController
     flash[:success] = 'User destroyed.'
     redirect_to users_url
   end
-  
+
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation, :avatar, :phone, :fax, :biography,
-    :address, :license_type, :license_no, :social_security_no, :commision_split)
-    end
-
-    # Before filters
-
-    def correct_user
-      @user = User.find(params[:id])      
-      redirect_to(root_url) unless current_user?(@user) || current_user.admin?
-    end
-
-
+  def user_params
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation, :avatar, :phone, :fax, :biography,
+                                 :address, :license_type, :license_no, :social_security_no, :commision_split, :naked_apartments_account)
   end
+
+  # Before filters
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user?(@user) || current_user.admin?
+  end
+
+
+end

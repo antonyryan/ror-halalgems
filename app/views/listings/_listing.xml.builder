@@ -129,16 +129,25 @@ else
     end
 
     xml.agents do
-      xml.agent(id: listing.user.id) do
-        xml.name listing.user.name
+      if (params[:to].to_s.downcase == 'nakedapartments') and !listing.user.naked_apartments_account?
+        agent = User.where(name: 'Peter Horowitz').first
+        if agent.nil?
+          agent = User.where(naked_apartments_account: true).first
+          agent = User.first if agent.nil?
+        end
+      else
+        agent = listing.user
+      end
+      xml.agent(id: agent.id) do
+        xml.name agent.name
         # <company>	optional	Name of the company this agent works for, example: Eastside Realty
-        xml.photo listing.user.avatar_url
+        xml.photo agent.avatar_url
 
         # todo: Required!
-        xml.email listing.user.email
+        xml.email agent.email
         xml.phone_numbers do
-          xml.office listing.user.phone
-          xml.fax listing.user.fax
+          xml.office agent.phone
+          xml.fax agent.fax
         end
       end
     end

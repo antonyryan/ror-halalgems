@@ -26,9 +26,11 @@ describe User do
   it { should respond_to(:social_security_no) }
   it { should respond_to(:commision_split) }
   it { should respond_to(:license_type) }
+  it { should respond_to(:naked_apartments_account) }
 
   it { should be_valid }
   it { should_not be_admin }
+  it { should_not be_naked_apartments_account }
 
   describe "with admin attribute set to 'true'" do
     before do
