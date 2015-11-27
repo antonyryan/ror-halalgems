@@ -83,6 +83,9 @@ class ListingsController < ApplicationController
           @listings = Listing.where(export_to_nakedapartments: true)
         elsif params[:to].to_s.downcase == 'streeteasy'
           @listings = Listing.where(export_to_streeteasy: true, status_id: Status.where.not(name: %w(Closed Lost Rented)).pluck(:id))
+        elsif params[:to].to_s.downcase == 'zumper'
+          @listings = Listing.where(export_to_zumper: true,
+                                    status_id: Status.where.not(name: %w(Closed Lost Rented Withdrawn)).pluck(:id))
         elsif params[:to].to_s.downcase == 'myastoria'
           @listings = Listing.where export_to_myastoria: true
         else
@@ -105,6 +108,8 @@ class ListingsController < ApplicationController
             @listings.update_all(exported_to_nakedapartments: true)
           elsif params[:to].to_s.downcase == 'streeteasy'
             @listings.update_all(exported_to_streeteasy: true)
+          elsif params[:to].to_s.downcase == 'zumper'
+            @listings.update_all(exported_to_zumper: true)
           elsif params[:to].to_s.downcase == 'myastoria'
             @listings.update_all(exported_to_myastoria: true)
           end
@@ -293,6 +298,10 @@ class ListingsController < ApplicationController
         authenticate_or_request_with_http_basic do |user, password|
           user == 'streeteasy' && password == 'CeRHRVws76DMKt4a'
         end
+      # elsif params[:to].to_s.downcase == 'zumper'
+      #   authenticate_or_request_with_http_basic do |user, password|
+      #     user == 'zumper' && password == '7tTG34YaRMfzDj99'
+      #   end
       end
     else
       signed_in_user
@@ -320,7 +329,7 @@ class ListingsController < ApplicationController
                                     :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_myastoria,
                                     :export_to_nakedapartments, :fake_address,
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
-                                    :exported_to_nakedapartments, :featured,
+                                    :exported_to_nakedapartments, :featured, :export_to_zumper,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
   end
 
@@ -334,7 +343,7 @@ class ListingsController < ApplicationController
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
                                     :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_myastoria,
-                                    :export_to_nakedapartments, :fake_address,  :featured,
+                                    :export_to_nakedapartments, :fake_address,  :featured, :export_to_zumper,
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
   end

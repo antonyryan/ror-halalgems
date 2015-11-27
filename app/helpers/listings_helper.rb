@@ -108,4 +108,58 @@ module ListingsHelper
     end
     'other'
   end
+
+  def zumper_property_type_for_export(property_type)
+    if property_type == 'Private House'
+      return 'townhouse'
+    end
+    if property_type == 'Multi-family'
+      return 'multi-family'
+    end
+    if property_type == 'Coop'
+      return 'coop'
+    end
+    if property_type == 'Condo'
+      return 'condo'
+    end
+    'apartment/condo/townhouse'
+  end
+
+  def zumper_status_for_export(status)
+    # for rent | for sale | pending
+    # | active contingent | sold |
+    #              withdrawn | rented | off market
+    if status == 'New'
+      return 'for rent'
+    end
+    if status == 'Accepted offer'
+      return 'for rent'
+    end
+    if status == 'Under contract'
+      return 'rented'
+    end
+    if status == 'Price change'
+      return 'for rent'
+    end
+    if status == 'Closed'
+      return 'off market'
+    end
+    if status == 'Temporary off market'
+      return 'off market'
+    end
+    if status == 'Withdrawn'
+      return 'withdrawn'
+    end
+    if status == 'Deposit/Pending Application'
+      return 'pending'
+    end
+    if status == 'Lost'
+      return 'off market'
+    end
+    if status == 'Rented'
+      return 'rented'
+    end
+
+    status
+  end
 end

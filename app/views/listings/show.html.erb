@@ -30,6 +30,7 @@
             <span class="label label-<%= class_name %>">SE</span>
           </small>
       <% end %>
+      <% if @listing.export_to_myastoria? %>
       <%
          if @listing.exported_to_myastoria?
            class_name = 'success'
@@ -37,9 +38,22 @@
            class_name = 'default'
          end
       %>
-      <small>
-        <span class="label label-<%= class_name %>">MA</span>
-      </small>
+          <small>
+            <span class="label label-<%= class_name %>">MA</span>
+          </small>
+      <% end %>
+      <% if @listing.export_to_zumper? %>
+          <%
+             if @listing.exported_to_zumper?
+               class_name = 'success'
+             else
+               class_name = 'default'
+             end
+          %>
+          <small>
+            <span class="label label-<%= class_name %>">ZU</span>
+          </small>
+      <% end %>
     </h1>
     <h3 class="zip">
       <%= "Unit no: #{@listing.unit_no}" unless @listing.unit_no.nil? || @listing.unit_no.empty? %>

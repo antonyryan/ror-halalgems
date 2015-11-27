@@ -1,5 +1,7 @@
 if params[:to].to_s.downcase == 'myastoria'
   xml << render(partial: 'listing_for_myastoria', locals: {listing: listing})
+elsif params[:to].to_s.downcase == 'zumper'
+  xml << render(partial: 'listing_for_zumper', locals: {listing: listing})
 else
   xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
                status: status_for_export(listing.status.try(:name)), url: listing_url(listing)) do
