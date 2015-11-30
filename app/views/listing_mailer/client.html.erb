@@ -4,15 +4,26 @@
 </head>
 
 <body bgcolor="#ffffff" margin="0" padding="0">
+<table width="600" align="center">
+  <tr>
+    <td>
+      <table width="100%" cellspacing="0">
+        <tr>
+          <td>
+            <a href="http://myastoriarealestate.com/"><img src="<%= image_url('logo.png') %>" height="21px" alt="Horowitz Real Estate"></a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
 <% @listings.each do |listing| %>
     <table width="600" align="center">
       <tr>
         <td>
           <table width="100%" cellspacing="0">
             <tr>
-              <td>
-                <a href="http://myastoriarealestate.com/"><img src="<%= image_url("logo.png") %>" alt="Horowitz Real Estate"></a>
-              </td>
               <td bgcolor="#0095da" style="padding-top: 10px; color: #ffffff; font-size: 16px; font-family: 'Open Sans', sans-serif; text-align: center; vertical-align: bottom;"><%= (listing.listing_type.try :name || '').upcase %></td>
             </tr>
             <tr>
@@ -147,36 +158,50 @@
                 </p>
               </td>
             </tr>
-            <tr>
-              <td>
-                <table cellspacing="0" style="margin-top: 20px;">
-                  <tbody><tr>
-                    <td width="5" rowspan="2" valign="top" style="padding: 0;"><img src="<%= image_url("tit_agent_before.png") %>"></td>
-                    <td width="389" style="padding: 0; vertical-align: top; background: #f2f2f2;"><img src="<%= image_url("tit_agent.png") %>" alt="Agent"/></td>
-                    <td width="180" rowspan="2" style="background: #f2f2f2;"><img src="<%= @agent.avatar_url %>" width="180" height="220" alt="Agent: <%= @agent.name %>" style="display: block;"></td>
-                  </tr>
-                  <tr>
-                    <td style="background: #f2f2f2; padding: 0; padding-left: 15px; font-size: 16px; font-family: 'Open Sans', sans-serif; color: #444;">
-                      <h3 style="margin: 0; font-size: 23px;"><%= @agent.name %></h3>
-                      <h4 style="margin-top: 0;"><%= @agent.license_type %></h4>
-                      <ul style="margin-bottom: 0; padding:0; list-style: none;">
-                        <li style="color: #0095da; font-weight: bold;">Phone</li>
-                        <li style="color: #444444;"><%= @agent.phone %></li>
-                      </ul>
-                      <ul style="margin-top: 0; padding: 0; list-style: none;">
-                        <li style="color: #0095da; font-weight: bold;">Email</li>
-                        <li><a href="mailto:<%= @agent.email %>" style="color: #444444;"><%= @agent.email %></a></li>
-                      </ul>
-                    </td>
-                  </tr>
-                  </tbody></table>
-              </td>
-            </tr>
           </table>
         </td>
       </tr>
     </table>
 <% end %>
+<table width="600" align="center">
+  <tr>
+    <td>
+      <table width="100%" cellspacing="10">
+        <tr>
+          <td>
+            <table cellspacing="0" style="margin-top: 20px;">
+              <tbody>
+              <tr>
+                <td width="5" rowspan="2" valign="top" style="padding: 0;">
+                  <img src="<%= image_url("tit_agent_before.png") %>"></td>
+                <td width="389" style="padding: 0; vertical-align: top; background: #f2f2f2;">
+                  <img src="<%= image_url("tit_agent.png") %>" alt="Agent"/></td>
+                <td width="180" rowspan="2" style="background: #f2f2f2;">
+                  <img src="<%= @agent.avatar_url %>" width="180" height="220" alt="Agent: <%= @agent.name %>" style="display: block;">
+                </td>
+              </tr>
+              <tr>
+                <td style="background: #f2f2f2; padding: 0; padding-left: 15px; font-size: 16px; font-family: 'Open Sans', sans-serif; color: #444;">
+                  <h3 style="margin: 0; font-size: 23px;"><%= @agent.name %></h3>
+                  <h4 style="margin-top: 0;"><%= @agent.license_type %></h4>
+                  <ul style="margin-bottom: 0; padding:0; list-style: none;">
+                    <li style="color: #0095da; font-weight: bold;">Phone</li>
+                    <li style="color: #444444;"><%= @agent.phone %></li>
+                  </ul>
+                  <ul style="margin-top: 0; padding: 0; list-style: none;">
+                    <li style="color: #0095da; font-weight: bold;">Email</li>
+                    <li><a href="mailto:<%= @agent.email %>" style="color: #444444;"><%= @agent.email %></a></li>
+                  </ul>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 <a href="http://myastoriarealestate.com" style="margin: 20px; display: block; text-align: center; font-size: 12px; font-family: 'Open Sans', sans-serif; color: #444; text-decoration: none;">Copyright &copy;2015
   Horowitz Real Estate Inc. All rights reserved</a>
 </body>
