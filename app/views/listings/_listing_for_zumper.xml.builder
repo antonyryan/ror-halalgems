@@ -40,10 +40,10 @@ xml.property do
 
   # todo: ask Peter
   xml.brokerage do
-    xml.tag!('brokerage-name') { xml.text! '' }
-    xml.tag!('brokerage-phone') { xml.text! '' }
+    xml.tag!('brokerage-name') { xml.text! 'Horowitz Real Estate' }
+    xml.tag!('brokerage-phone') { xml.text! '718-355-8881' }
     xml.tag!('brokerage-email') { xml.text! '' }
-    xml.tag!('brokerage-website') { xml.text! '' }
+    xml.tag!('brokerage-website') { xml.text! 'http://myastoriarealestate.com' }
   end
   xml.tag!('detailed-characteristics') do
     xml.appliances do

@@ -1,4 +1,6 @@
-  xml.property(id: listing.id, type: listing.listing_type.try(:name), status: listing.status.try(:name)) do
+  xml.property(id: listing.id, type: listing.listing_type.try(:name), status: listing.status.try(:name),
+               created_at: listing.created_at.strftime('%y-%m-%d'),
+               updated_at: listing.updated_at.strftime('%y-%m-%d')) do
 
     xml.location do
       xml.address listing.street_address
@@ -22,73 +24,73 @@
 
       xml.amenities do
         if listing.elevator?
-          xml.elevator
+          xml.elevator 'Elevator'
         end
         if listing.parking_available?
-          xml.parking
+          xml.parking 'Parking available'
         end
         if listing.balcony?
-          xml.balcony
+          xml.balcony 'Balcony'
         end
         if listing.storage_available?
-          xml.storage
+          xml.storage 'Storage'
         end
         if listing.patio?
-          xml.patio
+          xml.patio 'Patio'
         end
         if listing.backyard?
-          xml.backyard
+          xml.backyard 'Backyard'
         end
         if listing.laundry_in_building?
-          xml.laundaryinbuilding
+          xml.laundaryinbuilding 'Laundry in building'
         end
         if listing.laundry_in_unit?
-          xml.laundaryinunit
+          xml.laundaryinunit 'Laundry in unit'
         end
         if listing.live_in_super?
-          xml.liveinsuper
+          xml.liveinsuper 'Live-in super'
         end
         if listing.absentee_landlord?
-          xml.absenteelandlord
+          xml.absenteelandlord 'Absentee landlord'
         end
         if listing.walk_up?
-          xml.walkup
+          xml.walkup 'Walk up'
         end
         if listing.yard?
-          xml.yard
+          xml.yard 'Yard'
         end
         if listing.dishwasher?
-          xml.dishwasher
+          xml.dishwasher 'Dishwasher'
         end
       end
 
       xml.pets do
         if listing.no_pets?
-          xml.nopets
+          xml.nopets 'No pets'
         end
         if listing.cats?
-          xml.cats
+          xml.cats 'Cats'
         end
         if listing.dogs?
-          xml.dogs
+          xml.dogs 'Dogs'
         end
         if listing.approved_pets_only?
-          xml.approvedpetsonly
+          xml.approvedpetsonly 'Approved pets only'
         end
       end
 
       xml.utilities do
         if listing.heat_and_hot_water?
-          xml.heatandhotwater
+          xml.heatandhotwater 'Heat and hot water'
         end
         if listing.gas?
-          xml.gas
+          xml.gas 'Gas'
         end
         if listing.all_utilities?
-          xml.all
+          xml.all 'All'
         end
         if listing.none?
-          xml.none
+          xml.none 'None'
         end
       end
     end
