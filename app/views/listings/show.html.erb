@@ -81,12 +81,14 @@
 </p>
 
 <div class="row">
+  <% if @listing.user.present? %>
   <div class="col-md-12">
     <h3><span class="property_type">Agent:</span> <%= @listing.user.try :name %>
       <%= link_to 'View agent', @listing.user, class: 'btn btn-xs btn-primary', role: 'button' %>
       <%= mail_to @listing.user.email, 'Contact agent', class: 'btn btn-xs btn-primary', role: 'button' %>
     </h3>
   </div>
+  <% end %>
 
   <% unless @listing.landlord.nil? %>
       <div class="col-md-12">
