@@ -32,11 +32,14 @@ xml.property do
     end
   end
 
-  xml.agent do
-    xml.tag!('agent-name') { xml.text! listing.user.name }
-    xml.tag!('agent-phone') { xml.text! listing.user.phone }
-    xml.tag!('agent-email') { xml.text! listing.user.email }
+  if listing.user.present?
+    xml.agent do
+      xml.tag!('agent-name') { xml.text! listing.user.name }
+      xml.tag!('agent-phone') { xml.text! listing.user.phone }
+      xml.tag!('agent-email') { xml.text! listing.user.email }
+    end
   end
+
 
   # todo: ask Peter
   xml.brokerage do

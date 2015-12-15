@@ -50,7 +50,7 @@ else
         xml.featured
       end
 
-        # <taxes/> <!-- monthly -->
+      # <taxes/> <!-- monthly -->
       xml.bedrooms bed_for_export(listing.bed.name)
       xml.bathrooms listing.full_baths_no
       xml.half_baths listing.half_baths_no
@@ -131,7 +131,7 @@ else
     end
 
     xml.agents do
-      if (params[:to].to_s.downcase == 'nakedapartments') and !listing.user.naked_apartments_account?
+      if (params[:to].to_s.downcase == 'nakedapartments') and listing.user.present? and !listing.user.naked_apartments_account?
         agent = User.where(name: 'Peter Horowitz').first
         if agent.nil?
           agent = User.where(naked_apartments_account: true).first
@@ -140,16 +140,18 @@ else
       else
         agent = listing.user
       end
-      xml.agent(id: agent.id) do
-        xml.name agent.name
-        # <company>	optional	Name of the company this agent works for, example: Eastside Realty
-        xml.photo agent.avatar_url
+      unless agent.nil?
+        xml.agent(id: agent.id) do
+          xml.name agent.name
+          # <company>	optional	Name of the company this agent works for, example: Eastside Realty
+          xml.photo agent.avatar_url
 
-        # todo: Required!
-        xml.email agent.email
-        xml.phone_numbers do
-          xml.office agent.phone
-          xml.fax agent.fax
+          # todo: Required!
+          xml.email agent.email
+          xml.phone_numbers do
+            xml.office agent.phone
+            xml.fax agent.fax
+          end
         end
       end
     end
