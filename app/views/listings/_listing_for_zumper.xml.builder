@@ -88,7 +88,7 @@ xml.property do
 
       if listing.dogs?
         xml.tag!('small-dogs-allowed') { xml.text! 'yes' }
-        xml.tag!(large-dogs-allowed) { xml.text! 'yes' }
+        xml.tag!('large-dogs-allowed') { xml.text! 'yes' }
       end
       if listing.cats?
         xml.tag!('cats-allowed') { xml.text! 'yes' }
