@@ -25,9 +25,11 @@ xml.property do
   xml.pictures do
     seq_no = 0
     listing.property_photos.each do |photo|
-      xml.picture do
-        xml.tag!('picture-url') { xml.text! photo.photo_url_url }
-        xml.tag!('picture-seq-number') { xml.text! (seq_no += 1).to_s }
+      if photo.photo_url_url.present?
+        xml.picture do
+          xml.tag!('picture-url') { xml.text! photo.photo_url_url }
+          xml.tag!('picture-seq-number') { xml.text! (seq_no += 1).to_s }
+        end
       end
     end
   end
