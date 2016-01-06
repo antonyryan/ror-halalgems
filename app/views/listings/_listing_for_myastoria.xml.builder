@@ -110,7 +110,7 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), status: list
 
   xml.media do
     listing.property_photos.each do |photo|
-      xml.photo(url: photo.photo_url_url)
+      xml.photo(url: photo.photo_url_url) if photo.photo_url_url.present?
     end
   end
 end

@@ -158,7 +158,7 @@ else
 
     xml.media do
       listing.property_photos.each do |photo|
-        xml.photo(url: photo.photo_url_url)
+        xml.photo(url: photo.photo_url_url) if photo.photo_url_url.present?
       end
     end
   end
