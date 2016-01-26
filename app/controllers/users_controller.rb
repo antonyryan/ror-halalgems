@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
     @sale_id = ListingType.find_by(name: 'Sale').id
     @rental_id = ListingType.find_by(name: 'Rental').id
+    @commercial_id = ListingType.find_by(name: 'Commercial').id
 
     if params[:display].present?
       @display = params[:display]

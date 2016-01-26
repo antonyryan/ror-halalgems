@@ -12,7 +12,7 @@ xml.property(id: listing.id, type: listing.listing_type.try(:name), status: list
   xml.details do
     xml.headline listing.title
     xml.price listing.price
-    xml.bedrooms listing.bed.name
+    xml.bedrooms listing.bed.try :name
     xml.bathrooms listing.full_baths_no
     xml.halfbathrooms listing.half_baths_no
     xml.squareFeet listing.size

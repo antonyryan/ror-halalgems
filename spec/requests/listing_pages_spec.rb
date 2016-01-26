@@ -5,7 +5,7 @@ describe 'ListingPages' do
   subject { page }
   let(:user) { FactoryGirl.create(:user) }
   before do
-    ListingType.create([{name: 'Sale'}, {name: 'Rental'}])
+    ListingType.create([{name: 'Sale'}, {name: 'Rental'}, {name: 'Commercial'}])
     sign_in(user)
 
   end
@@ -191,6 +191,28 @@ describe 'ListingPages' do
               end
               it { should_not have_selector 'city', text: neighborhood.name }
               it { should have_selector 'city', text: fake_neighborhood.name }
+            end
+          end
+
+          describe 'description' do
+            describe 'when description is single line' do
+              before do
+                sale_listing.description = 'aaa aaa'
+                sale_listing.save!
+                visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
+              end
+              it { should have_selector 'description', text: 'aaa aaa' }
+            end
+            describe 'when description is multiline' do
+              before do
+                sale_listing.description = "aaa \naaa"
+                sale_listing.save!
+                visit listings_path(format: :xml, to: 'streeteasy', type: 'all')
+                xml_document = Nokogiri::XML(page.body)
+                puts "=#{xml_document.xpath("//description")[0].content }="
+              end
+              it { should_not have_selector 'description', text: 'aaa aaa' }
+              it { should have_xpath "//description", text: "aaa <br />aaa"}
             end
           end
         end

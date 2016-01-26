@@ -109,7 +109,7 @@
               <td valign="top" style="font-size: 16px; font-family: 'Open Sans', sans-serif; color: #444;">
                 <ul style="padding: 10px 0 0 0; font-weight: bold; list-style: none;">
                   <li style="padding-bottom:5px; color: #0095da;">Residence Information</li>
-                  <li style="margin-top: 5px;"><%= listing.bed.name %></li>
+                  <li style="margin-top: 5px;"><%= listing.bed.try :name %></li>
                   <li style="margin-top: 5px;"><%= listing.full_baths_no %> full baths</li>
                   <li style="margin-top: 5px;"><%= listing.half_baths_no %> half baths</li>
                 </ul>

@@ -127,7 +127,7 @@ pdf.bounding_box([firs_width + gap, main_y_pos], width: second_width, height: 48
   pdf.default_leading 4
   pdf.font('OpenSans', :size => 11, style: :bold) do
     pdf.text 'Residence Information', color: blue_color
-    pdf.text "#{@listing.bed.name}, #{@listing.full_baths_no} full baths, #{@listing.half_baths_no} half baths"
+    pdf.text "#{@listing.bed.try :name}, #{@listing.full_baths_no} full baths, #{@listing.half_baths_no} half baths"
 
     pdf.move_down 5
     pdf.text 'Features', color: blue_color

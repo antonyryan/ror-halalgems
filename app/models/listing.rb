@@ -7,6 +7,8 @@ class Listing < ActiveRecord::Base
   belongs_to :property_type
   belongs_to :city
   belongs_to :fake_city, class_name: 'Neighborhood', foreign_key: 'fake_city_id'
+  belongs_to :space_type, foreign_key: :type_of_space_id
+
   has_many :property_photos, dependent: :destroy
   has_many :history_records
   accepts_nested_attributes_for :property_photos, allow_destroy: true

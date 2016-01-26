@@ -36,6 +36,11 @@ describe Listing do
   it { should respond_to :exported_to_myastoria }
   it { should respond_to :featured }
 
+  it { should respond_to :type_of_space_id }
+  it { should respond_to :dividable }
+  it { should respond_to :taxes_included }
+  it { should respond_to :taxes_amount }
+
   it { should be_valid }
 
   describe 'when address is blank' do

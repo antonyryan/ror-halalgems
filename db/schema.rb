@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126184758) do
+ActiveRecord::Schema.define(version: 20160116184213) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -103,6 +103,10 @@ ActiveRecord::Schema.define(version: 20151126184758) do
     t.boolean  "export_to_myastoria",              default: false
     t.boolean  "exported_to_zumper",               default: false
     t.boolean  "export_to_zumper",                 default: false
+    t.integer  "type_of_space_id"
+    t.boolean  "dividable",                        default: false
+    t.boolean  "taxes_included",                   default: false
+    t.decimal  "taxes_amount"
   end
 
   add_index "listings", ["available_date"], name: "index_listings_on_available_date"
@@ -131,6 +135,10 @@ ActiveRecord::Schema.define(version: 20151126184758) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "space_types", force: true do |t|
+    t.string "name"
   end
 
   create_table "statuses", force: true do |t|

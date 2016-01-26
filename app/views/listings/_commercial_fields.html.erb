@@ -1,0 +1,168 @@
+<div id="photos" class="row">
+  <%= f.fields_for :property_photos do |builder| %>
+      <%= render 'property_photo_fields', f: builder %>
+  <% end %>
+</div>
+
+<p><%= link_to_add_fields 'Add Photo', f, :property_photos %>
+<p><%= cl_image_upload_tag('df', :html => {:multiple => true}) %></p>
+
+
+<div id="direct_upload" class="form-group">
+  <section>
+    <!--<div class="preview"> <%= image_tag(@listing.main_photo_url) %></div>-->
+  </section>
+  <section>
+    <%= f.hidden_field(:main_photo_cache) %>
+    <!-- <%= f.file_field(:main_photo, class: "form-control") %> -->
+    <!-- <%= f.hidden_field(:main_photo) %> -->
+
+    <!--<%= f.cl_image_upload(:main_photo,
+                              :tags => "property_photo",
+                              :crop => :fit, :width => 940, :height => 626
+            ) %>		-->
+  </section>
+</div>
+
+<!--<div id="progress1" class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+    <span class="sr-only">0% Complete</span>
+  </div>
+</div> -->
+
+<div class="form-group">
+  <div id="info"></div>
+</div>
+
+<%= f.hidden_field :listing_type_id %>
+
+<div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank? %>">
+  <%= f.label :title, 'Headline', class: 'control-label' %>
+  <%= f.text_field :title, class: 'form-control' %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Address</div>
+  <div class="panel-body">
+    <div class="form-group<%= ' has-error' unless @listing.errors[:neighborhood_id].blank? %>">
+      <%= f.label :neighborhood_id, 'Neighborhood', class: 'control-label' %>
+      <%= f.collection_select :neighborhood_id, Neighborhood.all, :id, :name, {}, {class: 'form-control'} %>
+    </div>
+
+    <div class="form-group<%= ' has-error' unless @listing.errors[:street_address].blank? %>">
+      <%= f.label :street_address, class: 'control-label' %>
+      <%= f.text_field :street_address, class: "form-control" %>
+    </div>
+
+    <div class="form-group<%= ' has-error' unless @listing.errors[:unit_no].blank? %>">
+      <%= f.label :unit_no, class: 'control-label' %>
+      <%= f.text_field :unit_no, class: "form-control" %>
+    </div>
+
+    <div class="form-group<%= ' has-error' unless @listing.errors[:zip_code].blank? %>">
+      <%= f.label :zip_code, class: 'control-label' %>
+      <%= f.text_field :zip_code, class: "form-control" %>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Highlights</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:price].blank? %>">
+          <%= f.label :price, 'Price per sq. foot', class: 'control-label' %>
+          <%= f.text_field :price, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:available_date].blank? %>">
+          <%= f.label :available_date, class: 'control-label' %>
+          <%= f.date_field :available_date, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <% if current_user.admin? %>
+            <div class="form-group<%= ' has-error' unless @listing.errors[:user_id].blank? %>">
+              <%= f.label :user_id, 'Agent', class: 'control-label' %>
+              <%= f.collection_select :user_id, User.all, :id, :name, {}, {class: 'form-control'} %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:type_of_space_id].blank? %>">
+          <%= f.label :type_of_space_id, 'Type of space', class: 'control-label' %>
+          <%= f.collection_select :type_of_space_id, SpaceType.all, :id, :name, {}, {class: 'form-control'} %>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:size].blank? %>">
+          <%= f.label :size, 'Square feet', class: 'control-label' %>
+          <%= f.text_field :size, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:dividable].blank? %>">
+          <label>
+            <%= f.check_box :dividable %> Dividable
+          </label>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:half_baths_no].blank? %>">
+          <label>
+            <%= f.check_box :taxes_included %> Taxes Included
+          </label>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:taxes_amount].blank? %>">
+          <%= f.label :taxes_amount, class: 'control-label' %>
+          <%= f.text_field :taxes_amount, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:property_type_id].blank? %>">
+          <%= f.label :status_id, 'Status', class: 'control-label' %>
+          <%= f.collection_select :status_id, Status.where(is_for_rentals: (@listing.listing_type.try(:name) == 'Rental') || (@listing.listing_type.try(:name) == 'Commercial')), :id, :name, {}, {class: 'form-control'} %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:landlord].blank? %>">
+          <%= f.label :landlord, class: 'control-label' %>
+          <%= f.text_field :landlord, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:access].blank? %>">
+          <%= f.label :access, class: 'control-label' %>
+          <%= f.text_field :access, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:description].blank? %>">
+          <%= f.label :description, class: 'control-label' %>
+          <%= f.text_area :description, {rows: 5, class: 'form-control'} %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

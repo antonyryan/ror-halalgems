@@ -67,7 +67,13 @@ else
 
       # Description of the property. Should not contain any HTML or XML tags. Any special characters should be escaped, Please use CDATA if listing descriptions include line breaks.
       # todo: check for line breaks
-      xml.description listing.description
+      xml.description do
+        if listing.description.to_s.include? "\n"
+          xml.cdata! listing.description.to_s.sub("\n", '<br />').html_safe
+        else
+          xml.text! listing.description.to_s
+        end
+      end
 
       xml.propertyType property_type_for_export(listing.property_type.name)
       # <mlsid></mlsid> The id number in the associated MLS

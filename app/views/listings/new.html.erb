@@ -1,8 +1,12 @@
 <% provide(:title, 'New Listing') %>
 <%= form_for(@listing, role: 'form') do |f|  %>
 <%= render 'shared/error_messages', object: f.object %>
-<div class="row"> 
-	<%= render 'fields', f: f	%>
+<div class="row">
+  <% unless @listing.listing_type.try(:name) == 'Commercial' %>
+    <%= render 'fields', f: f	%>
+  <% else %>
+      <%= render 'commercial_fields', f: f	%>
+  <% end %>
 
 	<%= f.submit 'Save changes', class: 'btn btn-large btn-primary' %>
 </div>

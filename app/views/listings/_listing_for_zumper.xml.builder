@@ -10,7 +10,7 @@ xml.property do
   xml.details do
     xml.price listing.price.to_i
     xml.tag!('property-type') { xml.text! zumper_property_type_for_export(listing.property_type.name) }
-    xml.tag!('num-bedrooms') { xml.text! bed_for_export(listing.bed.name).to_s }
+    xml.tag!('num-bedrooms') { xml.text! bed_for_export(listing.bed.try(:name)).to_s }
     xml.tag!('num-bathrooms') { xml.text! listing.full_baths_no.to_s }
     xml.tag!('num-half-bathrooms') { xml.text! listing.half_baths_no.to_s }
     xml.tag!('living-area-square-feet') { xml.text! listing.size.to_s }

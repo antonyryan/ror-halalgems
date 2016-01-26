@@ -19,8 +19,9 @@
     <%= link_to 'Download PDF', url_for(params_for_pdf), class: 'btn btn-primary', type: 'button', role: 'button' %>
     <%= button_tag('Email Client', data: { toggle: 'modal', target: '#myModal' }, class: 'btn btn-primary') %>
     <span class='pull-right'>
-        <%= link_to 'Create rental', new_listing_path(listing_type_id: @rental_id), role:'button', class: 'btn btn-primary' %>
-        <%= link_to 'Create sale', new_listing_path(listing_type_id: @sale_id), role:'button', class: 'btn btn-primary' %>
+      <%= link_to 'Create rental', new_listing_path(listing_type_id: @rental_id), role:'button', class: 'btn btn-primary' %>
+      <%= link_to 'Create sale', new_listing_path(listing_type_id: @sale_id), role:'button', class: 'btn btn-primary' %>
+      <%= link_to 'Create commercial', new_listing_path(listing_type_id: @commercial_id), role:'button', class: 'btn btn-primary' %>
     </span>
   </div>
 

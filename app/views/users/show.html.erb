@@ -14,12 +14,16 @@
     <section>
 
       <% if current_user.admin? %>
-          <%= button_to "edit", edit_user_path(@user), method: :get, class: "btn btn-primary pull-left" %>
+          <div class="btn-group">
+            <%= link_to 'edit', edit_user_path(@user), method: :get, class: 'btn btn-primary pull-left' %>
+          </div>
       <% end %>
 
       <% if current_user.admin? && !current_user?(@user) %>
-          <%= button_to "delete", @user, method: :delete,
-                        data: {confirm: "You sure?"}, class: "btn btn-danger pull-left" %>
+          <div class="btn-group">
+            <%= link_to 'delete', @user, method: :delete,
+                          data: {confirm: "You sure?"}, class: 'btn btn-danger pull-left' %>
+          </div>
       <% end %>
     </section>
   </aside>
@@ -28,19 +32,20 @@
       <div class="col-sm-12">
         <h2>Listings
         <span class="pull-right">
-          <%=  form_tag({}, :method => :get, role: 'form', class: 'form-inline') do -%>
+          <%= form_tag({}, :method => :get, role: 'form', class: 'form-inline') do -%>
             <div class="form-group">
               <%= select_tag 'status',
-                           options_for_select(%w(Active Pending Unavailable),
-                                              (params['status'] if params['status'].present?)),
-                           class: 'form-control', onchange: 'this.form.submit();'  %>
+                             options_for_select(%w(Active Pending Unavailable),
+                                                (params['status'] if params['status'].present?)),
+                             class: 'form-control', onchange: 'this.form.submit();' %>
             </div>
 
 
-            <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role: 'button', class: "btn btn-primary" %>
-             <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role: 'button', class: "btn btn-primary" %>
-              <% end %>
-              </span>
+              <%= link_to "Create rental", new_listing_path(listing_type_id: @rental_id), role: 'button', class: "btn btn-primary" %>
+              <%= link_to "Create sale", new_listing_path(listing_type_id: @sale_id), role: 'button', class: "btn btn-primary" %>
+              <%= link_to 'Create commercial', new_listing_path(listing_type_id: @commercial_id), role: 'button', class: 'btn btn-primary' %>
+          <% end %>
+        </span>
 
         </h2>
       </div>
@@ -49,32 +54,32 @@
         <div class="col-sm-12">
           <% if @user.listings.any? %>
               <%= form_tag create_email_listings_path do %>
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th><%= sortable_link 'street_address' %></th>
-                    <th><%= sortable_link 'unit_no', 'Unit' %></th>
-                    <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>
-                    <th><%= sortable_link 'bed.name', 'Beds' %></th>
-                    <th><%= sortable_link 'price' %></th>
-                    <th><%= sortable_link 'available_date' %></th>
-                    <th><%= sortable_link 'status.name', 'Status' %></th>
-                    <th><%= sortable_link 'user.name', 'Agent' %></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <%= render @listingss %>
-                  </tbody>
-                </table>
-              </div>
-              <%= submit_tag 'Email client' %>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th><%= sortable_link 'street_address' %></th>
+                        <th><%= sortable_link 'unit_no', 'Unit' %></th>
+                        <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>
+                        <th><%= sortable_link 'bed.name', 'Beds' %></th>
+                        <th><%= sortable_link 'price' %></th>
+                        <th><%= sortable_link 'available_date' %></th>
+                        <th><%= sortable_link 'status.name', 'Status' %></th>
+                        <th><%= sortable_link 'user.name', 'Agent' %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <%= render @listingss %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <%= submit_tag 'Email client' %>
               <% end %>
           <% end %>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -29,18 +29,23 @@ describe "User pages" do
 		end		
 	end
 
-	describe "profile page" do
+	describe 'profile page' do
 		let(:user) { FactoryGirl.create(:user) }
-		let!(:l1) { FactoryGirl.create(:listing, user: user, street_address: "Foo") }
-    	let!(:l2) { FactoryGirl.create(:listing, user: user, street_address: "Bar") }
+		let!(:l1) { FactoryGirl.create(:listing, user: user, street_address: 'Foo') }
+    let!(:l2) { FactoryGirl.create(:listing, user: user, street_address: 'Bar') }
 
-		before do 	
+		before do
+      ListingType.create([{name: 'Sale'}, {name: 'Rental'}, {name: 'Commercial'}])
 			sign_in user		
 			visit user_path(user) 
 		end
 
 		it { should have_content(user.name) }
 		it { should have_title(user.name) }
+
+    it { should have_link 'Create rental'}
+    it { should have_link 'Create sale'}
+    it { should have_link 'Create commercial'}
 
 		describe "microposts" do
 	      it { should have_content(l1.street_address) }

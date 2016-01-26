@@ -264,3 +264,10 @@ jQuery ->
 		if formValid
 			$('#myModal').modal('hide')
 			$('#send_email_form').submit()
+
+jQuery ->
+  taxesCheckBox = $('#listing_taxes_included')
+  $('#listing_taxes_amount').prop('disabled', !taxesCheckBox.checked)
+
+  taxesCheckBox.change ->
+    $('#listing_taxes_amount').prop('disabled', !this.checked)
