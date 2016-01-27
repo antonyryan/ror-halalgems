@@ -126,10 +126,12 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="form-group<%= ' has-error' unless @listing.errors[:available_date].blank? %>">
-          <%= f.label :available_date, class: 'control-label' %>
-          <%= f.date_field :available_date, class: 'form-control' %>
-        </div>
+        <% unless @listing.listing_type_id == ListingType.where(name: 'Sale').first.id %>
+            <div class="form-group<%= ' has-error' unless @listing.errors[:available_date].blank? %>">
+              <%= f.label :available_date, class: 'control-label' %>
+              <%= f.date_field :available_date, class: 'form-control' %>
+            </div>
+        <% end %>
       </div>
       <div class="col-md-4">
         <% if current_user.admin? %>

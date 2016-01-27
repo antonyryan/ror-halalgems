@@ -61,7 +61,7 @@ describe 'ListingPages' do
   end
 
   describe 'edit' do
-    let(:listing) { FactoryGirl.create(:listing, user_id: user.id) }
+    let(:listing) { FactoryGirl.create(:listing, user_id: user.id, listing_type_id: ListingType.where(name: 'Rental').first.id) }
     before { visit edit_listing_path(listing) }
 
     it { should have_field 'listing_yard' }
@@ -89,7 +89,18 @@ describe 'ListingPages' do
           specify { expect(listing.reload.user_id).to eq admin_user.id }
         end
       end
+    end
 
+    describe 'available date' do
+      let(:sale_listing) { FactoryGirl.create(:listing, user_id: user.id, listing_type_id: ListingType.where(name: 'Sale').first.id) }
+      describe 'rental listing' do
+        it { should have_field 'listing_available_date' }
+      end
+
+      describe 'sale listing' do
+        before { visit edit_listing_path(sale_listing) }
+        it { should_not have_field 'listing_available_date' }
+      end
     end
   end
 
