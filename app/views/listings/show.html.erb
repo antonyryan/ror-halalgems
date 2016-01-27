@@ -4,7 +4,7 @@
 <div class="row" xmlns="http://www.w3.org/1999/html">
   <div class="col-md-8">
     <h1 id="address" data-value="<%= @listing.full_address %>">
-      <%= @listing.full_address %>
+      <%= @listing.internal_headline %>
       <small><span class="label label-info"><%= @listing.listing_type.name unless @listing.listing_type.nil? %></span>
       </small>
       <% if @listing.export_to_nakedapartments? %>

@@ -53,6 +53,22 @@ describe 'ListingPages' do
       end
     end
 
+    describe 'headline' do
+      describe 'when headline is not set' do
+        it { should have_selector 'h1', text: listing.full_address }
+      end
+
+      describe 'when headline is set' do
+        before do
+          listing.title = 'some title'
+          listing.save
+          visit listing_path(listing)
+        end
+        it { should_not have_selector 'h1', text: listing.full_address }
+        it { should have_selector 'h1', text: listing.title }
+      end
+    end
+
     describe 'xml' do
       before { visit listing_path(listing, format: :xml) }
 

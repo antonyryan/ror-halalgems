@@ -156,6 +156,14 @@ class Listing < ActiveRecord::Base
     end
   end
 
+  def internal_headline
+    if title.present?
+      title
+    else
+      full_address
+    end
+  end
+
     private
     def set_status
       if self.price_changed? and not self.new_record?
