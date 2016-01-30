@@ -1,12 +1,13 @@
 require 'spec_helper'
 
-describe "User pages" do
+describe 'User pages' do
 
 	subject { page }
 
-	describe "index" do
+	describe 'index' do
 		let(:user) { FactoryGirl.create(:user) }
 		before(:each) do
+      ListingType.create([{name: 'Sale'}, {name: 'Rental'}, {name: 'Commercial'}])
 			sign_in user
 			visit users_path
 		end
@@ -14,19 +15,28 @@ describe "User pages" do
 		it { should have_title('Agents') }
 		it { should have_content('Agents') }
 
-		describe "pagination" do
-
+		describe 'pagination' do
 			before(:all) { 31.times { FactoryGirl.create(:user) } }
 			after(:all)  { User.delete_all }
 
 			it { should have_selector('div.pagination') }
 
-			it "should list each user" do
+			it  do
 				User.paginate(page: 1).each do |user|
 					expect(page).to have_selector('a', text: user.name)
 				end
 			end
-		end		
+    end
+
+    describe 'only active users' do
+      let(:inactive_user) { FactoryGirl.create :user, active: false }
+      it 'should display active user' do
+          expect(page).to have_selector('a', text: user.name)
+      end
+      it 'should not display inactive user' do
+        expect(page).not_to have_selector('a', text: inactive_user.name)
+      end
+    end
 	end
 
 	describe 'profile page' do
@@ -47,17 +57,17 @@ describe "User pages" do
     it { should have_link 'Create sale'}
     it { should have_link 'Create commercial'}
 
-		describe "microposts" do
+		describe 'listings' do
 	      it { should have_content(l1.street_address) }
 	      it { should have_content(l2.street_address) }
 	      #it { should have_content(user.listings.count) }
 	    end	 
 
-	    describe "delete links" do
+	    describe 'delete links' do
 
 			it { should_not have_link('delete') }
 
-			describe "as an admin user" do
+			describe 'as an admin user' do
 				let(:admin) { FactoryGirl.create(:admin) }
 				before do
 					sign_in admin
@@ -65,10 +75,15 @@ describe "User pages" do
 				end
 
 				it { should have_link('delete', href: user_path(User.first)) }
-				it "should be able to delete another user" do
+        it 'should not delete a user from the database' do
+          expect do
+            click_link('delete', match: :first)
+          end.not_to change(User, :count)
+        end
+				it 'should remove from active users' do
 					expect do
 						click_link('delete', match: :first)
-					end.to change(User, :count).by(-1)
+					end.to change(User.active_users, :count).by(-1)
 				end
 				it { should_not have_link('delete', href: user_path(admin)) }
 			end

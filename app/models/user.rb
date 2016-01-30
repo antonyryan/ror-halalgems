@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, ImageUploader
 
+  scope :active_users, -> { where( active: true ) }
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
