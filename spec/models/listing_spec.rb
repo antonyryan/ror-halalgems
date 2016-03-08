@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Listing do
-  let(:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
   let(:neighborhood) { FactoryGirl.create(:neighborhood) }
   before do
     @listing = Listing.new(street_address: 'Some address', available_date: Date::tomorrow, landlord: 'some name',
@@ -123,6 +123,16 @@ describe Listing do
   describe 'when title is not blank' do
     before { @listing.title = 'some' }
     its(:headline ) { should eq @listing.title }
+  end
+
+  describe 'emails' do
+    before do
+      @listing.save
+      ActionMailer::Base.delivery_method = :test
+    end
+    it 'sends an email' do
+      expect{ subject.send_created }.to change(ActionMailer::Base.deliveries, :count).by(1)
+    end
   end
 
 end

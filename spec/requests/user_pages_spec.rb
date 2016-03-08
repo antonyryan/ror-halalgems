@@ -6,6 +6,7 @@ describe 'User pages' do
 
 	describe 'index' do
 		let(:user) { FactoryGirl.create(:user) }
+    let!(:inactive_user) { FactoryGirl.create :user, active: false }
 		before(:each) do
       ListingType.create([{name: 'Sale'}, {name: 'Rental'}, {name: 'Commercial'}])
 			sign_in user
@@ -29,9 +30,8 @@ describe 'User pages' do
     end
 
     describe 'only active users' do
-      let(:inactive_user) { FactoryGirl.create :user, active: false }
       it 'should display active user' do
-          expect(page).to have_selector('a', text: user.name)
+        expect(page).to have_selector('a', text: user.name)
       end
       it 'should not display inactive user' do
         expect(page).not_to have_selector('a', text: inactive_user.name)

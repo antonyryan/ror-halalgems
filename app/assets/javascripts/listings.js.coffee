@@ -230,7 +230,6 @@ jQuery ->
 		$(this).closest('fieldset').hide()
 		event.preventDefault()
 
-jQuery ->
 	$('#myModal').on 'show.bs.modal', (event) ->
 		selected = []
 		c = 0
@@ -244,7 +243,7 @@ jQuery ->
       $("div.alert").remove();
       alertErr = $('<div class="alert alert-error">Selection is empty</div>');
       $('#mainContainer').prepend(alertErr)
-jQuery ->
+
   $('#myModal').on 'shown.bs.modal', (event) ->
     $('#email').focus()
 
@@ -271,3 +270,8 @@ jQuery ->
 
   taxesCheckBox.change ->
     $('#listing_taxes_amount').prop('disabled', !this.checked)
+
+  $('#narrow_button').click ->
+    $('#listings_from input:not(:checked)').each ->
+      $(this).parents('tr').hide()
+    $('#listings_from input:checked').prop('checked', false)

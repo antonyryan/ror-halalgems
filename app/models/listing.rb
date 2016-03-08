@@ -164,6 +164,10 @@ class Listing < ActiveRecord::Base
     end
   end
 
+  def send_created
+    AgentMailer.listing_created(self).deliver
+  end
+
     private
     def set_status
       if self.price_changed? and not self.new_record?

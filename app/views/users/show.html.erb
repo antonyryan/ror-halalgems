@@ -53,13 +53,12 @@
       <div class="row">
         <div class="col-sm-12">
           <% if @user.listings.any? %>
-              <%= form_tag create_email_listings_path do %>
+              <%= form_tag create_email_listings_path, id: 'listings_from' do %>
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
                       <tr>
-                        <th></th>
-                        <th></th>
+                        <th colspan="2"><a href="#" id="narrow_button" class="btn btn-default btn-xs">Narrow</a></th>
                         <th><%= sortable_link 'street_address' %></th>
                         <th><%= sortable_link 'unit_no', 'Unit' %></th>
                         <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>

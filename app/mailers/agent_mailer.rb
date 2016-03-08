@@ -5,11 +5,11 @@ class AgentMailer < ActionMailer::Base
   	@listing = listing
     @old_status = old_status
     @new_status = new_status
-  	mail(to: User.pluck(:email), subject: 'Listing status has been changed')
+  	mail(to: User.active_users.pluck(:email), subject: 'Listing status has been changed')
   end
 
   def listing_created(listing)
     @listing = listing
-    mail(to: User.pluck(:email), subject: 'Listing has been created')
+    mail(to: User.active_users.pluck(:email), subject: 'Listing has been created')
   end
 end

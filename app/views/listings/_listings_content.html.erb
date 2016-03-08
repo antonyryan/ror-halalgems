@@ -16,13 +16,17 @@
     </div>
     <% params_for_pdf = params.clone %>
     <% params_for_pdf[:format] = 'pdf' %>
+    <div class="btn-group" role="group" aria-label="Share group">
     <%= link_to 'Download PDF', url_for(params_for_pdf), class: 'btn btn-primary', type: 'button', role: 'button' %>
     <%= button_tag('Email Client', data: { toggle: 'modal', target: '#myModal' }, class: 'btn btn-primary') %>
-    <span class='pull-right'>
+      </div>
+
+    <div class="btn-group" role="group" aria-label="Create group">
       <%= link_to 'Create rental', new_listing_path(listing_type_id: @rental_id), role:'button', class: 'btn btn-primary' %>
       <%= link_to 'Create sale', new_listing_path(listing_type_id: @sale_id), role:'button', class: 'btn btn-primary' %>
       <%= link_to 'Create commercial', new_listing_path(listing_type_id: @commercial_id), role:'button', class: 'btn btn-primary' %>
-    </span>
+      </div>
+
   </div>
 
   <% if display_helper =='thumbs' %>
@@ -39,8 +43,8 @@
                 <table id="listings_from" class="table">
                   <thead>
                   <tr>
-                    <th></th>
-                    <th></th>
+                    <th colspan="2"><a href="#" id="narrow_button" class="btn btn-default btn-xs">Narrow</a></th>
+
                     <th><%= sortable_link 'street_address' %></th>
                     <th><%= sortable_link 'unit_no', 'Unit' %></th>
                     <th><%= sortable_link 'neighborhood.name', 'Neighborhood' %></th>
