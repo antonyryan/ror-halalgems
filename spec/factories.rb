@@ -1,5 +1,9 @@
 FactoryGirl.define do
   factory :user do
+    before(:create) do
+      ListingType.create([{name: 'Rental'}, {name: 'Sale'}, {name: 'Commercial'}])
+    end
+
     sequence(:name)  { |n| "User #{n}" }
     sequence(:email) { |n| "user_#{n}@example.com"}
     password "foobar"

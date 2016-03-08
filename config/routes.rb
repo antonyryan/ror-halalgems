@@ -23,7 +23,7 @@ HorowitzRealEstate::Application.routes.draw do
     end
   end
 
-  root  'users#index' 
+  root  'listings#index'
   match 'signin', to: 'sessions#new', via: 'get'
   match 'signout', to: 'sessions#destroy', via: 'delete'
 
