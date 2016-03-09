@@ -13,15 +13,6 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <% if signed_in? %>
-          <%= form_tag(listings_path, :method => :get, class: "navbar-form navbar-right", role: "search") do %>
-              <div class="form-group">
-                <%= text_field_tag 'street_address', (params['street_address'] if params['street_address'].present?), class: "form-control", placeholder: 'Street address' %>
-              </div>
-              <button type="submit" class="btn btn-default">Find</button>
-          <% end %>
-      <% end %>
-
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><%= link_to 'Home', root_path %></li>
         <%
