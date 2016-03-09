@@ -2,7 +2,7 @@
 <div class="row row-offcanvas row-offcanvas-left">
 
   <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-    <%= form_tag(listings_path, :method => :get, role: 'form') do %>
+    <%= form_tag(listings_path, :method => :get, role: 'form', id: 'filter_form') do %>
         <%= render 'filter_fields' %>
     <% end %>
   </div><!--/.sidebar-offcanvas-->

@@ -1,6 +1,8 @@
 <%= hidden_field_tag 'display', display_helper %>
 <%= hidden_field_tag 'sort', sort_column %>
 <%= hidden_field_tag 'direction', sort_direction %>
+<%= hidden_field_tag 'ids[]', params[:ids] %>
+
 <div class="form-group">
   <label>Status</label>
   <%= select_tag 'status', options_for_select(['Active', 'Pending', 'Unavailable'], (params['status'] if params['status'].present?)), class: 'form-control' %>

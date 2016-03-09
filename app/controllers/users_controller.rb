@@ -31,6 +31,8 @@ class UsersController < ApplicationController
       @listingss = @listingss.available_listings
     end
 
+    @listingss = @listingss.ids_filter(params[:ids]) if params[:ids].present?
+
     sale_obj = ListingType.find_by_name('Sale')
 
     @sale_id = ListingType.find_by(name: 'Sale').id

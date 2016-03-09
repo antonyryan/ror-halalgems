@@ -34,6 +34,7 @@ class Listing < ActiveRecord::Base
   scope :beds, -> (bed_id) { where bed_id: bed_id }
 
   scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id.split(',') }
+  scope :ids_filter, -> (ids) { where id: ids }
 
   scope :type_filter, -> (property_type_id) { where property_type_id: property_type_id }
   scope :min_price, -> (price) { where('price >= ?', price) }

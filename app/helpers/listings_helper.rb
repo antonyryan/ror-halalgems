@@ -30,7 +30,12 @@ module ListingsHelper
         glyph = tag 'i', class: "glyphicon glyphicon-arrow-down"
       end
     end
-    return link_to( title, { sort: column, direction: direction, display: ds } ) +' ' + glyph
+    params_for_link = params.clone || {}
+    params_for_link[:sort] = column
+    params_for_link[:direction] = direction
+    params_for_link[:display] = ds
+
+    link_to( title, params_for_link ) +' ' + glyph
   end
 
   def status_for_export(status)

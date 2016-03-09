@@ -272,6 +272,13 @@ jQuery ->
     $('#listing_taxes_amount').prop('disabled', !this.checked)
 
   $('#narrow_button').click ->
-    $('#listings_from input:not(:checked)').each ->
-      $(this).parents('tr').hide()
-    $('#listings_from input:checked').prop('checked', false)
+    event.preventDefault()
+    form = $('#filter_form')
+    c = 0
+    $('#listings_from input:checked').each ->
+      field = $('<input name="ids[]" id="ids_" type="hidden">').val($(this).val())
+      form.append(field)
+      c = c + 1
+
+    if c != 0
+      form.submit()

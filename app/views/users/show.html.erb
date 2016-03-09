@@ -32,7 +32,8 @@
       <div class="col-sm-12">
         <h2>Listings
         <span class="pull-right">
-          <%= form_tag({}, :method => :get, role: 'form', class: 'form-inline') do -%>
+          <%= form_tag({}, :method => :get, role: 'form', class: 'form-inline', id: 'filter_form') do -%>
+              <%= hidden_field_tag 'ids[]', params[:ids] %>
             <div class="form-group">
               <%= select_tag 'status',
                              options_for_select(%w(Active Pending Unavailable),
