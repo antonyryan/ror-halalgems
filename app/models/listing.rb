@@ -33,7 +33,7 @@ class Listing < ActiveRecord::Base
   scope :listing_type_filter, -> (listing_type_id) { where listing_type_id: listing_type_id }
   scope :beds, -> (bed_id) { where bed_id: bed_id }
 
-  scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id.split(',') }
+  scope :neighborhood_filter, -> (neighborhood_id) { where neighborhood_id: neighborhood_id }
   scope :ids_filter, -> (ids) { where id: ids }
 
   scope :type_filter, -> (property_type_id) { where property_type_id: property_type_id }

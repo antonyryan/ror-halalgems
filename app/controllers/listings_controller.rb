@@ -26,8 +26,8 @@ class ListingsController < ApplicationController
       @listings = @listings.available_listings
     end
 
+    @listings = @listings.ids_filter(params[:ids]) if (params[:ids].present? && params[:ids] != [''])
     @listings = @listings.street_address_search(params[:street_address]) if params[:street_address].present?
-    @listings = @listings.ids_filter(params[:ids]) if params[:ids].present?
     @listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
     @listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
     @listings = @listings.beds(params[:beds]) if params[:beds].present?
