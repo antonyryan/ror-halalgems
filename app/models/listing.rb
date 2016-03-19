@@ -76,8 +76,6 @@ class Listing < ActiveRecord::Base
   scope :all_filter, -> (all_utilities) { where all_utilities: all_utilities != '0' }
   scope :none_filter, -> (none) { where none: none != '0' }
 
-  mount_uploader :main_photo, ListingPhotoUploader
-
   def city_name
     city.try :name
   end

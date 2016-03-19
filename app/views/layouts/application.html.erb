@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js' %>
+    <%= javascript_include_tag '//widget.cloudinary.com/global/all.js' %>
 
     <% if yield(:java_script) %>
       <%= javascript_include_tag yield(:java_script) %>

@@ -230,7 +230,7 @@ class ListingsController < ApplicationController
     @listing = Listing.find(params[:id])
 
     @listing.destroy
-    flash[:success] = "Listing deleted."
+    flash[:success] = 'Listing deleted.'
     redirect_to listings_url
   end
 
