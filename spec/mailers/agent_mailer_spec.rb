@@ -2,12 +2,13 @@ require 'spec_helper'
 
 describe AgentMailer do
   let!(:active_user) { FactoryGirl.create(:user) }
+  let!(:current_user) { FactoryGirl.create(:user) }
   let!(:inactive_user) { FactoryGirl.create :user, active: false }
   # let(:neighborhood) { FactoryGirl.create(:neighborhood) }
   let(:listing) { FactoryGirl.create :listing, user: active_user }
 
   describe 'create_listing' do
-    let(:email) { AgentMailer.listing_created(listing) }
+    let(:email) { AgentMailer.listing_created(listing, current_user) }
 
     it 'renders the subject' do
       expect(email.subject).to eq('Listing has been created')
@@ -15,10 +16,16 @@ describe AgentMailer do
 
     describe 'receivers' do
       it 'renders the receiver email' do
-        expect(email.to).to eql([active_user.email])
+        expect(email.to).to eql([active_user.email, current_user.email])
       end
       it "not renders inactive user's email in the receiver email" do
         expect(email.to).not_to include(inactive_user.email)
+      end
+    end
+
+    describe 'sender' do
+      it 'uses current_user email' do
+        expect(email.from).to eql([current_user.email])
       end
     end
 
@@ -28,7 +35,7 @@ describe AgentMailer do
   end
 
   describe 'listing status changed' do
-    let(:email) { AgentMailer.listing_changed(listing, 'some old status', 'some new status') }
+    let(:email) { AgentMailer.listing_changed(listing, 'some old status', 'some new status', current_user) }
 
     it 'renders the subject' do
       expect(email.subject).to eq('Listing status has been changed')
@@ -36,10 +43,16 @@ describe AgentMailer do
 
     describe 'receivers' do
       it 'renders the receiver email' do
-        expect(email.to).to eql([active_user.email])
+        expect(email.to).to eql([active_user.email,current_user.email])
       end
       it "not renders inactive user's email in the receiver email" do
         expect(email.to).not_to include(inactive_user.email)
+      end
+    end
+
+    describe 'sender' do
+      it 'uses current_user email' do
+        expect(email.from).to eql([current_user.email])
       end
     end
 

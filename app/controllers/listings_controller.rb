@@ -76,6 +76,7 @@ class ListingsController < ApplicationController
     respond_to do |format|
       format.html {
         @listings = @listings.paginate(page: params[:page])
+        @favorites_ids = current_user.favorites.pluck :listing_id
       }
       format.pdf {
         render pdf: 'index'
@@ -144,11 +145,11 @@ class ListingsController < ApplicationController
     begin
       @listing = Listing.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to root_url, :flash => { :error => 'Record not found.' }
+      redirect_to root_url, :flash => {:error => 'Record not found.'}
       return
     end
 
-      #@photo_urls = @listing.property_photos.all
+    #@photo_urls = @listing.property_photos.all
     respond_to do |format|
       format.html
       format.pdf {
@@ -178,7 +179,7 @@ class ListingsController < ApplicationController
         history = @listing.history_records.build
         history.message = "Status changed from '#{Status.find(old_status_id).try(:name)}' to '#{@listing.status.name}' by #{current_user.name}"
         history.save
-        AgentMailer.listing_changed(@listing, Status.find(old_status_id).try(:name), @listing.status.name).deliver
+        AgentMailer.listing_changed(@listing, Status.find(old_status_id).try(:name), @listing.status.name, current_user).deliver
       end
 
       # xml_content = render_to_string :action => 'show', :formats => [:xml]
@@ -218,7 +219,7 @@ class ListingsController < ApplicationController
     @listing = current_user.listings.build(listing_params)
 
     if @listing.save
-      AgentMailer.listing_created(@listing).deliver
+      AgentMailer.listing_created(@listing, current_user).deliver
       flash[:success] = 'Listing created.'
       redirect_to @listing
     else
@@ -275,6 +276,23 @@ class ListingsController < ApplicationController
         flash[:error] = 'Email can' 't be blank'
         render 'create_email'
       end
+    end
+  end
+
+  def toggle_favorite
+    @listing = Listing.find(params[:id])
+
+    begin
+    current_user.favorites.create listing_id: @listing.id
+    @checked = true
+    rescue ActiveRecord::RecordNotUnique
+      Favorite.destroy_all user_id: current_user.id, listing_id: @listing.id
+      @checked = false
+    end
+
+    respond_to do |format|
+      format.html { redirect_back_or listings_path }
+      format.js
     end
   end
 
@@ -346,7 +364,7 @@ class ListingsController < ApplicationController
                                     :storage_available, :parking_available, :yard, :patio,
                                     :no_pets, :cats, :dogs, :approved_pets_only,
                                     :heat_and_hot_water, :gas, :all_utilities, :none, :export_to_streeteasy, :export_to_myastoria,
-                                    :export_to_nakedapartments, :fake_address,  :featured, :export_to_zumper,
+                                    :export_to_nakedapartments, :fake_address, :featured, :export_to_zumper,
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     :type_of_space_id, :dividable, :taxes_included, :taxes_amount, :size,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])

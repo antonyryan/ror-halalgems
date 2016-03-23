@@ -36,6 +36,9 @@
         <tr>
           <td><%= check_box_tag 'listing_ids[]', listing.id %></td>
           <td>
+            <%= render 'listings/star_form', checked: @favorites_ids.include?(listing.id), listing_id: listing.id %>
+          </td>
+          <td>
             <% if listing.property_photos.count > 0 %>
                 <% photo = listing.property_photos.first %>
                 <%= image_tag(photo.photo_url_url(:thumb), width: 30, :height => 30) %>

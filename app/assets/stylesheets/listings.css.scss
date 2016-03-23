@@ -294,3 +294,23 @@ h4.price{
   opacity: .5;
   cursor: default;
 }
+
+#listings_from button {
+  border: none;
+  background: none;
+  padding: 0;
+}
+.star {
+  color: #ccc;
+  text-align: center;
+  display: block;
+}
+.star.star-checked {
+  color: #F0AD4E;
+}
+.star:hover {
+  color: #ccc;
+}
+.star.star-checked:hover {
+  color: #F0AD4E;
+}

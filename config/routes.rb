@@ -7,6 +7,7 @@ HorowitzRealEstate::Application.routes.draw do
   resources :listings do
     member do
       get :copy
+      post :toggle_favorite
     end
     collection do
       post :create_email

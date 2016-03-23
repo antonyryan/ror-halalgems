@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @favorites_ids = current_user.favorites.pluck :listing_id
 
     if sort_column.include? '.'
       parts = sort_column.split('.')

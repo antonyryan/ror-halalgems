@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130211013) do
+ActiveRecord::Schema.define(version: 20160320194129) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20160130211013) do
   create_table "cities", force: true do |t|
     t.string "name"
   end
+
+  create_table "favorites", force: true do |t|
+    t.integer "listing_id", null: false
+    t.integer "user_id",    null: false
+  end
+
+  add_index "favorites", ["listing_id", "user_id"], name: "index_favorites_on_listing_id_and_user_id", unique: true
 
   create_table "history_records", force: true do |t|
     t.string   "message"

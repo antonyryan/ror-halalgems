@@ -1,0 +1,6 @@
+<%
+   add_calss = checked ? ' star-checked' : ''
+%>
+<%= button_to toggle_favorite_listing_path(listing_id), remote: true, class: 'star' + add_calss, form: { id: "star#{listing_id}" } do %>
+    <i class="glyphicon glyphicon-star"></i>
+<% end %>
