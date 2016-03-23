@@ -26,7 +26,11 @@ class ListingsController < ApplicationController
       @listings = @listings.available_listings
     end
 
+    favorite_ids = []
+    favorite_ids = Favorite.where(user_id: current_user.id).pluck :listing_id
+
     @listings = @listings.ids_filter(params[:ids]) if (params[:ids].present? && params[:ids] != [''])
+    @listings = @listings.ids_filter(favorite_ids) if (params[:favorites].present?)
     @listings = @listings.street_address_search(params[:street_address]) if params[:street_address].present?
     @listings = @listings.listing_type_filter(params[:listing_type_id]) if params[:listing_type_id].present?
     @listings = @listings.type_filter(params[:property_type]) if params[:property_type].present?
