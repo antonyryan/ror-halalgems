@@ -27,7 +27,7 @@ class ListingsController < ApplicationController
     end
 
     favorite_ids = []
-    favorite_ids = Favorite.where(user_id: current_user.id).pluck :listing_id
+    favorite_ids = Favorite.where(user_id: current_user.try(:id)).pluck :listing_id
 
     @listings = @listings.ids_filter(params[:ids]) if (params[:ids].present? && params[:ids] != [''])
     @listings = @listings.ids_filter(favorite_ids) if (params[:favorites].present?)
