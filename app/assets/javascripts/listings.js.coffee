@@ -202,7 +202,7 @@ jQuery ->
 
 jQuery ->
   taxesCheckBox = $('#listing_taxes_included')
-  $('#listing_taxes_amount').prop('disabled', !taxesCheckBox.checked)
+  $('#listing_taxes_amount').prop('disabled', !taxesCheckBox.is(':checked'))
 
   taxesCheckBox.change ->
     $('#listing_taxes_amount').prop('disabled', !this.checked)

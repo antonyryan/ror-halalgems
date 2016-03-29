@@ -6,9 +6,9 @@
 
 <p>
   <%= cl_image_upload_tag('df', :html => {
-                                       :multiple => true,
-                                       data: object_fields(f, :property_photos)
-                               }) %>
+                                      :multiple => true,
+                                      data: object_fields(f, :property_photos)
+                              }) %>
 </p>
 
 
@@ -165,7 +165,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group<%= ' has-error' unless @listing.errors[:landlord].blank? %>">
-          <%= f.label :landlord, class: 'control-label' %>
+          <%= f.label :landlord, f.object.listing_type.try(:name) == 'Sale' ? 'Owner' : 'Landlord', class: 'control-label' %>
           <%= f.text_field :landlord, class: 'form-control' %>
         </div>
       </div>
@@ -174,6 +174,33 @@
           <% if @listing.status.try(:name) == 'Rented' %>
               <%= f.label :renter, class: 'control-label' %>
               <%= f.text_field :renter, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:charges].blank? %>">
+          <% if @listing.listing_type.try(:name) == 'Sale' %>
+              <%= f.label :charges, class: 'control-label' %>
+              <%= f.text_field :charges, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:maintenance].blank? %>">
+          <% if @listing.listing_type.try(:name) == 'Sale' %>
+              <%= f.label :maintenance, class: 'control-label' %>
+              <%= f.text_field :maintenance, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group<%= ' has-error' unless @listing.errors[:taxes_amount].blank? %>">
+          <% if @listing.listing_type.try(:name) == 'Sale' %>
+              <%= f.check_box :taxes_included,  checked: true, style: 'display: none;' %>
+              <%= f.label :taxes_amount, 'Taxes', class: 'control-label' %>
+              <%= f.text_field :taxes_amount, class: 'form-control' %>
           <% end %>
         </div>
       </div>

@@ -355,6 +355,7 @@ class ListingsController < ApplicationController
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     :exported_to_nakedapartments, :featured, :export_to_zumper,
                                     :type_of_space_id, :dividable, :taxes_included, :taxes_amount, :size,
+                                    :charges, :maintenance,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
   end
 
@@ -371,6 +372,7 @@ class ListingsController < ApplicationController
                                     :export_to_nakedapartments, :fake_address, :featured, :export_to_zumper,
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     :type_of_space_id, :dividable, :taxes_included, :taxes_amount, :size,
+                                    :charges, :maintenance,
                                     property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
   end
 

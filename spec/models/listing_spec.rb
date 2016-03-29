@@ -40,6 +40,8 @@ describe Listing do
   it { should respond_to :dividable }
   it { should respond_to :taxes_included }
   it { should respond_to :taxes_amount }
+  it { should respond_to :charges }
+  it { should respond_to :maintenance }
 
   it { should be_valid }
 
@@ -110,14 +112,14 @@ describe Listing do
     before { @listing.available_date = nil }
     context 'rentals' do
       it 'is not valid' do
-        @listing.listing_type_id= ListingType.create(name: 'rental').id
+        @listing.listing_type_id= ListingType.create(name: 'Rental').id
         expect(@listing).to_not be_valid
       end
     end
 
     context 'sales' do
       it 'is valid' do
-        @listing.listing_type_id= ListingType.create(name: 'sale').id
+        @listing.listing_type_id= ListingType.create(name: 'Sale').id
         expect(@listing).to be_valid
       end
     end

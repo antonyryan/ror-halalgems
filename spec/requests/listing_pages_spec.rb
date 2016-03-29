@@ -76,12 +76,55 @@ describe 'ListingPages' do
     end
   end
 
+  describe 'new' do
+    context 'Sale' do
+      before { visit new_listing_path listing_type_id: ListingType.where(name: 'Sale').first.id }
+
+      it 'displays charges field' do
+        expect(page).to have_field :listing_charges
+      end
+      it 'displays maintenance field' do
+        expect(page).to have_field :listing_maintenance
+      end
+      it 'displays taxes field' do
+        expect(page).to have_field :listing_taxes_amount
+      end
+    end
+
+    context 'Rental' do
+      before { visit new_listing_path listing_type_id: ListingType.where(name: 'Rental').first.id }
+
+      it 'does not display charges field' do
+        expect(page).to_not have_field :listing_charges
+      end
+      it 'does not display maintenance field' do
+        expect(page).to_not have_field :listing_maintenance
+      end
+      it 'does not display taxes field' do
+        expect(page).to_not have_field :listing_taxes_amount
+      end
+    end
+
+    context 'Commercial' do
+      before { visit new_listing_path listing_type_id: ListingType.where(name: 'Commercial').first.id }
+
+      it 'does not display charges field' do
+        expect(page).to_not have_field :listing_charges
+      end
+      it 'does not display maintenance field' do
+        expect(page).to_not have_field :listing_maintenance
+      end
+      it 'displays taxes field' do
+        expect(page).to have_field :listing_taxes_amount
+      end
+    end
+  end
+
   describe 'edit' do
+
     let(:listing) { FactoryGirl.create(:listing, user_id: user.id, listing_type_id: ListingType.where(name: 'Rental').first.id) }
     before { visit edit_listing_path(listing) }
 
-    it { should have_field 'listing_yard' }
-    it { should have_field 'listing_patio' }
 
     describe 'change agent' do
       let(:admin_user) { FactoryGirl.create(:admin) }
@@ -239,7 +282,7 @@ describe 'ListingPages' do
                 puts "=#{xml_document.xpath("//description")[0].content }="
               end
               it { should_not have_selector 'description', text: 'aaa aaa' }
-              it { should have_xpath "//description", text: "aaa <br />aaa"}
+              it { should have_xpath "//description", text: "aaa <br />aaa" }
             end
           end
         end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320194129) do
+ActiveRecord::Schema.define(version: 20160329185754) do
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 20160320194129) do
     t.boolean  "dividable",                        default: false
     t.boolean  "taxes_included",                   default: false
     t.decimal  "taxes_amount"
+    t.decimal  "charges"
+    t.decimal  "maintenance"
   end
 
   add_index "listings", ["available_date"], name: "index_listings_on_available_date"
