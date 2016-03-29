@@ -108,7 +108,19 @@ describe Listing do
 
   describe 'when available_date is not present' do
     before { @listing.available_date = nil }
-    it { should_not be_valid }
+    context 'rentals' do
+      it 'is not valid' do
+        @listing.listing_type_id= ListingType.create(name: 'rental').id
+        expect(@listing).to_not be_valid
+      end
+    end
+
+    context 'sales' do
+      it 'is valid' do
+        @listing.listing_type_id= ListingType.create(name: 'sale').id
+        expect(@listing).to be_valid
+      end
+    end
   end
   describe 'when landlord is blank' do
     before { @listing.landlord = ' ' }
@@ -117,12 +129,12 @@ describe Listing do
 
   describe 'when title is blank' do
     before { @listing.title = ' ' }
-    its(:headline ) { should eq @listing.neighborhood.name }
+    its(:headline) { should eq @listing.neighborhood.name }
   end
 
   describe 'when title is not blank' do
     before { @listing.title = 'some' }
-    its(:headline ) { should eq @listing.title }
+    its(:headline) { should eq @listing.title }
   end
 
   describe 'emails' do
@@ -131,7 +143,7 @@ describe Listing do
       ActionMailer::Base.delivery_method = :test
     end
     it 'sends an email' do
-      expect{ subject.send_created }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      expect { subject.send_created }.to change(ActionMailer::Base.deliveries, :count).by(1)
     end
   end
 
