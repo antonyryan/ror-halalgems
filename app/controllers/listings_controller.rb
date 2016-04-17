@@ -220,7 +220,7 @@ class ListingsController < ApplicationController
       end
     end
 
-    @listing = current_user.listings.build(listing_params)
+    @listing = current_user.admin? ? Listing.new(listing_params) : current_user.listings.build(listing_params)
 
     if @listing.save
       AgentMailer.listing_created(@listing, current_user).deliver

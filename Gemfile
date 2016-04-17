@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.2.4'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.3'
@@ -7,7 +7,8 @@ gem 'rails', '4.0.3'
 gem 'sass-rails', "~> 4.0.2"
 gem 'bootstrap-sass', '~> 3.2.0'
 #gem 'autoprefixer-rails'
-gem 'bcrypt-ruby', '3.1.2'
+gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt-ruby'
 gem 'faker', '1.4.3'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
@@ -15,8 +16,9 @@ gem 'bootstrap-will_paginate', '0.0.9'
 #gem "wicked_pdf"
 
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.13.1'
+  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
+  gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
+  # gem 'rspec-rails', '2.13.1'
   # gem 'guard-rspec', '2.5.0'
   # gem 'spork-rails', '4.0.0'
   # gem 'guard-spork', '1.5.0'
@@ -25,7 +27,7 @@ end
 
 group :test do
   gem 'selenium-webdriver', '2.35.1'
-  gem 'capybara', '2.1.0'
+  gem 'capybara', '2.2.0'
 
   # OS X: раскомментируйте эти строки.
   # gem 'growl', '1.0.3'
@@ -36,7 +38,7 @@ group :test do
   #Windows: раскомментируйте эти строки.
   gem 'rb-notifu', '0.0.4'
   #gem 'win32console', '1.3.2'
-  gem 'wdm', '0.1.0'
+  # gem 'wdm', '0.1.0'
   gem 'factory_girl_rails', '4.2.1'
 
 end
