@@ -57,6 +57,7 @@
       <% end %>
     </h1>
     <h3 class="zip">
+      <%= "Address: #{@listing.full_address}" if @listing.title.present? %>
       <%= "Unit no: #{@listing.unit_no}" unless @listing.unit_no.nil? || @listing.unit_no.empty? %>
       <%= "Zip: #{@listing.zip_code}" unless @listing.zip_code.nil? %>
     </h3>
