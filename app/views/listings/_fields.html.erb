@@ -6,9 +6,9 @@
 
 <p>
   <%= cl_image_upload_tag('df', :html => {
-                                      :multiple => true,
-                                      data: object_fields(f, :property_photos)
-                              }) %>
+      :multiple => true,
+      data: object_fields(f, :property_photos)
+  }) %>
 </p>
 
 
@@ -179,7 +179,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-2" id="charges_div" style="<%= 'display: none;' unless @listing.property_type.try(:name) == 'Condo' %>">
         <div class="form-group<%= ' has-error' unless @listing.errors[:charges].blank? %>">
           <% if @listing.listing_type.try(:name) == 'Sale' %>
               <%= f.label :charges, class: 'control-label' %>
@@ -187,7 +187,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2" id="maintenance_div"  style="<%= 'display: none;' unless @listing.property_type.try(:name) == 'Coop' %>">
         <div class="form-group<%= ' has-error' unless @listing.errors[:maintenance].blank? %>">
           <% if @listing.listing_type.try(:name) == 'Sale' %>
               <%= f.label :maintenance, class: 'control-label' %>
@@ -195,15 +195,78 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-2">
+
+      <div class="col-md-2" id="taxes_div" style="<%= 'display: none;' if @listing.property_type.try(:name) == 'Coop' %>" >
         <div class="form-group<%= ' has-error' unless @listing.errors[:taxes_amount].blank? %>">
           <% if @listing.listing_type.try(:name) == 'Sale' %>
-              <%= f.check_box :taxes_included,  checked: true, style: 'display: none;' %>
+              <%= f.check_box :taxes_included, checked: true, style: 'display: none;' %>
               <%= f.label :taxes_amount, 'Taxes', class: 'control-label' %>
               <%= f.text_field :taxes_amount, class: 'form-control' %>
           <% end %>
         </div>
       </div>
+
+      <div class="col-md-2" id="tax_abatement_div" style="<%= 'display: none;' if @listing.property_type.try(:name) != 'Condo' %>" >
+        <div class="form-group<%= ' has-error' unless @listing.errors[:tax_abatement_end_date].blank? %>">
+          <% if @listing.listing_type.try(:name) == 'Sale' %>
+              <%= f.check_box :tax_abatement, checked: false %>
+              <%= f.label :tax_abatement_end_date, 'Tax Abatement', class: 'control-label' %>
+              <%= f.date_field :tax_abatement_end_date, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @listing.listing_type.try(:name) == 'Sale' %>
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:start_date].blank? %>">
+              <%= f.label :start_date, class: 'control-label' %>
+              <%= f.date_field :start_date, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:expiration_date].blank? %>">
+              <%= f.label :expiration_date, class: 'control-label' %>
+              <%= f.date_field :expiration_date, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:commission].blank? %>">
+              <%= f.label :commission, 'Commission split, %', class: 'control-label' %>
+              <%= f.text_field :commission, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:mls_no].blank? %>">
+              <%= f.label :mls_no, 'MLS #', class: 'control-label' %>
+              <%= f.text_field :mls_no, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:lot_size].blank? %>">
+              <%= f.label :lot_size, class: 'control-label' %>
+              <%= f.text_field :lot_size, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:building_size].blank? %>">
+              <%= f.label :building_size, class: 'control-label' %>
+              <%= f.text_field :building_size, class: 'form-control' %>
+            </div>
+          </div>
+      <% end %>
+      <% if %w(Sale Commercial Rental).include? @listing.listing_type.try(:name)  %>
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:interior_square_feet].blank? %>">
+              <%= f.label :interior_square_feet, class: 'control-label' %>
+              <%= f.text_field :interior_square_feet, class: 'form-control' %>
+            </div>
+          </div>
+      <% end %>
+
     </div>
 
     <div class="row">

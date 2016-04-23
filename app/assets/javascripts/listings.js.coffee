@@ -201,6 +201,13 @@ jQuery ->
       $('#send_email_form').submit()
 
 jQuery ->
+  $.each(['show', 'hide'], (i, ev) ->
+    el = $.fn[ev];
+    $.fn[ev] = () ->
+      this.trigger(ev);
+      el.apply(this, arguments);
+  )
+
   taxesCheckBox = $('#listing_taxes_included')
   $('#listing_taxes_amount').prop('disabled', !taxesCheckBox.is(':checked'))
 
@@ -218,3 +225,19 @@ jQuery ->
 
     if c != 0
       form.submit()
+
+  property_type_input = $('#listing_property_type_id')
+  property_type_input.change (event) ->
+    if $('#listing_property_type_id option:selected').text() == 'Coop'
+      $('#taxes_div').hide()
+      $('#maintenance_div').show()
+    else
+      $('#taxes_div').show()
+      $('#maintenance_div').hide()
+      
+    if $('#listing_property_type_id option:selected').text() != 'Condo'
+      $('#charges_div').hide()
+      $('#tax_abatement_div').hide()
+    else
+      $('#charges_div').show()
+      $('#tax_abatement_div').show()

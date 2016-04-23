@@ -43,6 +43,16 @@ describe Listing do
   it { should respond_to :charges }
   it { should respond_to :maintenance }
 
+  it { should respond_to :start_date }
+  it { should respond_to :expiration_date }
+  it { should respond_to :commission }
+  it { should respond_to :mls_no }
+  it { should respond_to :lot_size }
+  it { should respond_to :building_size }
+  it { should respond_to :interior_square_feet }
+  it { should respond_to :tax_abatement }
+  it { should respond_to :tax_abatement_end_date }
+
   it { should be_valid }
 
   describe 'when address is blank' do
