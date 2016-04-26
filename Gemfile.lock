@@ -48,7 +48,7 @@ GEM
       mime-types (>= 1.16)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
-    cloudinary (1.1.5)
+    cloudinary (1.0.82)
       aws_cf_signer
       rest-client
     coffee-rails (4.1.1)
@@ -96,7 +96,7 @@ GEM
     mime-types (1.25.1)
     mini_portile2 (2.0.0)
     minitest (4.7.5)
-    multi_json (1.11.2)
+    multi_json (1.11.3)
     multi_xml (0.5.5)
     netrc (0.11.0)
     nokogiri (1.6.7.2-x86-mingw32)
@@ -194,7 +194,7 @@ GEM
     ttfunk (1.4.0)
     turbolinks (2.5.3)
       coffee-rails
-    tzinfo (0.3.48)
+    tzinfo (0.3.49)
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -220,7 +220,7 @@ DEPENDENCIES
   capybara (= 2.2.0)
   carrierwave
   childprocess
-  cloudinary
+  cloudinary (= 1.0.82)
   coffee-rails
   factory_girl_rails (= 4.2.1)
   faker (= 1.4.3)
