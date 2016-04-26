@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 ruby '2.2.4'
 #ruby-gemset=railstutorial_rails_4_0
 
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.2'
+# gem 'rails', '4.0.3'
 #gem 'therubyrhino'
 gem 'sass-rails', "~> 4.0.2"
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -12,6 +13,8 @@ gem 'bcrypt-ruby'
 gem 'faker', '1.4.3'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #gem "wicked_pdf"
 

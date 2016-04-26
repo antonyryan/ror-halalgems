@@ -287,8 +287,8 @@ class ListingsController < ApplicationController
     @listing = Listing.find(params[:id])
 
     begin
-    current_user.favorites.create listing_id: @listing.id
-    @checked = true
+      current_user.favorites.create listing_id: @listing.id
+      @checked = true
     rescue ActiveRecord::RecordNotUnique
       Favorite.destroy_all user_id: current_user.id, listing_id: @listing.id
       @checked = false
@@ -356,7 +356,10 @@ class ListingsController < ApplicationController
                                     :exported_to_nakedapartments, :featured, :export_to_zumper,
                                     :type_of_space_id, :dividable, :taxes_included, :taxes_amount, :size,
                                     :charges, :maintenance,
-                                    property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
+                                    :start_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
+                                    :interior_square_feet, :tax_abatement, :tax_abatement_end_date,
+
+                                    property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num])
   end
 
   def listing_params_admin
@@ -373,7 +376,9 @@ class ListingsController < ApplicationController
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     :type_of_space_id, :dividable, :taxes_included, :taxes_amount, :size,
                                     :charges, :maintenance,
-                                    property_photos_attributes: [:id, :photo_url, :_destroy, :order_num])
+                                    :start_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
+                                    :interior_square_feet, :tax_abatement, :tax_abatement_end_date,
+                                    property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num])
   end
 
   def correct_user
