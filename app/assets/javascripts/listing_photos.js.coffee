@@ -15,15 +15,15 @@
 jQuery ->
   clodinaryFileUpload = $(".cloudinary-fileupload")
   if clodinaryFileUpload.length > 0
-    clodinaryFileUpload.fileupload
-      dropZone: "#photos",
-      progress: (e, data) ->
-        if data.context
-          percents =parseInt(data.loaded / data.total * 100, 10)
-          data.context.find('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);
-        return
-      fail: (e, data) ->
-        $(".status").text("Upload failed")
+    clodinaryFileUpload.cloudinary_fileupload()
+    clodinaryFileUpload.bind 'fileuploadprogress', (e, data) ->
+      if data.context
+        percents =parseInt(data.loaded / data.total * 100, 10)
+        data.context.find('.progress-bar').css('width', percents+'%').attr('aria-valuenow', percents);
+      return
+
+    clodinaryFileUpload.bind 'fileuploadfail', (e, data) ->
+      $(".status").text("Upload failed")
 
     clodinaryFileUpload.off("fileuploadsend").on("fileuploadsend", (e, data) ->
       photos_container = $('#photos')
