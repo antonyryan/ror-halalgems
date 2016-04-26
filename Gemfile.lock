@@ -48,7 +48,7 @@ GEM
       mime-types (>= 1.16)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
-    cloudinary (1.0.82)
+    cloudinary (1.1.5)
       aws_cf_signer
       rest-client
     coffee-rails (4.1.1)
@@ -220,7 +220,7 @@ DEPENDENCIES
   capybara (= 2.2.0)
   carrierwave
   childprocess
-  cloudinary (= 1.0.82)
+  cloudinary (= 1.1.5)
   coffee-rails
   factory_girl_rails (= 4.2.1)
   faker (= 1.4.3)

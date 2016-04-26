@@ -64,7 +64,7 @@ group :production do
 end
 
 gem 'carrierwave'
-gem 'cloudinary', '1.0.82'
+gem 'cloudinary', '1.1.5'
 gem 'prawn'
 gem 'prawn-table', '~> 0.2.1'
 gem 'prawnto'
