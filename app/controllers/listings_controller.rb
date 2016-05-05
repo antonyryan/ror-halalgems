@@ -11,7 +11,7 @@ class ListingsController < ApplicationController
       parts = sort_column.split('.')
       @listings = Listing.includes(parts.first).order("#{parts.first.pluralize}.#{parts.last}" + ' ' + sort_direction)
     else
-      @listings = Listing.order(sort_column + ' ' + sort_direction)
+      @listings = Listing.includes(:property_photos, :neighborhood, :bed, :status).order(sort_column + ' ' + sort_direction)
     end
 
     if params[:status].present?
@@ -358,7 +358,7 @@ class ListingsController < ApplicationController
                                     :charges, :maintenance,
                                     :start_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
                                     :interior_square_feet, :tax_abatement, :tax_abatement_end_date,
-
+                                    :action_user_id,
                                     property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num])
   end
 
@@ -378,6 +378,7 @@ class ListingsController < ApplicationController
                                     :charges, :maintenance,
                                     :start_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
                                     :interior_square_feet, :tax_abatement, :tax_abatement_end_date,
+                                    :action_user_id,
                                     property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num])
   end
 

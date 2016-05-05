@@ -241,3 +241,10 @@ jQuery ->
     else
       $('#charges_div').show()
       $('#tax_abatement_div').show()
+
+  $('#listing_status_id').change (event) ->
+    if jQuery.inArray( $('#listing_status_id option:selected').text(), ['Rented', 'Deposit/Pending Application', 'Accepted offer', 'Under contract', 'Closed']) != -1
+      $('#action_user_div').show()
+    else
+      $('#action_user_div').hide()
+      $('#listing_action_user_id').val('')

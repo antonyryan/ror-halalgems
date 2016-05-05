@@ -1,5 +1,6 @@
 class Listing < ActiveRecord::Base
   belongs_to :user
+  belongs_to :action_user, class_name: 'User', foreign_key: 'action_user_id'
   belongs_to :listing_type
   belongs_to :status
   belongs_to :bed

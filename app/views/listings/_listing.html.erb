@@ -1,7 +1,7 @@
 <% if display_helper=='thumbs' %>
 	<div class="col-sm-6 col-md-3">
 		<div class="thumbnail">
-			<% if listing.property_photos.count > 0 %>			
+			<% if listing.property_photos.size > 0 %>
 				<% photo = listing.property_photos.first %>			
 				<%= image_tag(photo.photo_url_url(:thumb), style: 'height:124px; width: 100%') %>
 			<% else %>

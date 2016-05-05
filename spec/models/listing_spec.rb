@@ -1,11 +1,12 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Listing do
+RSpec.describe Listing, type: :model do
   let!(:user) { FactoryGirl.create(:user) }
   let(:neighborhood) { FactoryGirl.create(:neighborhood) }
   before do
     @listing = Listing.new(street_address: 'Some address', available_date: Date::tomorrow, landlord: 'some name',
                            neighborhood: neighborhood, zip_code: '1')
+    puts @listing.headline
   end
 
   subject { @listing }
@@ -52,6 +53,8 @@ describe Listing do
   it { should respond_to :interior_square_feet }
   it { should respond_to :tax_abatement }
   it { should respond_to :tax_abatement_end_date }
+  it { should respond_to :action_user_id }
+  it { should respond_to :action_user }
 
   it { should be_valid }
 
@@ -140,13 +143,17 @@ describe Listing do
   end
 
   describe 'when title is blank' do
-    before { @listing.title = ' ' }
-    its(:headline) { should eq @listing.neighborhood.name }
+    it 'gives a neighborhood as a headline' do
+      @listing.title = ' '
+      expect(@listing.headline).to eq @listing.neighborhood.name
+    end
   end
 
   describe 'when title is not blank' do
-    before { @listing.title = 'some' }
-    its(:headline) { should eq @listing.title }
+    it 'gives a title as a headline' do
+      @listing.title = 'some'
+      expect(@listing.headline).to eq @listing.title
+    end
   end
 
   describe 'emails' do
