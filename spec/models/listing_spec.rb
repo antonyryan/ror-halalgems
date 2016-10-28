@@ -156,14 +156,14 @@ RSpec.describe Listing, type: :model do
     end
   end
 
-  describe 'emails' do
-    before do
-      @listing.save
-      ActionMailer::Base.delivery_method = :test
-    end
-    it 'sends an email' do
-      expect { subject.send_created }.to change(ActionMailer::Base.deliveries, :count).by(1)
-    end
-  end
+  # describe 'emails' do
+  #   before do
+  #     @listing.save
+  #     ActionMailer::Base.delivery_method = :test
+  #   end
+  #   it 'sends an email' do
+  #     expect { subject.send_created }.to change(ActionMailer::Base.deliveries, :count).by(1)
+  #   end
+  # end
 
 end

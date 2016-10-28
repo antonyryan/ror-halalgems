@@ -39,5 +39,13 @@ describe ListingsController, type: :controller do
         expect(Listing.last.user_id).to eq listing_params[:user_id]
       end
     end
+
+    describe 'emails' do
+      let(:user) { FactoryGirl.create :user }
+      it 'sends an email' do
+        sign_in user, {:no_capybara => true}
+        expect { post :create, listing: listing_params }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      end
+    end
   end
 end

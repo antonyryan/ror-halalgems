@@ -164,9 +164,10 @@ class Listing < ActiveRecord::Base
     end
   end
 
-  def send_created
-    AgentMailer.listing_created(self).deliver
-  end
+  # not sure that it should be here
+  # def send_created
+  #   AgentMailer.listing_created(self).deliver
+  # end
 
     private
     def set_status
