@@ -4,7 +4,8 @@ elsif params[:to].to_s.downcase == 'zumper'
   xml << render(partial: 'listing_for_zumper', locals: {listing: listing})
 else
   xml.property(id: listing.id, type: listing.listing_type.try(:name), #.downcase,
-               status: status_for_export(listing.status.try(:name)), url: listing_url(listing)) do
+               status: status_for_export(listing.status.try(:name)),
+               url: (params[:type].to_s.downcase == 'sale' ? 'http://horowitzrealestate.com/category/listings/sales/' : 'http://horowitzrealestate.com/category/listings/rentals/')) do
     xml.location do
       if params[:to].to_s.downcase == 'nakedapartments'
         xml.address listing.street_address
