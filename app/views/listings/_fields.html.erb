@@ -1,3 +1,5 @@
+<%= f.label :photos, 'Photos', class: 'control-label' %>
+
 <div id="photos" class="row">
   <%= f.fields_for :property_photos do |builder| %>
       <%= render 'property_photo_fields', f: builder %>
@@ -10,6 +12,8 @@
       data: object_fields(f, :property_photos)
   }) %>
 </p>
+
+
 
 
 <div class="form-group">

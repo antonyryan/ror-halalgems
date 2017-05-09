@@ -66,10 +66,10 @@ module ListingsHelper
       return 'active'
     end
     if status == 'Deposit/Pending Application'
-      return 'temp-off-market'
+      return 'active'
     end
     if status == 'Lost'
-      return 'off-market'
+      return 'rented'
     end
     if status == 'Rented'
       return 'rented'

@@ -11,6 +11,9 @@ class Listing < ActiveRecord::Base
   belongs_to :space_type, foreign_key: :type_of_space_id
 
   has_many :property_photos, dependent: :destroy
+  has_many :property_videos, dependent: :destroy
+  has_many :property_floorplans, dependent: :destroy
+  
   has_many :history_records
   accepts_nested_attributes_for :property_photos, allow_destroy: true
 
