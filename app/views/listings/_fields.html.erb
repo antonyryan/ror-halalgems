@@ -28,7 +28,22 @@
   }) %>
 </p>
 
+<%= f.label :videos, 'Videos', class: 'control-label' %>
 
+<div id="videos" class="row">
+  <%= f.fields_for :property_videos do |builder| %>
+      <%= render 'property_video_fields', f: builder %>
+  <% end %>
+</div>
+
+<p>
+  <%= cl_upload_tag('df2.mp4', :resource_type => :video,
+            :type => :upload, :eager => [
+            {:format => 'mp4'}], :html => {
+      :multiple => true,
+      data: object_fields(f, :property_videos)
+  }) %>
+</p>
 
 <div class="form-group">
   <div id="info"></div>
