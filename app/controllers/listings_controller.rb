@@ -204,6 +204,7 @@ class ListingsController < ApplicationController
 
   def new
     @listing = current_user.listings.build
+    puts @listing.inspect
     if params[:listing_type_id].present?
       @listing.listing_type_id = params[:listing_type_id]
     end
@@ -356,10 +357,10 @@ class ListingsController < ApplicationController
                                     :exported_to_nakedapartments, :featured, :export_to_zumper,
                                     :type_of_space_id, :dividable, :taxes_included, :taxes_amount, :size,
                                     :charges, :maintenance,
-                                    :start_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
+                                    :start_date,:close_date,:contract_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
                                     :interior_square_feet, :tax_abatement, :tax_abatement_end_date,
                                     :action_user_id,
-                                    property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num])
+                                    property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num],property_floorplans_attributes: [:id, :listing_id, :floorplan_url, :_destroy, :order_num],property_videos_attributes: [:id, :listing_id, :video_url, :_destroy, :order_num])
   end
 
   def listing_params_admin
@@ -376,10 +377,10 @@ class ListingsController < ApplicationController
                                     :access, :fake_city_id, :fake_unit_no, :hide_address_for_nakedapartments,
                                     :type_of_space_id, :dividable, :taxes_included, :taxes_amount, :size,
                                     :charges, :maintenance,
-                                    :start_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
+                                    :start_date,:close_date,:contract_date, :expiration_date, :commission, :mls_no, :lot_size, :building_size,
                                     :interior_square_feet, :tax_abatement, :tax_abatement_end_date,
                                     :action_user_id,
-                                    property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num])
+                                    property_photos_attributes: [:id, :listing_id, :photo_url, :_destroy, :order_num],property_floorplans_attributes: [:id, :listing_id, :floorplan_url, :_destroy, :order_num],property_videos_attributes: [:id, :listing_id, :video_url, :_destroy, :order_num])
   end
 
   def correct_user

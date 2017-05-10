@@ -1,3 +1,4 @@
+puts "property photos"
 class PropertyPhoto < ActiveRecord::Base
 	belongs_to :listing
   default_scope { order('coalesce("property_photos"."order_num", 1000)') }

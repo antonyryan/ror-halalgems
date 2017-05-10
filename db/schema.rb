@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504185635) do
+ActiveRecord::Schema.define(version: 20170510104504) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "beds", force: true do |t|
     t.string   "name"
@@ -28,7 +31,7 @@ ActiveRecord::Schema.define(version: 20160504185635) do
     t.integer "user_id",    null: false
   end
 
-  add_index "favorites", ["listing_id", "user_id"], name: "index_favorites_on_listing_id_and_user_id", unique: true
+  add_index "favorites", ["listing_id", "user_id"], name: "index_favorites_on_listing_id_and_user_id", unique: true, using: :btree
 
   create_table "history_records", force: true do |t|
     t.string   "message"
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 20160504185635) do
     t.datetime "updated_at"
   end
 
-  add_index "history_records", ["listing_id"], name: "index_history_records_on_listing_id"
+  add_index "history_records", ["listing_id"], name: "index_history_records_on_listing_id", using: :btree
 
   create_table "listing_neighborhoods", force: true do |t|
     t.integer "listing_id"
@@ -126,19 +129,31 @@ ActiveRecord::Schema.define(version: 20160504185635) do
     t.boolean  "tax_abatement",                    default: false
     t.date     "tax_abatement_end_date"
     t.integer  "action_user_id"
+    t.date     "contract_date"
+    t.date     "close_date"
   end
 
-  add_index "listings", ["available_date"], name: "index_listings_on_available_date"
-  add_index "listings", ["bed_id"], name: "index_listings_on_bed_id"
-  add_index "listings", ["city_id"], name: "index_listings_on_city_id"
-  add_index "listings", ["listing_type_id"], name: "index_listings_on_listing_type_id"
-  add_index "listings", ["neighborhood_id"], name: "index_listings_on_neighborhood_id"
-  add_index "listings", ["property_type_id"], name: "index_listings_on_property_type_id"
-  add_index "listings", ["user_id"], name: "index_listings_on_user_id"
+  add_index "listings", ["available_date"], name: "index_listings_on_available_date", using: :btree
+  add_index "listings", ["bed_id"], name: "index_listings_on_bed_id", using: :btree
+  add_index "listings", ["city_id"], name: "index_listings_on_city_id", using: :btree
+  add_index "listings", ["listing_type_id"], name: "index_listings_on_listing_type_id", using: :btree
+  add_index "listings", ["neighborhood_id"], name: "index_listings_on_neighborhood_id", using: :btree
+  add_index "listings", ["property_type_id"], name: "index_listings_on_property_type_id", using: :btree
+  add_index "listings", ["user_id"], name: "index_listings_on_user_id", using: :btree
 
   create_table "neighborhoods", force: true do |t|
     t.string "name"
   end
+
+  create_table "property_floorplans", force: true do |t|
+    t.string   "floorplan_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "listing_id"
+    t.integer  "order_num"
+  end
+
+  add_index "property_floorplans", ["listing_id"], name: "index_property_floorplans_on_listing_id", using: :btree
 
   create_table "property_photos", force: true do |t|
     t.string   "photo_url"
@@ -148,13 +163,23 @@ ActiveRecord::Schema.define(version: 20160504185635) do
     t.integer  "order_num"
   end
 
-  add_index "property_photos", ["listing_id"], name: "index_property_photos_on_listing_id"
+  add_index "property_photos", ["listing_id"], name: "index_property_photos_on_listing_id", using: :btree
 
   create_table "property_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "property_videos", force: true do |t|
+    t.string   "video_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "listing_id"
+    t.integer  "order_num"
+  end
+
+  add_index "property_videos", ["listing_id"], name: "index_property_videos_on_listing_id", using: :btree
 
   create_table "space_types", force: true do |t|
     t.string "name"
@@ -189,7 +214,7 @@ ActiveRecord::Schema.define(version: 20160504185635) do
     t.boolean  "active",                   default: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end

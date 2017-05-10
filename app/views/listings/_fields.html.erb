@@ -13,6 +13,20 @@
   }) %>
 </p>
 
+<%= f.label :floorplans, 'Floorplans', class: 'control-label' %>
+
+<div id="floorplans" class="row">
+  <%= f.fields_for :property_floorplans do |builder| %>
+      <%= render 'property_floorplan_fields', f: builder %>
+  <% end %>
+</div>
+
+<p>
+  <%= cl_image_upload_tag('df1', :html => {
+      :multiple => true,
+      data: object_fields(f, :property_floorplans)
+  }) %>
+</p>
 
 
 
@@ -241,6 +255,18 @@
             <div class="form-group<%= ' has-error' unless @listing.errors[:start_date].blank? %>">
               <%= f.label :start_date, class: 'control-label' %>
               <%= f.date_field :start_date, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:close_date].blank? %>">
+              <%= f.label :close_date, class: 'control-label' %>
+              <%= f.date_field :close_date, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group<%= ' has-error' unless @listing.errors[:contract_date].blank? %>">
+              <%= f.label :contract_date, class: 'control-label' %>
+              <%= f.date_field :contract_date, class: 'form-control' %>
             </div>
           </div>
           <div class="col-md-2">

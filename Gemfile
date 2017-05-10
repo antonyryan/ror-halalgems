@@ -14,12 +14,12 @@ gem 'faker', '1.4.3'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :jruby]
 
 #gem "wicked_pdf"
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
+  gem 'pg', '0.15.1'
   gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
   # gem 'rspec-rails', '2.13.1'
   # gem 'guard-rspec', '2.5.0'

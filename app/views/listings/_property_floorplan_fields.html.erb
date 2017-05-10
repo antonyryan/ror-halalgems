@@ -1,0 +1,16 @@
+<div class="col-sm-6 col-md-3">
+  <fieldset>
+    <div class="thumbnail">
+      <%= image_tag(f.object.floorplan_url_url(:thumb)) %>
+      <div class="caption">
+        <div class="form-group">
+          <%= f.label :order_num, 'Order', class: 'sr-only control-label' %>
+          <%= f.text_field :order_num, class: 'form-control', placeholder: 'Order' %>
+        </div>
+
+        <%= f.hidden_field :_destroy %>
+        <%= link_to 'remove', '#', class: 'remove_fields' %>
+      </div>
+    </div>
+  </fieldset>
+</div>

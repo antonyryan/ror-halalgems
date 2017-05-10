@@ -16,6 +16,8 @@ class Listing < ActiveRecord::Base
   
   has_many :history_records
   accepts_nested_attributes_for :property_photos, allow_destroy: true
+  accepts_nested_attributes_for :property_floorplans, allow_destroy: true
+  accepts_nested_attributes_for :property_videos, allow_destroy: true
 
   before_save :set_status
 

@@ -1,0 +1,13 @@
+require 'spec_helper'
+
+describe PropertyFloorplan do
+    before do
+      @floorplan = PropertyFloorplan.new(listing_id: 1)
+    end
+
+    subject { @floorplan}
+
+    it { should respond_to(:listing_id) }
+    it { should respond_to(:floorplan_url) }
+    it { should respond_to(:order_num) }
+end

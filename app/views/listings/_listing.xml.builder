@@ -167,6 +167,12 @@ else
       listing.property_photos.each do |photo|
         xml.photo(url: photo.photo_url_url) if photo.photo_url_url.present?
       end
+      listing.property_floorplans.each do |floorplan|
+        xml.floorplan(url: floorplan.floorplan_url_url) if floorplan.floorplan_url_url.present?
+      end
+      listing.property_videos.each do |video|
+        xml.video(url: video.video_url_url) if video.video_url_url.present?
+      end
     end
   end
 end
