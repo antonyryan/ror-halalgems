@@ -89,7 +89,7 @@ class ListingsController < ApplicationController
         if params[:to].to_s.downcase == 'nakedapartments'
           @listings = Listing.where(export_to_nakedapartments: true)
         elsif params[:to].to_s.downcase == 'streeteasy'
-          @listings = Listing.where(export_to_streeteasy: true, status_id: Status.where.not(name: %w(Closed)).pluck(:id))
+          @listings = Listing.where(export_to_streeteasy: true)
         elsif params[:to].to_s.downcase == 'zumper'
           @listings = Listing.where(export_to_zumper: true,
                                     status_id: Status.where.not(name: %w(Closed Lost Rented Withdrawn)).pluck(:id))
