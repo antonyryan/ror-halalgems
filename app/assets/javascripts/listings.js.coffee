@@ -217,6 +217,9 @@ jQuery ->
   $('.floorplan').click ->
     $('.floorplan_thumb:eq(0)').trigger('click')
 
+  $('.video').click ->
+    $('.video_thumb:eq(0)').trigger('click')
+
 
   $('#narrow_button').click ->
     event.preventDefault()
