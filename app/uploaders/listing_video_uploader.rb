@@ -5,7 +5,6 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
   process :convert => 'mp4'
   process :tags => ['property_video']
   
-  
   process :resize_to_fill => [940, 626]
 
   version :thumb do

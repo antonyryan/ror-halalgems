@@ -214,6 +214,10 @@ jQuery ->
   taxesCheckBox.change ->
     $('#listing_taxes_amount').prop('disabled', !this.checked)
 
+  $('.floorplan').click ->
+    $('.floorplan_thumb:eq(0)').trigger('click')
+
+
   $('#narrow_button').click ->
     event.preventDefault()
     form = $('#filter_form')
