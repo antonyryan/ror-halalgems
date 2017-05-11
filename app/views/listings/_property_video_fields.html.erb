@@ -1,7 +1,13 @@
 <div class="col-sm-6 col-md-3">
   <fieldset>
     <div class="thumbnail">
-      <%= video_tag(f.object.video_url_url(:thumb)) %>
+      <% if not f.object.blank? and not f.object.video_url_url.blank? %>
+        <video style="width:100%" controls poster="<%= f.object.video_url_url.gsub!('.mp4','.jpg') %>">
+            <source src="<%= f.object.video_url_url.gsub!('.mp4','.webm') %>" type="video/webm">
+            <source src="<%= f.object.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
+            <source src="<%= f.object.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
+          </video>
+      <% end %>
       <div class="caption">
         <div class="form-group">
           <%= f.label :order_num, 'Order', class: 'sr-only control-label' %>
