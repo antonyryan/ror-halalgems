@@ -60,3 +60,4 @@ view_upload_details = (upload) ->
 
   $("#info").html($("<div class=\"upload_details\">").append("<h2>Upload metadata:</h2>").append($("<table>").append(rows)))
   return
+  
