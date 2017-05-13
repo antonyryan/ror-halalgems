@@ -1,0 +1,25 @@
+
+<div class="stage">
+  <div class="carousel carousel-stage">
+    <ul>
+      <% @listing.property_floorplans.each do |photo| %>
+        <li style="position:relative"><%= image_tag(photo.floorplan_url_url) %> </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <a href="#" class="prev prev-stage"><span>&lsaquo;</span></a>
+  <a href="#" class="next next-stage"><span>&rsaquo;</span></a>
+</div>
+
+<div class="navigation">
+  <a href="#" class="prev prev-navigation">&lsaquo;</a>
+  <a href="#" class="next next-navigation">&rsaquo;</a>
+  <div class="carousel carousel-navigation">
+    <ul>
+      <% @listing.property_floorplans.each do |photo| %>
+       <li><%= image_tag(photo.floorplan_url_url(:thumb), width: 50, :height => 50) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
