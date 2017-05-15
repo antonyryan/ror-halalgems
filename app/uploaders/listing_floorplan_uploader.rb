@@ -2,7 +2,7 @@
 
 class ListingFloorplanUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
-  process :convert => 'jpg'
+  # process :convert => 'jpg'
   process :tags => ['property_floorplan']
   
   

@@ -6,7 +6,7 @@
           <li style="position:relative"><%= image_tag(photo.photo_url_url) %></li>
       <% end %>
       <% @listing.property_floorplans.each do |photo| %>
-        <li style="position:relative"><%= image_tag(photo.floorplan_url_url) %></li>
+        <li style="position:relative"> <% if photo.floorplan_url_url.include? ".png" %><%= image_tag(photo.floorplan_url_url) %><% else %><%= image_tag(photo.floorplan_url_url.gsub!('.ai','.jpg')) %><% end %></li>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
         <li style="position:relative">
