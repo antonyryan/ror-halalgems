@@ -3,11 +3,10 @@
   <div class="carousel carousel-stage">
     <ul>
       <% @listing.property_photos.each do |photo| %>
-          <li style="position:relative"><%= image_tag(photo.photo_url_url) %><% if @listing.property_floorplans.count > 0 %><a class="floorplan" href="javascript:void(0)" style="display: inline;position: absolute;color: black;background-color: #ffffffb3;z-index: 9999999;bottom: 15px;right: 100px;padding: 3px;border-radius: 3px;font-weight: bold;">Floorplans</a><% end %>
-          <% if @listing.property_videos.count > 0 %><a class="video" href="javascript:void(0)" style="display: inline;position: absolute;color: black;background-color: #ffffffb3;z-index: 9999999;bottom: 15px;right: 40px;padding: 3px;border-radius: 3px;font-weight: bold;">Videos</a><% end %></li>
+          <li style="position:relative"><%= image_tag(photo.photo_url_url) %></li>
       <% end %>
       <% @listing.property_floorplans.each do |photo| %>
-        <li style="position:relative"><%= image_tag(photo.floorplan_url_url) %> <% if @listing.property_videos.count > 0 %><a class="video" href="javascript:void(0)" style="display: inline;position: absolute;color: black;background-color: #ffffffb3;z-index: 9999999;bottom: 15px;right: 40px;padding: 3px;border-radius: 3px;font-weight: bold;">Videos</a><% end %></li>
+        <li style="position:relative"><%= image_tag(photo.floorplan_url_url) %></li>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
         <li style="position:relative">
@@ -16,7 +15,6 @@
             <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
             <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
           </video>
-          <% if @listing.property_floorplans.count > 0 %><a class="floorplan" href="javascript:void(0)" style="display: inline;position: absolute;color: black;background-color: #ffffffb3;z-index: 9999999;bottom: 15px;right: 100px;padding: 3px;border-radius: 3px;font-weight: bold;">Floorplans</a><% end %> 
         </li>
       <% end %>
     </ul>
@@ -25,7 +23,12 @@
   <a href="#" class="prev prev-stage"><span>&lsaquo;</span></a>
   <a href="#" class="next next-stage"><span>&rsaquo;</span></a>
 </div>
-
+<div class="row">
+  <div class="col-md-12" align="right">
+    <% if @listing.property_floorplans.count > 0 %><button class="btn btn-primary floorplan">Floorplans</button><% end %>
+    <% if @listing.property_videos.count > 0 %><button class="btn btn-primary video">Videos</button><% end %>
+  </div>
+</div>
 <div class="navigation">
   <a href="#" class="prev prev-navigation">&lsaquo;</a>
   <a href="#" class="next next-navigation">&rsaquo;</a>

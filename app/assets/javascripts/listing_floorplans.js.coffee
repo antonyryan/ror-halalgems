@@ -43,7 +43,10 @@ jQuery ->
       row = $('#floorplans')
       time = data.context.data('id')
       data.context.parent().find('img').remove()
-      $.cloudinary.image(data.result.public_id).prependTo(data.context.parent())
+      url = data.result.public_id
+      if !(url.indexOf(".png") >= 0)
+        url = data.result.public_id+".png"
+      $.cloudinary.image(url).prependTo(data.context.parent())
       data.context.remove()
 
       upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
