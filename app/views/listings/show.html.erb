@@ -112,13 +112,13 @@
 
 <div class="row">
   <div class="col-md-7 connected-carousels">
-    <% if @listing.property_photos.count > 0 %>
-        <% if @listing.property_photos.count == 1 %>
+    <% if @listing.property_photos.count+@listing.property_videos.count+@listing.property_floorplans.count > 0 %>
+       <!--  <% if @listing.property_photos.count == 1 %>
             <% photo = @listing.property_photos.first %>
             <%= image_tag(photo.photo_url_url, :width => '100%') %>
-        <% else %>
+        <% else %> -->
             <%= render 'jcarousel' %>
-        <% end %>
+        <!-- <% end %> -->
     <% else %>
         <%= image_tag('no_photo.png', :width => '100%') %>
     <% end %>
