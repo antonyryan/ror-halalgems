@@ -3,19 +3,25 @@
   <div class="carousel carousel-stage">
     <ul>
       <% @listing.property_photos.each do |photo| %>
+        <% if not photo.video_url_url.blank? %>
           <li style="position:relative"><%= image_tag(photo.photo_url_url) %></li>
+        <% end %>
       <% end %>
       <% @listing.property_floorplans.each do |photo| %>
-        <li style="position:relative"> <% if photo.floorplan_url_url.include? ".png" %><%= image_tag(photo.floorplan_url_url) %><% else %><%= image_tag(photo.floorplan_url_url.gsub!('.ai','.jpg')) %><% end %></li>
+        <% if not photo.video_url_url.blank? %>
+          <li style="position:relative"> <% if photo.floorplan_url_url.include? ".png" %><%= image_tag(photo.floorplan_url_url) %><% else %><%= image_tag(photo.floorplan_url_url.gsub!('.ai','.jpg')) %><% end %></li>
+        <% end %>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
-        <li style="position:relative">
-          <video style="width:100%" controls poster="<%= photo.video_url_url.gsub!('.mp4','.jpg') %>">
-            <source src="<%= photo.video_url_url.gsub!('.mp4','.webm') %>" type="video/webm">
-            <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
-            <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
-          </video>
-        </li>
+        <% if not photo.video_url_url.blank? %>
+          <li style="position:relative">
+            <video style="width:100%" controls poster="<%= photo.video_url_url.gsub!('.mp4','.jpg') %>">
+              <source src="<%= photo.video_url_url.gsub!('.mp4','.webm') %>" type="video/webm">
+              <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
+              <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
+            </video>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
@@ -35,13 +41,20 @@
   <div class="carousel carousel-navigation">
     <ul>
       <% @listing.property_photos.each do |photo| %>
-        <li><%= image_tag(photo.photo_url_url(:thumb), width: 50, :height => 50) %></li>
+        <% if not photo.video_url_url.blank? %>
+          <li><%= image_tag(photo.photo_url_url(:thumb), width: 50, :height => 50) %></li>
+        <% end %>
       <% end %>
       <% @listing.property_floorplans.each do |photo| %>
-        <li class="floorplan_thumb"><a href="#"><img src="//cdn-assets-s3.streeteasy.com/assets/icons/floorplan-59b645d2c000abd2fe938f1b23f05e3ced832ac6d2bf27cdc6d560710494b786.png" style="width:50px;height:50px"></a></li>
+        <% if not photo.video_url_url.blank? %>
+          <li class="floorplan_thumb"><a href="#"><img src="//cdn-assets-s3.streeteasy.com/assets/icons/floorplan-59b645d2c000abd2fe938f1b23f05e3ced832ac6d2bf27cdc6d560710494b786.png" style="width:50px;height:50px"></a></li>
+        <% end %>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
-        <li class="video_thumb"><%= image_tag(photo.video_url_url.gsub!('.mp4','.jpg'), width: 50, :height => 50) %></li>
+        <% if not photo.video_url_url.blank? %>
+          <li class="video_thumb"><%= image_tag(photo.video_url_url.gsub!('.mp4','.jpg'), width: 50, :height => 50) %></li>
+
+        <% end %>
       <% end %>
     </ul>
   </div>
