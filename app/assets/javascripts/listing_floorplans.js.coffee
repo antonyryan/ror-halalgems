@@ -45,15 +45,11 @@ jQuery ->
       data.context.parent().find('img').remove()
       url = data.result.public_id
       if !(url.indexOf(".png") >= 0)
-        data.context.parent().find('.view_pdf').attr('href','http://res.cloudinary.com/hpmowmbqq/image/upload/'+url)
-        data.context.parent().find('.view_pdf').attr('target','_blank')
-        data.context.parent().find('.view_pdf').removeClass('hidden')
         url = data.result.public_id+".png"
       $.cloudinary.image(url).prependTo(data.context.parent())
       data.context.remove()
 
       upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
-      console.log(data)
       $('<input/>').attr({type: "hidden", name: 'listing[property_floorplans_attributes]['+time+'][floorplan_url]'}).val(upload_info).appendTo(data.form)
       return)
   return
