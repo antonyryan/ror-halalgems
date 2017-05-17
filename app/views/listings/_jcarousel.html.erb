@@ -9,7 +9,7 @@
       <% end %>
       <% @listing.property_floorplans.each do |photo| %>
         <% if not photo.floorplan_url_url.blank? %>
-          <li style="position:relative"> <% if photo.floorplan_url_url.include? ".png" or photo.floorplan_url_url(:thumb).include? ".png" %><%= image_tag(photo.floorplan_url_url) %><% else %><%= image_tag(photo.floorplan_url_url.gsub!('.ai','.jpg')) %><% end %></li>
+          <li style="position:relative"> <% if photo.floorplan_url_url.include? ".png" or photo.floorplan_url_url(:thumb).include? ".jpg" %><%= image_tag(photo.floorplan_url_url) %><% else %><%= image_tag(photo.floorplan_url_url.gsub!('.ai','.jpg')) %><% end %></li>
         <% end %>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
