@@ -1,12 +1,13 @@
 <div class="col-sm-6 col-md-3">
   <fieldset>
     <div class="thumbnail">
+    
       <% if not f.object.floorplan_url_url(:thumb).blank? %>
-        <% if f.object.floorplan_url_url(:thumb).include? ".png" %>
+        <% if f.object.floorplan_url_url(:thumb).include? ".jpg" or f.object.floorplan_url_url(:thumb).include? ".png" %>
           <%= image_tag(f.object.floorplan_url_url(:thumb)) %>
         <% else %>
           <a href="<%= f.object.floorplan_url_url %>" target="_blank">
-            <%= image_tag(f.object.floorplan_url_url(:thumb).gsub!(".ai",".png")) %>
+            <%= image_tag(f.object.floorplan_url_url(:thumb).gsub!(".ai",".jpg")) %>
           </a>
         <% end %>
       <% end %>
@@ -17,6 +18,7 @@
         </div>
 
         <%= f.hidden_field :_destroy %>
+        <%= link_to 'view_pdf', '#', class: 'view_pdf hidden' %>
         <%= link_to 'remove', '#', class: 'remove_fields' %>
       </div>
     </div>
