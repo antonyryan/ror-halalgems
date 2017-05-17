@@ -9,6 +9,7 @@
 <p>
   <%= cl_image_upload_tag('df', :html => {
       :multiple => true,
+      :accept => "image/*",
       data: object_fields(f, :property_photos)
   }) %>
 </p>
@@ -24,6 +25,7 @@
 <p>
   <%= cl_image_upload_tag('df1', :html => {
       :multiple => true,
+      :accept => "image/*,application/pdf",
       data: object_fields(f, :property_floorplans)
   }) %>
 </p>
@@ -41,6 +43,7 @@
             :type => :upload, :eager => [
             {:format => 'mp4'}], :html => {
       :multiple => true,
+      :accept=>"video/mp4",
       data: object_fields(f, :property_videos)
   }) %>
 </p>
