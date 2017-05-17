@@ -1,4 +1,4 @@
-<%= f.label :photos, 'Photos (allowed formates .jpg, .png)', class: 'control-label' %>
+<%= f.label :photos, 'Photos (allowed formats .jpg, .png)', class: 'control-label' %>
 
 <div id="photos" class="row">
   <%= f.fields_for :property_photos do |builder| %>
@@ -14,7 +14,7 @@
   }) %>
 </p>
 
-<%= f.label :floorplans, 'Floorplans (allowed formates .jpg, .png, .pdf)', class: 'control-label' %>
+<%= f.label :floorplans, 'Floorplans (allowed formats .jpg, .png, .pdf)', class: 'control-label' %>
 
 <div id="floorplans" class="row">
   <%= f.fields_for :property_floorplans do |builder| %>
@@ -30,7 +30,7 @@
   }) %>
 </p>
 
-<%= f.label :videos, 'Videos (allowed formate .mp4)', class: 'control-label' %>
+<%= f.label :videos, 'Videos (allowed format .mp4)', class: 'control-label' %>
 
 <div id="videos" class="row">
   <%= f.fields_for :property_videos do |builder| %>
