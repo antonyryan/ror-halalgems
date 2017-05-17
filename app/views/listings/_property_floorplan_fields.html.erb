@@ -3,9 +3,13 @@
     <div class="thumbnail">
     
       <% if not f.object.floorplan_url_url(:thumb).blank? %>
-        
+        <% if f.object.floorplan_url_url(:thumb).include? ".jpg" or f.object.floorplan_url_url(:thumb).include? ".png" %>
           <%= image_tag(f.object.floorplan_url_url(:thumb)) %>
-        
+        <% else %>
+          <a href="<%= f.object.floorplan_url_url %>" target="_blank">
+            <%= image_tag(f.object.floorplan_url_url(:thumb).gsub!(".ai",".jpg")) %>
+          </a>
+        <% end %>
       <% end %>
       <div class="caption">
         <div class="form-group">
