@@ -41,12 +41,12 @@
   <div class="carousel carousel-navigation">
     <ul>
       <% @listing.property_photos.each do |photo| %>
-        <% if not photo.video_url_url.blank? %>
+        <% if not photo.photo_url_url.blank? %>
           <li><%= image_tag(photo.photo_url_url(:thumb), width: 50, :height => 50) %></li>
         <% end %>
       <% end %>
       <% @listing.property_floorplans.each do |photo| %>
-        <% if not photo.video_url_url.blank? %>
+        <% if not photo.floorplan_url_url.blank? %>
           <li class="floorplan_thumb"><a href="#"><img src="//cdn-assets-s3.streeteasy.com/assets/icons/floorplan-59b645d2c000abd2fe938f1b23f05e3ced832ac6d2bf27cdc6d560710494b786.png" style="width:50px;height:50px"></a></li>
         <% end %>
       <% end %>
