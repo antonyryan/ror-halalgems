@@ -17,7 +17,7 @@
           <li style="position:relative">
             <video style="width:100%" controls poster="<%= photo.video_url_url.gsub!('.mp4','.jpg') %>">
               <source src="<%= photo.video_url_url.gsub!('.mp4','.webm') %>" type="video/webm">
-              <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
+              <source src="<%= photo.video_url_url %>" type="video/mp4">
               <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
             </video>
           </li>
