@@ -49,7 +49,7 @@ jQuery ->
       upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
       $('<input/>').attr({type: "hidden", name: 'listing[property_videos_attributes]['+time+'][video_url]'}).val(upload_info).appendTo(data.form)
       $('video').prop('width','285');
-      $('video').attr('controls','');
+      $('video').attr('controls','controls');
       return)
   return
 
