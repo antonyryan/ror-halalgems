@@ -46,7 +46,12 @@ jQuery ->
       url = data.result.public_id
       if !(url.indexOf(".png") >= 0)
         url = data.result.public_id+".png"
+      
+        
       $.cloudinary.image(url).prependTo(data.context.parent())
+      if ((data.result.url).indexOf(".ai")>0)
+        data.context.parent().find('.caption').append('<a target="_blank" class="view_pdf" style="margin-left:10px">view_pdf</a>')
+        data.context.parent().find('.caption').find('.view_pdf').attr('href',data.result.url)
       data.context.remove()
 
       upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
