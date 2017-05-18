@@ -9,7 +9,13 @@
       <% end %>
       <% @listing.property_floorplans.each do |photo| %>
         <% if not photo.floorplan_url_url.blank? %>
-          <li style="position:relative"> <% if photo.floorplan_url_url.include? ".png" or photo.floorplan_url_url(:thumb).include? ".jpg" %><%= image_tag(photo.floorplan_url_url) %><% else %><%= image_tag(photo.floorplan_url_url.gsub!('.ai','.jpg')) %><% end %></li>
+          <li style="position:relative"> 
+            <% if photo.floorplan_url_url.include? ".ai" %>
+              <%= image_tag(photo.floorplan_url_url.gsub!('.ai','.jpg')) %>
+            <% else %>
+              <%= image_tag(photo.floorplan_url_url) %>
+            <% end %>
+          </li>
         <% end %>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
@@ -53,7 +59,6 @@
       <% @listing.property_videos.each do |photo| %>
         <% if not photo.video_url_url.blank? %>
           <li class="video_thumb"><%= image_tag(photo.video_url_url.gsub!('.mp4','.jpg'), width: 50, :height => 50) %></li>
-
         <% end %>
       <% end %>
     </ul>
