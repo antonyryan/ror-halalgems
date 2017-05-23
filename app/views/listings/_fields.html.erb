@@ -30,23 +30,29 @@
   }) %>
 </p>
 
-<%= f.label :videos, 'Videos (allowed format .mp4)', class: 'control-label' %>
+<%= f.label :videos, 'Videos (allowed embed youtube video url)', class: 'control-label' %>
 
-<div id="videos" class="row">
-  <%= f.fields_for :property_videos do |builder| %>
-      <%= render 'property_video_fields', f: builder %>
-  <% end %>
+<div class="row">
+ <div class="col-sm-6 col-md-3">
+  <% if @listing.property_videos.blank? %>
+    <iframe id="show_video" style="width:100%;display:none"
+      src="">
+    </iframe>
+    <input type="text" name="video_url">
+    <input type="button" id="check_url" class="btn btn-primary" value="check">
+    <p id="video_error" style="display: none;color: red;">please enter valid youtube embed url</p>
+  <% else %>
+    <iframe id="show_video" style="width:100%;"
+      src="<%= @listing.property_videos.first.video_url %>">
+    </iframe>
+    <input type="text" name="video_url" value="<%= @listing.property_videos.first.video_url %>">
+    <input type="button" id="check_url" class="btn btn-primary" value="check">
+    <p id="video_error" style="display: none;color: red;">please enter valid youtube embed url</p>
+  <% end %> 
+  
+ </div>
 </div>
 
-<p>
-  <%= cl_upload_tag('df2.mp4', :resource_type => :video,
-            :type => :upload, :eager => [
-            {:format => 'mp4'}], :html => {
-      :multiple => true,
-      :accept=>"video/mp4",
-      data: object_fields(f, :property_videos)
-  }) %>
-</p>
 
 <div class="form-group">
   <div id="info"></div>

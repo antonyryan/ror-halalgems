@@ -19,13 +19,11 @@
         <% end %>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
-        <% if not photo.video_url_url.blank? %>
+        <% if not photo.video_url.blank? %>
           <li style="position:relative">
-            <video style="width:100%;height:100%" poster="<%= photo.video_url_url.gsub!('.mp4','.jpg') %>" controls="controls">
-              <source src="<%= photo.video_url_url.gsub!('.mp4','.webm') %>" type="video/webm">
-              <source src="<%= photo.video_url_url %>" type="video/mp4">
-              <source src="<%= photo.video_url_url.gsub!('.mp4','.ogv') %>" type="video/ogg">
-            </video>
+            <iframe  style="width:100%;height: 100%;"
+              src="<%= photo.video_url %>">
+            </iframe> 
           </li>
         <% end %>
       <% end %>
@@ -57,8 +55,10 @@
         <% end %>
       <% end %>
       <% @listing.property_videos.each do |photo| %>
-        <% if not photo.video_url_url.blank? %>
-          <li class="video_thumb"><%= image_tag(photo.video_url_url.gsub!('.mp4','.jpg'), width: 50, :height => 50) %></li>
+        <% if not photo.video_url.blank? %>
+          <li class="video_thumb">
+            <div style="height: 50px;width: 50px;padding: 5px;"><div style="background-color: #0080c6;height: 100%;width: 100%;color:white;text-align:center;padding-top: 5px;"><span class="glyphicon glyphicon-facetime-video"></span><p style="font-size: 10px;">video</p></div></div>
+          </li>
         <% end %>
       <% end %>
     </ul>

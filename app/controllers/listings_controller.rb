@@ -179,6 +179,8 @@ class ListingsController < ApplicationController
     old_status_id = @listing.status_id
     if @listing.update_attributes(listing_params)
       flash[:success] = "Listing updated"
+      PropertyVideo.where(listing_id: @listing.id).destroy_all
+      PropertyVideo.create(listing_id: @listing.id,video_url: params[:video_url] )
       if old_status_id != @listing.status_id
         history = @listing.history_records.build
         history.message = "Status changed from '#{Status.find(old_status_id).try(:name)}' to '#{@listing.status.name}' by #{current_user.name}"
@@ -224,6 +226,7 @@ class ListingsController < ApplicationController
     @listing = current_user.admin? ? Listing.new(listing_params) : current_user.listings.build(listing_params)
 
     if @listing.save
+      PropertyVideo.create(listing_id: @listing.id,video_url: params[:video_url] )
       AgentMailer.listing_created(@listing, current_user).deliver
       flash[:success] = 'Listing created.'
       redirect_to @listing
