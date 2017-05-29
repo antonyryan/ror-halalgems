@@ -171,7 +171,7 @@ else
         xml.floorplan(url: floorplan.floorplan_url_url) if floorplan.floorplan_url_url.present?
       end
       listing.property_videos.each do |video|
-        xml.video(url: video.video_url_url) if video.video_url_url.present?
+        xml.video(url: video.video_url) if video.video_url.present?
       end
     end
   end
