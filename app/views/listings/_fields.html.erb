@@ -42,9 +42,15 @@
     <input type="button" id="check_url" class="btn btn-primary" value="check">
     <p id="video_error" style="display: none;color: red;">please enter valid youtube embed url</p>
   <% else %>
-    <iframe id="show_video" style="width:100%;"
+    <% if @listing.property_videos.first.video_url.include? "watch" %>
+      <iframe id="show_video" style="width:100%;"
+      src="https://www.youtube.com/embed/<%= (@listing.property_videos.first.video_url).split('=')[1] %>">
+      </iframe>
+    <% else %>
+      <iframe id="show_video" style="width:100%;"
       src="<%= @listing.property_videos.first.video_url %>">
-    </iframe>
+      </iframe>
+    <% end %>
     <input type="text" name="video_url" value="<%= @listing.property_videos.first.video_url %>">
     <input type="button" id="check_url" class="btn btn-primary" value="check">
     <p id="video_error" style="display: none;color: red;">please enter valid youtube embed url</p>

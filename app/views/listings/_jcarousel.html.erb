@@ -21,9 +21,15 @@
       <% @listing.property_videos.each do |photo| %>
         <% if not photo.video_url.blank? %>
           <li style="position:relative">
-            <iframe  style="width:100%;height: 100%;"
-              src="<%= photo.video_url %>">
-            </iframe> 
+            <% if photo.video_url.include? "watch" %>
+              <iframe id="show_video" style="width:100%;height: 100%;"
+              src="https://www.youtube.com/embed/<%= (photo.video_url).split('=')[1] %>">
+              </iframe>
+            <% else %>
+              <iframe  style="width:100%;height: 100%;"
+                src="<%= photo.video_url %>">
+              </iframe> 
+            <% end %>
           </li>
         <% end %>
       <% end %>

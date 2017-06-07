@@ -20,7 +20,10 @@ jQuery ->
       match = url.match(regExp);
       if (match && match[2].length == 11)
         $(this).parent().find('#video_error').hide();
+        if (url.indexOf("watch") >= 0)
+          url = "https://www.youtube.com/embed/"+url.split('=')[1];
         $(this).parent().find('#show_video').attr('src',url);
+
         $(this).parent().find('#show_video').show();
         
       else 
